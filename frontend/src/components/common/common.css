@@ -1,0 +1,51 @@
+/* src/components/common/common.css */
+/* Glassmorphism style for premium UI components */
+
+.premium-button {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 0.75rem;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+  font-family: 'Inter', sans-serif;
+}
+
+.premium-button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.premium-card {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-radius: 1rem !important;
+  color: #fff !important;
+}
+
+.premium-modal .ant-modal-content {
+  background: rgba(255, 255, 255, 0.14) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 1rem !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  color: #fff;
+}
+
+/* Ensure modal header and footer match glass style */
+.premium-modal .ant-modal-header {
+  background: transparent !important;
+  border-bottom: none !important;
+}
+
+.premium-modal .ant-modal-footer {
+  background: transparent !important;
+  border-top: none !important;
+}

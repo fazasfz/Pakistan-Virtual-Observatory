@@ -1,0 +1,39 @@
+.side-panel {
+  position: relative; /* Remove absolute positioning so flex works properly */
+  width: 360px;
+  height: 100vh;
+  flex-shrink: 0;
+  z-index: 100;
+  background: rgba(10, 10, 30, 0.7);
+  backdrop-filter: blur(10px) saturate(150%);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.side-panel-header {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.side-panel-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar */
+.side-panel-content::-webkit-scrollbar {
+  width: 6px;
+}
+.side-panel-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.side-panel-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+.side-panel-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
