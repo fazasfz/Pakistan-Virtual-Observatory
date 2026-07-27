@@ -1,5 +1,5 @@
 // components/layout/Layout.tsx — under 40 lines
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import Starfield from "../starfield/Starfield";
 
 export default function Layout({ children }: { children: ReactNode }) {
