@@ -1,0 +1,45 @@
+.heroSection {
+  background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?q=80&w=2000&auto=format&fit=crop'); /* Placeholder astrophotography */
+}
+
+.hudTopLeft {
+  position: absolute;
+  top: 100px;
+  left: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  z-index: 10;
+}
+
+.centerContent {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.title {
+  font-size: 3.5rem;
+  line-height: 1.1;
+  letter-spacing: 0.05em;
+  color: var(--starlight);
+  text-transform: uppercase;
+}
+
+.mission {
+  font-size: 1.25rem;
+  color: var(--slate-ui);
+  font-family: var(--font-body);
+  letter-spacing: 0.02em;
+}
+
+.bottomNav {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
