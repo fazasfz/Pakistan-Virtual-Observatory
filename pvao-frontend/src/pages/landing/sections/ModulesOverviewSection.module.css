@@ -1,0 +1,25 @@
+.modulesSection {
+  background-color: var(--obsidian-2);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  margin-bottom: var(--space-48);
+  width: 100%;
+}
+
+.heading {
+  font-size: 2rem;
+  color: var(--starlight);
+  letter-spacing: 0.1em;
+}
+
+.grid {
+  width: 100%;
+}
+
+.col {
+  height: 400px;
+}
