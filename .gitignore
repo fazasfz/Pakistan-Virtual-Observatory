@@ -11,3 +11,27 @@ venv/
 .venv/
 env/
 
+# Build outputs
+dist/
+build/
+
+# IDE / OS files
+.DS_Store
+.vscode/
+*.log
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+.venv/
+venv/
+backend/.venv/
+
+# Build outputs
+dist/
+frontend/dist/
+build/
+
+# Cache & Python
+__pycache__/
+*.py[cod]
