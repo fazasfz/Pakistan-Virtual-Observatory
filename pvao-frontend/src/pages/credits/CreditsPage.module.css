@@ -1,0 +1,91 @@
+.creditsPage {
+  padding-top: var(--space-48);
+  padding-bottom: var(--space-64);
+  max-width: var(--breakpoint-xl);
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--space-48);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.heading {
+  font-size: 2.5rem;
+  color: var(--starlight);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.description {
+  color: var(--slate-ui);
+  font-family: var(--font-body);
+  max-width: 600px;
+  font-size: 1.125rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-64);
+}
+
+.roleGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.roleHeading {
+  font-size: 1.25rem;
+  color: var(--brass);
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+  padding-bottom: var(--space-8);
+}
+
+.personCard {
+  background: rgba(10, 11, 13, 0.6);
+  border: 1px solid var(--hud-border-color);
+  padding: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  height: 100%;
+  transition: border-color 0.3s ease;
+}
+
+.personCard:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.name {
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  color: var(--starlight);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.degree {
+  font-family: var(--font-body);
+  color: var(--slate-ui);
+  font-size: 0.9rem;
+}
+
+.moduleTag {
+  display: inline-block;
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 4px 8px;
+  background: rgba(255, 215, 0, 0.1);
+  color: var(--brass);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  border-radius: 4px;
+}

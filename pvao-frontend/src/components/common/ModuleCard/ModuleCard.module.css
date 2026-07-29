@@ -6,10 +6,13 @@
   border: var(--hud-border-width) solid var(--hud-border-color);
   transition: border-color 0.3s ease;
   height: 100%;
+  background-color: rgba(10, 11, 13, 0.6);
+  background-blend-mode: luminosity;
 }
 
 .moduleCard:hover {
   border-color: var(--brass);
+  background-blend-mode: normal; /* Restore color on hover */
 }
 
 .overlay {
@@ -18,8 +21,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(10,11,13,1) 0%, rgba(10,11,13,0.3) 100%);
+  background: 
+    linear-gradient(to top, rgba(10,11,13,1) 0%, rgba(10,11,13,0.1) 100%),
+    radial-gradient(circle at center, transparent 30%, rgba(10,11,13,0.7) 100%);
   z-index: 1;
+  pointer-events: none;
 }
 
 .content {

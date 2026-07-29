@@ -7,7 +7,7 @@ import styles from './ModuleCard.module.css';
 
 const FALLBACK_IMG = 'https://images-assets.nasa.gov/image/PIA12348/PIA12348~orig.jpg'; // Reliable generic NASA fallback
 
-const ModuleCard = ({ number, name, description, subPages, linkTo, bgImage }) => {
+const ModuleCard = ({ number, name, description, linkTo, bgImage }) => {
   const [currentBg, setCurrentBg] = useState(bgImage);
 
   const handleImageError = () => {
@@ -31,17 +31,9 @@ const ModuleCard = ({ number, name, description, subPages, linkTo, bgImage }) =>
       <div className={styles.overlay}></div>
       <div className={styles.content}>
         <div className={styles.header}>
-          <HUDLabel text={`MOD.${number}`} />
+          <HUDLabel text={number} />
           <h3 className={styles.title}>{name}</h3>
           <p className={styles.description}>{description}</p>
-        </div>
-
-        <div className={styles.subPages}>
-          {subPages.map((page, idx) => (
-            <div key={idx} className={styles.subPageItem}>
-              <span className={styles.tick}>-</span> {page}
-            </div>
-          ))}
         </div>
 
         <div className={styles.footer}>

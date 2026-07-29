@@ -1,35 +1,76 @@
 // pvao-frontend/src/pages/landing/data/modules.data.js
+import imgNightSky from '../../../assets/images/modules/night-sky.jpg';
+import imgSatellite from '../../../assets/images/modules/satellite.jpg';
+import imgSolar from '../../../assets/images/modules/solar.jpg';
+import imgEarth from '../../../assets/images/modules/earth.jpg';
+import imgDeepSky from '../../../assets/images/modules/deep-sky.jpg';
+import imgExovista from '../../../assets/images/modules/exovista.jpg';
+import imgSolarSystem from '../../../assets/images/modules/solar-system.jpg';
+import imgObservationPlanner from '../../../assets/images/modules/observation-planner.jpg';
+
 export const modulesData = [
-  {
-    id: '01',
-    name: 'EARTH & ATMOSPHERE',
-    description: 'Monitor orbital telemetry, track satellites, and observe local atmospheric conditions in real-time.',
-    subPages: ['Night Sky Portal', 'Earth View', 'Satellite Tracker'],
-    linkTo: '/earth-atmosphere',
-    bgImage: 'https://images-assets.nasa.gov/image/PIA18033/PIA18033~orig.jpg' // Real Earth image
+  { 
+    id: 'sky-portal', 
+    number: 'MOD.01', 
+    name: 'Sky Portal', 
+    path: '/sky-portal',
+    description: 'Monitor orbital telemetry and observe local atmospheric conditions in real-time.',
+    bgImage: imgNightSky
   },
-  {
-    id: '02',
-    name: 'HELIOS & PLANETS',
-    description: 'Solar dynamics, planetary alignments, and near-earth object tracking across our solar system.',
-    subPages: ['Solar System Simulator', 'Solar Observatory'],
-    linkTo: '/helios-planets',
-    bgImage: 'https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e000790/GSFC_20171208_Archive_e000790~orig.jpg' // Real Solar Dynamics Observatory image
+  { 
+    id: 'satellite-tracker', 
+    number: 'MOD.02', 
+    name: 'Satellite Tracker', 
+    path: '/satellite-tracker',
+    description: 'Track the positions and orbits of satellites circling the Earth.',
+    bgImage: imgSatellite
   },
-  {
-    id: '03',
-    name: 'DEEP COSMOS',
-    description: 'Access deep-sky surveys, exoplanet transit data, and galactic spectroscopy archives.',
-    subPages: ['ExoVista', 'Deep Sky Explorer'],
-    linkTo: '/deep-cosmos-exoplanet',
-    bgImage: 'https://images-assets.nasa.gov/image/carina_nebula/carina_nebula~orig.jpg' // Real JWST/Hubble Carina Nebula image
+  { 
+    id: 'solar-observatory', 
+    number: 'MOD.03', 
+    name: 'Solar Observatory', 
+    path: '/solar-observatory',
+    description: 'Solar dynamics and detailed observations of our Sun.',
+    bgImage: imgSolar
   },
-  {
-    id: '04',
-    name: 'INTELLIGENT CORE',
-    description: 'AI-assisted observatory operations and natural language data querying system.',
-    subPages: ['Astro Copilot'],
-    linkTo: '/intelligent-core',
-    bgImage: 'https://images-assets.nasa.gov/image/PIA23408/PIA23408~orig.jpg' // Real rover/instrument tech image
+  { 
+    id: 'earth-view', 
+    number: 'MOD.04', 
+    name: 'Earth View', 
+    path: '/earth-view',
+    description: 'High-resolution real-time views of Earth from space.',
+    bgImage: imgEarth
+  },
+  { 
+    id: 'deep-sky-explorer', 
+    number: 'MOD.05', 
+    name: 'Deep Sky Explorer', 
+    path: '/deep-sky-explorer',
+    description: 'Access deep-sky surveys and galactic spectroscopy archives.',
+    bgImage: imgDeepSky
+  },
+  { 
+    id: 'exovista', 
+    number: 'MOD.06', 
+    name: 'ExoVista', 
+    path: '/exovista',
+    description: 'Analyze exoplanet transit data and stellar systems.',
+    bgImage: imgExovista
+  },
+  { 
+    id: 'solar-system-simulator', 
+    number: 'MOD.07', 
+    name: 'Solar System Simulator', 
+    path: '/solar-system-simulator',
+    description: 'Simulate planetary alignments and near-earth object tracking.',
+    bgImage: imgSolarSystem
+  },
+  { 
+    id: 'observation-planner', 
+    number: 'MOD.08', 
+    name: 'Observation Planner', 
+    path: '/observation-planner',
+    description: 'Plan and schedule your astronomical observations.',
+    bgImage: imgObservationPlanner
   }
 ];

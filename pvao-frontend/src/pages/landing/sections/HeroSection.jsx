@@ -4,6 +4,7 @@ import HUDLabel from '../../../components/common/HUDLabel/HUDLabel';
 import ScrollIndicator from '../../../components/common/ScrollIndicator/ScrollIndicator';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { getLocalCoordinates, getLiveTime } from '../../../utils/formatCoordinates';
+import { ORG_ATTRIBUTION } from '../../../utils/constants';
 import styles from './HeroSection.module.css';
 
 const HeroSection = () => {
@@ -32,10 +33,14 @@ const HeroSection = () => {
           <p className={styles.mission}>
             A centralized, real-time public access point to the cosmos.
           </p>
-        </div>
-
-        <div className={styles.bottomNav}>
-          <ScrollIndicator />
+          <div className={styles.orgAttribution}>
+            {ORG_ATTRIBUTION.map((line) => (
+              <p key={line} className={styles.orgLine}>[ {line} ]</p>
+            ))}
+          </div>
+          <div className={styles.scrollWrapper}>
+            <ScrollIndicator />
+          </div>
         </div>
       </SectionWrapper>
     </div>

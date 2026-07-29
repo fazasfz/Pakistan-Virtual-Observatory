@@ -22,11 +22,10 @@ const ModulesOverviewSection = () => {
           {modulesData.map((mod) => (
             <Col xs={24} md={12} key={mod.id} className={styles.col}>
               <ModuleCard 
-                number={mod.id}
+                number={mod.number}
                 name={mod.name}
                 description={mod.description}
-                subPages={mod.subPages}
-                linkTo={mod.linkTo}
+                linkTo={mod.path}
                 bgImage={mod.bgImage}
               />
             </Col>

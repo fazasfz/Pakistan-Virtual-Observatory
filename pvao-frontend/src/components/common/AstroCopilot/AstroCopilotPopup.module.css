@@ -1,0 +1,164 @@
+/* Global overrides for Ant Modal applied via wrapClassName */
+:global(.ant-modal-root) :global(.ant-modal-wrap) {
+  pointer-events: none; /* Let clicks pass through the wrap */
+}
+
+:global(.ant-modal) {
+  pointer-events: auto; /* Re-enable clicks on the modal itself */
+  position: fixed;
+  bottom: 100px;
+  right: var(--space-32);
+  top: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.copilotModal {
+  /* Restyled via global theme usually, but adding specifics here */
+}
+
+:global(.ant-modal-content) {
+  background: var(--obsidian) !important;
+  border: 1px solid var(--hud-border-color) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+}
+
+:global(.ant-modal-header) {
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+:global(.ant-modal-close) {
+  color: var(--starlight) !important;
+}
+
+:global(.ant-modal-close:hover) {
+  color: var(--brass) !important;
+}
+
+.modalTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-family: var(--font-headline);
+  color: var(--starlight);
+  letter-spacing: 0.1em;
+}
+
+.titleIcon {
+  color: var(--brass);
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+}
+
+.messagesArea {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-16) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.messagesArea::-webkit-scrollbar {
+  width: 4px;
+}
+.messagesArea::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.messageWrapper {
+  display: flex;
+  gap: var(--space-8);
+  max-width: 90%;
+}
+
+.messageUser {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.messageAi {
+  align-self: flex-start;
+}
+
+.avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--starlight);
+  flex-shrink: 0;
+}
+
+.messageUser .avatar {
+  background: rgba(255, 215, 0, 0.2);
+  color: var(--brass);
+}
+
+.messageBubble {
+  background: rgba(255, 255, 255, 0.05);
+  padding: var(--space-12);
+  border-radius: 8px;
+  color: var(--starlight);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.messageUser .messageBubble {
+  background: rgba(255, 215, 0, 0.1);
+  border-color: rgba(255, 215, 0, 0.2);
+}
+
+.inputArea {
+  padding-top: var(--space-16);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chatInput {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  color: var(--starlight) !important;
+}
+
+.chatInput:focus, .chatInput:hover {
+  border-color: var(--brass) !important;
+}
+
+.chatInput :global(input) {
+  background: transparent !important;
+  color: var(--starlight) !important;
+}
+
+.chatInput :global(input::placeholder) {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.sendBtn {
+  color: var(--brass) !important;
+}
+
+.sendBtn:hover {
+  color: var(--brass-light, #ffd700) !important;
+}
+
+@media (max-width: 768px) {
+  :global(.ant-modal) {
+    right: 50%;
+    transform: translateX(50%) !important;
+    bottom: 80px;
+    width: 90% !important;
+    max-width: 400px;
+  }
+}

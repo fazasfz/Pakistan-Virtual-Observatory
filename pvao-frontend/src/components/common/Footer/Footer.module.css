@@ -50,3 +50,20 @@
   50% { opacity: 0.3; }
   100% { opacity: 1; }
 }
+
+.links {
+  display: flex;
+  align-items: center;
+}
+
+.footerLink {
+  color: var(--starlight);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footerLink:hover {
+  color: var(--brass);
+}

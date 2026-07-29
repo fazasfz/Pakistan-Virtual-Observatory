@@ -1,1 +1,6 @@
-// Placeholder for pvao-frontend/src/utils/constants.js
+export const ORG_ATTRIBUTION = [
+  'SPACE & ASTROPHYSICS RESEARCH LAB (SARL)',
+  'NATIONAL CENTRE OF GIS & SPACE APPLICATIONS (NCGSA)',
+  'INSTITUTE OF SPACE TECHNOLOGY (IST), ISLAMABAD',
+];
+export const GITHUB_REPO_URL = "https://github.com/fazasfz/Pakistan-Virtual-Observatory";
