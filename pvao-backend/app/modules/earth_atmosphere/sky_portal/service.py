@@ -1,6 +1,6 @@
 from app.integrations.nasa_client import nasa_client
 
-class NightSkyService:
+class SkyPortalService:
     async def get_todays_sky_image(self) -> dict:
         # Business logic goes here (e.g., transforming the APOD response)
         data = await nasa_client.get_apod()
@@ -11,4 +11,4 @@ class NightSkyService:
             "date": data.get("date")
         }
 
-night_sky_service = NightSkyService()
+sky_portal_service = SkyPortalService()

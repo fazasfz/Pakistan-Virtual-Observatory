@@ -1,0 +1,83 @@
+.triggerButton {
+  position: fixed;
+  bottom: var(--space-32);
+  right: var(--space-32);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--obsidian);
+  border: 2px solid var(--brass);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  padding: 0;
+}
+
+.triggerButton:hover {
+  transform: scale(1.05);
+  border-color: var(--brass-light, #ffd700);
+}
+
+.iconContainer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  color: var(--brass);
+}
+
+.triggerButton:hover .icon {
+  color: var(--brass-light, #ffd700);
+}
+
+.pulseRing, .pulseRingDelayed {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid var(--brass);
+  opacity: 0;
+  z-index: 1;
+}
+
+.pulseRing {
+  animation: pulse 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.pulseRingDelayed {
+  animation: pulse 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  animation-delay: 1.5s;
+}
+
+@keyframes pulse {
+  0% {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+  }
+  100% {
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .triggerButton {
+    bottom: var(--space-24);
+    right: var(--space-24);
+    width: 48px;
+    height: 48px;
+  }
+}

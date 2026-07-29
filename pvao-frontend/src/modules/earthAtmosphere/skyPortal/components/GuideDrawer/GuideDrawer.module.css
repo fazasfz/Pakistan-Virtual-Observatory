@@ -1,0 +1,27 @@
+.drawerContent {
+  color: var(--text-primary, #e0e0e0);
+  font-family: var(--font-primary, sans-serif);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.guideItem {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-left: 3px solid var(--accent-gold, #cda434);
+  padding: 1rem;
+  border-radius: 0 4px 4px 0;
+}
+
+.guideLabel {
+  color: var(--accent-gold, #cda434);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.guideDesc {
+  color: var(--text-secondary, #b0b0b0);
+  line-height: 1.5;
+  margin: 0;
+}

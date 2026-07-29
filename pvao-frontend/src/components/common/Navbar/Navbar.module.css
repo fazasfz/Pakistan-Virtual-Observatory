@@ -30,11 +30,122 @@
   font-size: 1.125rem;
 }
 
-.menu {
+.desktopMenu {
   flex: 1;
+  display: flex;
   justify-content: center;
-  border-bottom: none;
-  background: transparent;
+  gap: var(--space-24);
+  align-items: center;
+}
+
+.navBtn {
+  color: var(--starlight) !important;
+  font-family: var(--font-headline);
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.navBtn:hover, .activeNavBtn {
+  color: var(--brass) !important;
+}
+
+.activeNavBtn::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--brass);
+}
+
+.mobileTrigger {
+  display: none !important;
+}
+
+/* Dropdown styling */
+.moduleDropdown {
+  min-width: 240px;
+}
+
+.moduleDropdown :global(.ant-dropdown-menu) {
+  background-color: #0A0B0D !important; /* solid opaque obsidian */
+  border: 1px solid rgba(138, 143, 152, 0.3) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8) !important; /* dark elevation */
+  padding: var(--space-8) 0 !important;
+  border-radius: 4px !important;
+}
+
+.moduleDropdown :global(.ant-dropdown-menu-item) {
+  padding: var(--space-12) var(--space-24) !important;
+  transition: all 0.2s ease !important;
+  border-radius: 0 !important;
+}
+
+.moduleDropdown :global(.ant-dropdown-menu-item:hover) {
+  background-color: rgba(255, 215, 0, 0.05) !important;
+}
+
+.dropdownLink, .mobileModuleLink {
+  color: var(--starlight);
+  font-family: var(--font-body);
+  display: flex;
+  gap: var(--space-16);
+  align-items: center;
+  text-decoration: none;
+  width: 100%;
+}
+
+.dropdownLink:hover, .mobileModuleLink:hover {
+  color: var(--brass);
+}
+
+.modNumber {
+  font-family: var(--font-mono);
+  color: var(--slate-ui);
+  font-size: 0.75rem;
+  opacity: 0.8;
+  letter-spacing: 0.05em;
+}
+
+.dropdownLink:hover .modNumber {
+  color: var(--brass);
+}
+
+/* Mobile Drawer */
+.mobileModuleList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.mobileModuleLink {
+  font-size: 1.1rem;
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.activeMobileLink {
+  color: var(--brass);
+}
+
+.activeMobileLink .modNumber {
+  color: var(--brass);
+}
+
+@media (max-width: 768px) {
+  .desktopMenu {
+    display: none;
+  }
+  .mobileTrigger {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    margin-left: var(--space-12);
+  }
 }
 
 .actions {
