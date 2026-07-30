@@ -1,22 +1,22 @@
 export const guideContent = [
   {
-    label: "Panning & Navigation",
-    description: "Click and drag anywhere on the sky to pan your view. You can look in any direction, just like standing outside."
+    label: "🌍 Moving Around",
+    description: "Click and drag anywhere on the sky to look around. Scroll up or down with your mouse (or pinch your trackpad) to zoom in and out."
   },
   {
-    label: "Zooming",
-    description: "Use your mouse wheel or pinch-to-zoom on a trackpad to zoom in on specific stars or deep-sky objects."
+    label: "✨ Selecting Stars & Planets",
+    description: "Click on any bright dot in the sky to select it. An info panel will appear showing its name, distance, and what type of object it is."
   },
   {
-    label: "Time & Date",
-    description: "The engine models the actual sky based on the time and date. You can see the current simulated time in the interface (if enabled)."
+    label: "⏰ Time Travel",
+    description: "Look at the bottom right corner for the date and time. You can drag the slider or click the arrows to see the sky in the past or the future!"
   },
   {
-    label: "Selecting Objects",
-    description: "Click on any star or planet to select it. The engine will track it and may display basic information about your selection."
+    label: "🔭 Bottom Toolbar Tools",
+    description: "At the bottom center, you have several tools:\n• 🌟 Constellations: Draw lines between stars\n• 🎨 Art: Show mythical drawings of constellations\n• ☁️ Atmosphere: Turn the daytime blue sky on or off\n• ⛰️ Landscape: Hide the ground to see stars below the horizon"
   },
   {
-    label: "Constellations",
-    description: "Certain controls (when visible) allow you to toggle constellation lines, artwork, and boundaries to help you learn the night sky."
+    label: "🔍 Searching",
+    description: "Use the search bar at the top to type in a planet (like 'Mars') or a galaxy (like 'Andromeda') and it will automatically zoom you there!"
   }
 ];
