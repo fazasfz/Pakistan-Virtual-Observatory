@@ -153,12 +153,11 @@
   color: var(--brass-light, #ffd700) !important;
 }
 
-@media (max-width: 768px) {
-  :global(.ant-modal) {
-    right: 50%;
-    transform: translateX(50%) !important;
-    bottom: 80px;
-    width: 90% !important;
-    max-width: 400px;
-  }
+/* Media query replaced by useBreakpoint hook logic */
+:global(.ant-modal).copilotModalMobile {
+  right: 50%;
+  transform: translateX(50%) !important;
+  bottom: 80px;
+  width: 90% !important;
+  max-width: 400px;
 }
