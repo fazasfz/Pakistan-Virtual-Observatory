@@ -1,3 +1,4 @@
+//API to fetch images for things like the Milky Way, the ISS, the Solar Corona, and Exoplanets.
 const https = require('https');
 const fetchImg = (query) => new Promise((resolve) => {
   https.get('https://images-api.nasa.gov/search?q=' + encodeURIComponent(query) + '&media_type=image', (res) => {

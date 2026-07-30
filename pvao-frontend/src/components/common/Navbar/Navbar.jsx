@@ -5,12 +5,14 @@ import { Telescope, Menu as MenuIcon } from 'lucide-react';
 import { modulesData } from '../../../pages/landing/data/modules.data';
 import { PATHS } from '../../../routes/routePaths';
 import { GITHUB_REPO_URL } from '../../../utils/constants';
+import { useBreakpoint } from '../../../hooks/useBreakpoint';
 import styles from './Navbar.module.css';
 
 const { Header } = Layout;
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isMobile } = useBreakpoint();
 
   const moduleMenuItems = modulesData.map((mod) => ({
     key: mod.id,
@@ -36,6 +38,7 @@ const Navbar = () => {
       </div>
       
       {/* Desktop Menu */}
+      {!isMobile && (
       <div className={styles.desktopMenu}>
         {topNavItems.map(item => 
           item.dropdownItems ? (
@@ -54,6 +57,7 @@ const Navbar = () => {
           )
         )}
       </div>
+      )}
 
       <div className={styles.actions}>
         <Button 
@@ -68,12 +72,14 @@ const Navbar = () => {
         </Button>
         
         {/* Mobile Menu Trigger */}
+        {isMobile && (
         <Button 
           type="text" 
           className={styles.mobileTrigger}
           onClick={() => setMobileMenuOpen(true)}
           icon={<MenuIcon size={24} color="var(--starlight)" />}
         />
+        )}
       </div>
 
       <Drawer

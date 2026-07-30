@@ -1,3 +1,4 @@
+//HUD stands for Heads-Up Display,This component is a styling tool used to give your Virtual Observatory a highly technical, sci-fi aesthetic. it's meant to be visible all the time as part of the interface design.
 import React from 'react';
 import styles from './HUDLabel.module.css';
 

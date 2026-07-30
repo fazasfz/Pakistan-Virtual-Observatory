@@ -1,3 +1,4 @@
+//This is likely the standard frame used for regular pages (like your Landing page or Credits page). It probably includes your main top Navbar and the bottom Footer.
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from '../components/common/Navbar/Navbar';

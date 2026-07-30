@@ -63,7 +63,10 @@
 }
 
 .mobileTrigger {
-  display: none !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--space-12);
 }
 
 /* Dropdown styling */
@@ -136,17 +139,7 @@
   color: var(--brass);
 }
 
-@media (max-width: 768px) {
-  .desktopMenu {
-    display: none;
-  }
-  .mobileTrigger {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    margin-left: var(--space-12);
-  }
-}
+/* Media queries handled by useBreakpoint JS hook now */
 
 .actions {
   display: flex;

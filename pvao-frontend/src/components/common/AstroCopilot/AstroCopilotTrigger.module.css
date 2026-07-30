@@ -73,11 +73,10 @@
   }
 }
 
-@media (max-width: 768px) {
-  .triggerButton {
-    bottom: var(--space-24);
-    right: var(--space-24);
-    width: 48px;
-    height: 48px;
-  }
+/* Media query replaced by useBreakpoint hook logic */
+.triggerButtonMobile {
+  bottom: var(--space-24);
+  right: var(--space-24);
+  width: 48px;
+  height: 48px;
 }

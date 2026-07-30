@@ -2,10 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Modal, Input, Button } from 'antd';
 import { Send, Bot, User } from 'lucide-react';
 import styles from './AstroCopilotPopup.module.css';
+import { useBreakpoint } from '../../../hooks/useBreakpoint';
 
 const AstroCopilotPopup = ({ isOpen, onClose, messages, onSendMessage }) => {
   const [inputValue, setInputValue] = useState('');
   const messagesEndRef = useRef(null);
+  const { isMobile } = useBreakpoint();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -41,7 +43,7 @@ const AstroCopilotPopup = ({ isOpen, onClose, messages, onSendMessage }) => {
       open={isOpen}
       onCancel={onClose}
       footer={null}
-      className={styles.copilotModal}
+      className={`${styles.copilotModal} ${isMobile ? 'copilotModalMobile' : ''}`}
       wrapClassName={styles.copilotModalWrap}
       width={400}
       mask={false} // Allow interacting with the app behind the popup
