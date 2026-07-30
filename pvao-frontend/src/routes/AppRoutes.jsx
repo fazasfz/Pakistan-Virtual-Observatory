@@ -6,15 +6,15 @@ import LandingPage from '../pages/landing/LandingPage';
 import CreditsPage from '../pages/credits/CreditsPage';
 
 // Sub-pages
-import SkyPortal from '../modules/earthAtmosphere/skyPortal';
-import EarthView from '../modules/earthAtmosphere/earthView';
-import SatelliteTracker from '../modules/earthAtmosphere/satelliteTracker';
+import SkyPortal from '../modules/skyPortal';
+import EarthView from '../modules/earthView';
+import SatelliteTracker from '../modules/satelliteTracker';
 
-import SolarSystemSimulator from '../modules/heliosPlanets/solarSystemSimulator';
-import SolarObservatory from '../modules/heliosPlanets/solarObservatory';
+import SolarSystemSimulator from '../modules/solarSystemSimulator';
+import SolarObservatory from '../modules/solarObservatory';
 
-import ExoVista from '../modules/deepCosmosExoplanet/exoVista';
-import DeepSkyExplorer from '../modules/deepCosmosExoplanet/deepSkyExplorer';
+import ExoVista from '../modules/exoVista';
+import DeepSkyExplorer from '../modules/deepSkyExplorer';
 
 const UnderConstruction = ({ moduleName }) => (
   <div style={{ padding: '100px', textAlign: 'center', color: 'var(--starlight)' }}>
