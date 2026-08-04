@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import SectionWrapper from '../../../components/common/SectionWrapper/SectionWrapper';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
+import { PATHS } from '../../../routes/routePaths';
 import styles from './ClosingSection.module.css';
 
 const ClosingSection = () => {
@@ -14,7 +15,7 @@ const ClosingSection = () => {
         <div className={styles.content}>
           <h2 className={styles.heading}>THE UNIVERSE AWAITS</h2>
           <p className={styles.subheading}>Initiate observation sequence and access the telemetry console.</p>
-          <NavLink to="/earth-atmosphere" className={styles.ctaButton}>
+          <NavLink to={PATHS.SKY_PORTAL} className={styles.ctaButton}>
             START EXPLORING <ArrowRight size={20} />
           </NavLink>
         </div>

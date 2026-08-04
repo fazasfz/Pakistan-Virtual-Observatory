@@ -28,7 +28,7 @@ const HeroSection = () => {
         
         <div className={styles.centerContent}>
           <h1 className={styles.title}>
-            PAKISTAN VIRTUAL<br />ASTRONOMY OBSERVATORY
+            VIRTUAL<br />ASTRONOMY OBSERVATORY
           </h1>
           <p className={styles.mission}>
             A centralized, real-time public access point to the cosmos.

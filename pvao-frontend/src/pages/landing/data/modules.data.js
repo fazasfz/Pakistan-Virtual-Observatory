@@ -54,8 +54,10 @@ export const modulesData = [
     number: 'MOD.06', 
     name: 'ExoVista', 
     path: '/exovista',
-    description: 'Analyze exoplanet transit data and stellar systems.',
-    bgImage: imgExovista
+    description: 'Explore worlds beyond our solar system',
+    bgImage: imgExovista,
+    externalUrl: 'https://exovista-placeholder-url.com',
+    sourceTag: 'NASA Data Explorer • Digital Observatory'
   },
   { 
     id: 'solar-system-simulator', 
@@ -63,7 +65,9 @@ export const modulesData = [
     name: 'Solar System Simulator', 
     path: '/solar-system-simulator',
     description: 'Simulate planetary alignments and near-earth object tracking.',
-    bgImage: imgSolarSystem
+    bgImage: imgSolarSystem,
+    externalUrl: 'https://solar-system-simulator-placeholder-url.com',
+    sourceTag: 'JPL Orbit Simulator • Real-time Physics Engine'
   },
   { 
     id: 'observation-planner', 
@@ -71,6 +75,8 @@ export const modulesData = [
     name: 'Observation Planner', 
     path: '/observation-planner',
     description: 'Plan and schedule your astronomical observations.',
-    bgImage: imgObservationPlanner
+    bgImage: imgObservationPlanner,
+    externalUrl: 'https://observation-planner-placeholder-url.com',
+    sourceTag: 'Global Telescope Network • Scheduling System'
   }
 ];

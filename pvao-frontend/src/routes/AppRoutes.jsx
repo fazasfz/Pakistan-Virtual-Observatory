@@ -15,6 +15,7 @@ import SolarObservatory from '../modules/solarObservatory';
 
 import ExoVista from '../modules/exoVista';
 import DeepSkyExplorer from '../modules/deepSkyExplorer';
+import ObservationPlanner from '../modules/observationPlanner';
 
 const UnderConstruction = ({ moduleName }) => (
   <div style={{ padding: '100px', textAlign: 'center', color: 'var(--starlight)' }}>
@@ -39,7 +40,7 @@ const AppRoutes = () => {
         <Route path={PATHS.EXOVISTA} element={<ExoVista />} />
         <Route path={PATHS.DEEP_SKY_EXPLORER} element={<DeepSkyExplorer />} />
 
-        <Route path={PATHS.OBSERVATION_PLANNER} element={<UnderConstruction moduleName="Observation Planner" />} />
+        <Route path={PATHS.OBSERVATION_PLANNER} element={<ObservationPlanner />} />
 
         <Route path={PATHS.CREDITS} element={<CreditsPage />} />
       </Route>

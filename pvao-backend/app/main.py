@@ -7,7 +7,7 @@ from app.api_router import api_router
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="Backend API for the Pakistan Virtual Astronomy Observatory"
+    description="Backend API for the Virtual Astronomy Observatory"
 )
 
 # CORS config

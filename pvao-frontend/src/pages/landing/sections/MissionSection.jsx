@@ -16,7 +16,7 @@ const MissionSection = () => {
             <HUDLabel text="SEC.01 // MISSION LOG" className={styles.label} />
             <h2 className={styles.heading}>NAVIGATE THE COSMOS</h2>
             <p className={styles.bodyText}>
-              The Pakistan Virtual Astronomy Observatory serves as an open gateway to astronomical data. 
+              The Virtual Astronomy Observatory serves as an open gateway to astronomical data. 
               By aggregating authentic telemetry and imagery from global space agencies and observatories, 
               we empower students, researchers, and enthusiasts to explore the universe from their screens.
             </p>
