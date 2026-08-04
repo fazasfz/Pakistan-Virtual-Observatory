@@ -1,1 +1,8 @@
-// Placeholder for pvao-backend/app/modules/intelligent_core/astro_copilot/schemas.py
+from pydantic import BaseModel
+
+class AskRequest(BaseModel):
+    question: str
+
+class AskResponse(BaseModel):
+    answer: str
+    limited: bool = False

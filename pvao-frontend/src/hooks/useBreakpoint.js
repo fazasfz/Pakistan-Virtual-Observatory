@@ -17,8 +17,8 @@ export const useBreakpoint = () => {
   }, []);
 
   return {
-    isMobile: windowWidth <= 768,
-    isTablet: windowWidth <= 1024 && windowWidth > 768,
+    isMobile: windowWidth <= 640,
+    isTablet: windowWidth <= 1024 && windowWidth > 640,
     isDesktop: windowWidth > 1024,
     width: windowWidth,
   };

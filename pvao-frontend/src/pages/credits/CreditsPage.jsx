@@ -15,7 +15,7 @@ const CreditsPage = () => {
         <HUDLabel text="SYS.00 // ACKNOWLEDGEMENTS" />
         <h1 className={styles.heading}>MISSION CONTRIBUTORS</h1>
         <p className={styles.description}>
-          Personnel responsible for the engineering and scientific operations of the PVAO system.
+          Personnel responsible for the engineering and scientific operations of the VAO system.
         </p>
       </div>
 

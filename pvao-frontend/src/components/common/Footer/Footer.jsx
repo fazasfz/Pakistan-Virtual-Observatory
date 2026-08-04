@@ -11,7 +11,7 @@ const Footer = () => {
     <AntFooter className={styles.footer}>
       <div className={styles.content}>
         <div className={styles.branding}>
-          <span className={styles.title}>PAKISTAN VIRTUAL ASTRONOMY OBSERVATORY</span>
+          <span className={styles.title}>VIRTUAL ASTRONOMY OBSERVATORY</span>
           <span className={styles.subtitle}>{ORG_ATTRIBUTION.join(' · ')}</span>
         </div>
         <div className={styles.links}>

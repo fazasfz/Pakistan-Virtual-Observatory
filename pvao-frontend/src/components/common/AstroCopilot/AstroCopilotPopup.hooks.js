@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { askAstroCopilot } from './astroCopilotApi';
 
 export const useCopilotState = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -6,16 +7,34 @@ export const useCopilotState = () => {
     { id: 1, sender: 'ai', text: 'Astro-Copilot online. How can I assist with your observations today?' }
   ]);
 
-  const sendMessage = (text) => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const sendMessage = async (text) => {
     if (!text.trim()) return;
     
     setMessages(prev => [...prev, { id: Date.now(), sender: 'user', text }]);
+    setIsLoading(true);
     
-    // Simulate AI response for now
-    setTimeout(() => {
-      setMessages(prev => [...prev, { id: Date.now() + 1, sender: 'ai', text: 'I am a placeholder intelligence. Connect me to the backend module to process your request.' }]);
-    }, 1000);
+    try {
+      const response = await askAstroCopilot(text);
+      setMessages(prev => [...prev, { 
+        id: Date.now() + 1, 
+        sender: 'ai', 
+        text: response.answer,
+        limited: response.limited
+      }]);
+    } catch (error) {
+      console.error('Copilot API error:', error);
+      setMessages(prev => [...prev, { 
+        id: Date.now() + 1, 
+        sender: 'ai', 
+        text: 'Astro-Copilot is temporarily unavailable. Please try again shortly.',
+        error: true
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  return { isOpen, setIsOpen, messages, sendMessage };
+  return { isOpen, setIsOpen, messages, sendMessage, isLoading };
 };

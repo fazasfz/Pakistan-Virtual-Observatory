@@ -33,7 +33,7 @@ const Navbar = () => {
       <div className={styles.brand}>
         <NavLink to={PATHS.LANDING} style={{ display: 'flex', alignItems: 'center', gap: '12px', color: 'inherit', textDecoration: 'none' }}>
           <Telescope size={20} className={styles.icon} />
-          <span className={styles.title}>PVAO</span>
+          <span className={styles.title}>VAO</span>
         </NavLink>
       </div>
       

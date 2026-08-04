@@ -1,13 +1,14 @@
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import AsyncMongoClient
 from beanie import init_beanie
 from app.core.config import settings
+from app.modules.intelligent_core.astro_copilot.models import UsageLog
+
+client = AsyncMongoClient(settings.MONGODB_URI)
 
 async def init_db():
-    client = AsyncIOMotorClient(settings.MONGODB_URL)
-    database = client[settings.DATABASE_NAME]
+    await init_beanie(
+        database=client[settings.DATABASE_NAME],
+        document_models=[UsageLog],
+    )
     
-    # Initialize Beanie with models here
-    # Example: await init_beanie(database, document_models=[MyModel])
-    await init_beanie(database, document_models=[])
-    
-    print(f"Connected to MongoDB: {settings.DATABASE_NAME}")
+    print(f"Connected to MongoDB Atlas: {settings.DATABASE_NAME}")

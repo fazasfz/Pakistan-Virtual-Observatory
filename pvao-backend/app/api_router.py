@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from app.modules.earth_atmosphere.sky_portal import router as sky_portal_router
+from app.modules.intelligent_core.astro_copilot.router import router as astro_copilot_router
 
 api_router = APIRouter()
 
@@ -9,4 +10,6 @@ api_router.include_router(
     prefix="/earth-atmosphere/sky-portal",
     tags=["Sky Portal"]
 )
+api_router.include_router(astro_copilot_router)
+
 # Add other routers here as they are developed
