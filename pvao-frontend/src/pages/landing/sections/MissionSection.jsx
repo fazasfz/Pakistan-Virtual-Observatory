@@ -5,6 +5,8 @@ import HUDLabel from '../../../components/common/HUDLabel/HUDLabel';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import styles from './MissionSection.module.css';
 
+import imgMission from '../../../assets/images/mission-section.jpg';
+
 const MissionSection = () => {
   const revealRef = useScrollReveal();
 
@@ -28,8 +30,8 @@ const MissionSection = () => {
             <div className={styles.imageFrame}>
               <div className={styles.crosshair}></div>
               <img 
-                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop" 
-                alt="Earth from Space" 
+                src={imgMission} 
+                alt="Deep Space Observatory" 
                 className={styles.missionImage} 
               />
             </div>

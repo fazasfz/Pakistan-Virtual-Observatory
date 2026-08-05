@@ -69,53 +69,70 @@
   margin-left: var(--space-12);
 }
 
-/* Dropdown styling */
-.moduleDropdown {
-  min-width: 240px;
-}
-
-.moduleDropdown :global(.ant-dropdown-menu) {
-  background-color: #0A0B0D !important; /* solid opaque obsidian */
-  border: 1px solid rgba(138, 143, 152, 0.3) !important;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8) !important; /* dark elevation */
-  padding: var(--space-8) 0 !important;
-  border-radius: 4px !important;
-}
-
-.moduleDropdown :global(.ant-dropdown-menu-item) {
-  padding: var(--space-12) var(--space-24) !important;
-  transition: all 0.2s ease !important;
-  border-radius: 0 !important;
-}
-
-.moduleDropdown :global(.ant-dropdown-menu-item:hover) {
-  background-color: rgba(255, 215, 0, 0.05) !important;
-}
-
-.dropdownLink, .mobileModuleLink {
-  color: var(--starlight);
-  font-family: var(--font-body);
+.systemStatus {
   display: flex;
-  gap: var(--space-16);
   align-items: center;
-  text-decoration: none;
-  width: 100%;
+  gap: var(--space-24);
+  background: rgba(0, 0, 0, 0.2);
+  padding: var(--space-8) var(--space-16);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.dropdownLink:hover, .mobileModuleLink:hover {
-  color: var(--brass);
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
 }
 
-.modNumber {
+.pulseDot {
+  width: 8px;
+  height: 8px;
+  background-color: #22c55e; /* green */
+  border-radius: 50%;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.statusLabel {
   font-family: var(--font-mono);
-  color: var(--slate-ui);
   font-size: 0.75rem;
-  opacity: 0.8;
+  color: var(--starlight);
+  opacity: 0.9;
   letter-spacing: 0.05em;
 }
 
-.dropdownLink:hover .modNumber {
-  color: var(--brass);
+.navClock {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--starlight);
+  opacity: 0.7;
+}
+
+.mobileStatusWrapper {
+  margin-top: var(--space-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  padding-top: var(--space-16);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navClockMobile {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--starlight);
+  opacity: 0.7;
+}
+
+.navBtn:hover {
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
 /* Mobile Drawer */
@@ -129,9 +146,16 @@
   font-size: 1.1rem;
   padding: var(--space-8) 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--starlight);
+  font-family: var(--font-body);
+  display: flex;
+  gap: var(--space-16);
+  align-items: center;
+  text-decoration: none;
+  width: 100%;
 }
 
-.activeMobileLink {
+.mobileModuleLink:hover, .activeMobileLink {
   color: var(--brass);
 }
 

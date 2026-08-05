@@ -1,7 +1,7 @@
 // pvao-frontend/src/pages/landing/data/modules.data.js
-import imgNightSky from '../../../assets/images/modules/night-sky.jpg';
-import imgSatellite from '../../../assets/images/modules/satellite.jpg';
-import imgSolar from '../../../assets/images/modules/solar.jpg';
+import imgSkyPortal from '../../../assets/images/modules/sky-portal.jpg';
+import imgSatellite from '../../../assets/images/modules/satellite-tracker.jpg';
+import imgSolarObservatory from '../../../assets/images/modules/solar-observatory.jpg';
 import imgEarth from '../../../assets/images/modules/earth.jpg';
 import imgDeepSky from '../../../assets/images/modules/deep-sky.jpg';
 import imgExovista from '../../../assets/images/modules/exovista.jpg';
@@ -15,7 +15,7 @@ export const modulesData = [
     name: 'Sky Portal', 
     path: '/sky-portal',
     description: 'Monitor orbital telemetry and observe local atmospheric conditions in real-time.',
-    bgImage: imgNightSky
+    bgImage: imgSkyPortal
   },
   { 
     id: 'satellite-tracker', 
@@ -31,7 +31,7 @@ export const modulesData = [
     name: 'Solar Observatory', 
     path: '/solar-observatory',
     description: 'Solar dynamics and detailed observations of our Sun.',
-    bgImage: imgSolar
+    bgImage: imgSolarObservatory
   },
   { 
     id: 'earth-view', 
