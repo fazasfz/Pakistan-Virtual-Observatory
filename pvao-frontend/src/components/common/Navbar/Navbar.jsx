@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { Layout, Button, Dropdown, Drawer } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Layout, Button, Drawer } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { Telescope, Menu as MenuIcon } from 'lucide-react';
-import { modulesData } from '../../../pages/landing/data/modules.data';
 import { PATHS } from '../../../routes/routePaths';
-import { GITHUB_REPO_URL } from '../../../utils/constants';
 import { useBreakpoint } from '../../../hooks/useBreakpoint';
 import styles from './Navbar.module.css';
 
@@ -13,20 +11,6 @@ const { Header } = Layout;
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isMobile } = useBreakpoint();
-
-  const moduleMenuItems = modulesData.map((mod) => ({
-    key: mod.id,
-    label: (
-      <NavLink to={mod.path} className={styles.dropdownLink}>
-        <span className={styles.modNumber}>{mod.number}</span> {mod.name}
-      </NavLink>
-    ),
-  }));
-
-  const topNavItems = [
-    { label: 'HOME', path: PATHS.LANDING },
-    { label: 'MODULES', dropdownItems: moduleMenuItems }
-  ];
 
   return (
     <Header className={styles.navbar}>
@@ -40,37 +24,33 @@ const Navbar = () => {
       {/* Desktop Menu */}
       {!isMobile && (
       <div className={styles.desktopMenu}>
-        {topNavItems.map(item => 
-          item.dropdownItems ? (
-            <Dropdown key={item.label} menu={{ items: item.dropdownItems }} placement="bottom" overlayClassName={styles.moduleDropdown}>
-              <Button type="text" className={styles.navBtn}>{item.label}</Button>
-            </Dropdown>
-          ) : (
-            <NavLink 
-              key={item.label} 
-              to={item.path} 
-              className={({ isActive }) => isActive ? `${styles.navBtn} ${styles.activeNavBtn}` : styles.navBtn}
-              end
-            >
-              {item.label}
-            </NavLink>
-          )
-        )}
+        <NavLink 
+          to={PATHS.LANDING} 
+          className={({ isActive }) => isActive ? `${styles.navBtn} ${styles.activeNavBtn}` : styles.navBtn}
+          end
+        >
+          HOME
+        </NavLink>
       </div>
       )}
 
       <div className={styles.actions}>
-        <Button 
-          type="primary" 
-          size="small" 
-          className={styles.connectBtn}
-          href={GITHUB_REPO_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          SOURCE CODE
-        </Button>
-        
+        {!isMobile && (
+          <div className={styles.systemStatus}>
+            <NavLink 
+              to="/credits" 
+              className={({ isActive }) => isActive ? `${styles.navBtn} ${styles.activeNavBtn}` : styles.navBtn}
+              style={{ marginRight: '16px' }}
+            >
+              CREDITS
+            </NavLink>
+            <div className={styles.statusIndicator}>
+              <span className={styles.pulseDot}></span>
+              <span className={styles.statusLabel}>SYSTEM ONLINE</span>
+            </div>
+          </div>
+        )}
+
         {/* Mobile Menu Trigger */}
         {isMobile && (
         <Button 
@@ -83,7 +63,7 @@ const Navbar = () => {
       </div>
 
       <Drawer
-        title="SYSTEM MODULES"
+        title="SYSTEM NAV"
         placement="right"
         onClose={() => setMobileMenuOpen(false)}
         open={mobileMenuOpen}
@@ -99,16 +79,19 @@ const Navbar = () => {
           >
             <span className={styles.modNumber}>SYS.00</span> HOME
           </NavLink>
-          {modulesData.map((mod) => (
-            <NavLink 
-              key={mod.id} 
-              to={mod.path} 
-              className={({ isActive }) => isActive ? `${styles.mobileModuleLink} ${styles.activeMobileLink}` : styles.mobileModuleLink}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <span className={styles.modNumber}>{mod.number}</span> {mod.name}
-            </NavLink>
-          ))}
+          <NavLink 
+            to="/credits" 
+            className={({ isActive }) => isActive ? `${styles.mobileModuleLink} ${styles.activeMobileLink}` : styles.mobileModuleLink}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span className={styles.modNumber}>SYS.01</span> CREDITS
+          </NavLink>
+          <div className={styles.mobileStatusWrapper}>
+            <div className={styles.statusIndicator}>
+              <span className={styles.pulseDot}></span>
+              <span className={styles.statusLabel}>SYSTEM ONLINE</span>
+            </div>
+          </div>
         </div>
       </Drawer>
     </Header>

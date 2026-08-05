@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Bot, User } from 'lucide-react';
+import { Spin } from 'antd';
+import ReactMarkdown from 'react-markdown';
 import styles from './AstroCopilotPopup.module.css';
 
 export default function MessageList({ messages, isLoading, isOpen }) {
@@ -26,7 +28,17 @@ export default function MessageList({ messages, isLoading, isOpen }) {
             {msg.sender === 'user' ? <User size={16} /> : <Bot size={16} />}
           </div>
           <div className={`${styles.messageBubble} ${msg.limited || msg.error ? styles.messageLimited : ''}`}>
-            {msg.text}
+            {msg.sender === 'ai' ? (
+              <ReactMarkdown 
+                components={{
+                  a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brass)', textDecoration: 'underline' }} />
+                }}
+              >
+                {msg.text}
+              </ReactMarkdown>
+            ) : (
+              msg.text
+            )}
           </div>
         </div>
       ))}
@@ -35,8 +47,8 @@ export default function MessageList({ messages, isLoading, isOpen }) {
           <div className={styles.avatar}>
             <Bot size={16} />
           </div>
-          <div className={`${styles.messageBubble} ${styles.messageLoading}`}>
-            <span className={styles.dot}>.</span><span className={styles.dot}>.</span><span className={styles.dot}>.</span>
+          <div className={`${styles.messageBubble} ${styles.messageLoading}`} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Spin size="small" /> <span>Thinking...</span>
           </div>
         </div>
       )}

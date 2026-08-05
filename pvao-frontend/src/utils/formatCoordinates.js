@@ -5,5 +5,16 @@ export const getLocalCoordinates = () => {
 };
 
 export const getLiveTime = () => {
-  return new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+  const now = new Date();
+  const options = { 
+    timeZone: 'Asia/Karachi', 
+    year: 'numeric', month: '2-digit', day: '2-digit', 
+    hour: '2-digit', minute: '2-digit', second: '2-digit', 
+    hour12: false 
+  };
+  const formatter = new Intl.DateTimeFormat('en-GB', options);
+  const parts = formatter.formatToParts(now);
+  const getPart = (type) => parts.find(p => p.type === type)?.value || '00';
+  
+  return `${getPart('year')}-${getPart('month')}-${getPart('day')} ${getPart('hour')}:${getPart('minute')}:${getPart('second')} PKT`;
 };
