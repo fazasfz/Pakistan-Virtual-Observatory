@@ -15,7 +15,7 @@ GEMINI_URL = (
 )
 
 async def ask_gemini(question: str) -> str:
-    async with httpx.AsyncClient(timeout=15) as client:
+    async with httpx.AsyncClient(timeout=60.0) as client:
         response = await client.post(
             f"{GEMINI_URL}?key={settings.GEMINI_API_KEY}",
             json={
