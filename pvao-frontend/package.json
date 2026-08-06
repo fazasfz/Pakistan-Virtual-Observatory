@@ -10,15 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.7.0",
     "@studio-freight/lenis": "^1.0.42",
     "antd": "^6.5.2",
     "axios": "^1.18.1",
-    "framer-motion": "^12.43.0",
     "lucide-react": "^1.27.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "react-markdown": "^10.1.0",
-    "react-router-dom": "^7.18.1"
+    "react-router-dom": "^7.18.1",
+    "three": "^0.185.1",
+    "framer-motion": "^10.16.4",
+    "recharts": "^2.10.3"
   },
   "devDependencies": {
     "@types/react": "^19.2.17",
