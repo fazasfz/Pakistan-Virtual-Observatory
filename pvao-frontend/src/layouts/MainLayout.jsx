@@ -5,10 +5,11 @@ import Navbar from '../components/common/Navbar/Navbar';
 import ModuleSubNav from '../components/common/ModuleSubNav/ModuleSubNav';
 import Footer from '../components/common/Footer/Footer';
 import AstroCopilot from '../components/common/AstroCopilot';
+import { AstroCopilotProvider } from '../context/AstroCopilotContext';
 
 const MainLayout = () => {
   return (
-    <>
+    <AstroCopilotProvider>
       <Navbar />
       <ModuleSubNav />
       <main style={{ minHeight: '100vh', paddingTop: '112px' }}>
@@ -16,7 +17,7 @@ const MainLayout = () => {
       </main>
       <Footer />
       <AstroCopilot />
-    </>
+    </AstroCopilotProvider>
   );
 };
 
