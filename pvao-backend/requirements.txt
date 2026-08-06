@@ -1,1 +1,8 @@
-// Placeholder for pvao-backend/requirements.txt
+
+fastapi
+uvicorn
+astroquery
+pydantic
+pydantic-settings
+motor
+beanie
