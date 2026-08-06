@@ -1,11 +1,13 @@
 import React from 'react';
+import DeepSkyViewer from './components/DeepSkyViewer';
 
-const SubPage = () => {
+const DeepSkyExplorer = () => {
   return (
-    <div style={{ padding: '2rem', textAlign: 'center', fontFamily: 'var(--font-mono)', color: 'var(--brass)' }}>
-      <h2>SUB-MODULE</h2>
-      <p style={{ color: 'var(--slate-ui)' }}>System calibrating...</p>
+    <div style={{ padding: '1rem' }}>
+      <h2 style={{ fontFamily: 'var(--font-mono)' }}>Deep Sky Explorer</h2>
+      <DeepSkyViewer />
     </div>
   );
 };
-export default SubPage;
+
+export default DeepSkyExplorer;
