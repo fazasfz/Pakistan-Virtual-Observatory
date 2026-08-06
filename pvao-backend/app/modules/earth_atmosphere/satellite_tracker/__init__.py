@@ -1,1 +1,1 @@
-// Placeholder for pvao-backend/app/modules/earth_atmosphere/satellite_tracker/__init__.py
+# Module initialization

@@ -1,11 +1,9 @@
 import React from 'react';
+import ExternalModuleLaunch from '../../components/common/ExternalModuleLaunch/ExternalModuleLaunch';
+import { modulesData } from '../../pages/landing/data/modules.data';
 
-const SubPage = () => {
-  return (
-    <div style={{ padding: '2rem', textAlign: 'center', fontFamily: 'var(--font-mono)', color: 'var(--brass)' }}>
-      <h2>SUB-MODULE</h2>
-      <p style={{ color: 'var(--slate-ui)' }}>System calibrating...</p>
-    </div>
-  );
-};
-export default SubPage;
+const data = modulesData.find((m) => m.id === 'exovista');
+
+export default function ExoVistaPage() {
+  return <ExternalModuleLaunch {...data} />;
+}

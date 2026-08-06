@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
+
 from app.core.database import init_db
 from app.api_router import api_router
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="Backend API for the Pakistan Virtual Astronomy Observatory"
+    description="Backend API for the Virtual Astronomy Observatory"
 )
 
 # CORS config

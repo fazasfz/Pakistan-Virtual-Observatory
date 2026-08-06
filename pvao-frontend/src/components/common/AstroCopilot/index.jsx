@@ -4,7 +4,7 @@ import AstroCopilotTrigger from './AstroCopilotTrigger';
 import AstroCopilotPopup from './AstroCopilotPopup';
 
 export const AstroCopilot = () => {
-  const { isOpen, setIsOpen, messages, sendMessage } = useCopilotState();
+  const { isOpen, setIsOpen, messages, sendMessage, isLoading } = useCopilotState();
 
   return (
     <>
@@ -14,6 +14,7 @@ export const AstroCopilot = () => {
         onClose={() => setIsOpen(false)} 
         messages={messages}
         onSendMessage={sendMessage}
+        isLoading={isLoading}
       />
     </>
   );
