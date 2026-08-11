@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axiosClient from '../../../api/axiosClient';
 
-export const useFeatureCatalogue = () => {
+export const useFeatureCatalogue = (viewMode = '3D') => {
   const [features, setFeatures] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -17,9 +17,10 @@ export const useFeatureCatalogue = () => {
     const fetchFeatures = async () => {
       setLoading(true);
       try {
+        const dataset = viewMode === '3D' ? 'curated' : 'full';
         const url = activeCategory !== 'All' 
-          ? `/lunar-observatory/features?category=${activeCategory}`
-          : '/lunar-observatory/features';
+          ? `/lunar-observatory/features?category=${activeCategory}&dataset=${dataset}`
+          : `/lunar-observatory/features?dataset=${dataset}`;
         const response = await axiosClient.get(url);
         setFeatures(response.data);
         setError(null);
@@ -30,7 +31,7 @@ export const useFeatureCatalogue = () => {
       }
     };
     fetchFeatures();
-  }, [activeCategory]);
+  }, [activeCategory, viewMode]);
 
   useEffect(() => {
     const fetchFeatureDetails = async () => {

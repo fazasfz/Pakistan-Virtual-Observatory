@@ -3,11 +3,24 @@ import os
 import math
 from app.integrations.skyfield_client import skyfield_client
 
-# Load features from JSON
 current_dir = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(current_dir, 'data', 'lunar_features.json')
-with open(json_path, 'r', encoding='utf-8') as f:
-    LUNAR_FEATURES_DATA = json.load(f)
+
+def load_json(filename):
+    path = os.path.join(current_dir, 'data', filename)
+    if os.path.exists(path):
+        with open(path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    return []
+
+LUNAR_FEATURES_FULL = load_json('lunar_features_full.json')
+LUNAR_FEATURES_CURATED = load_json('lunar_features_curated.json')
+
+# Fallback for when the new jsons are not yet generated
+if not LUNAR_FEATURES_FULL or not LUNAR_FEATURES_CURATED:
+    legacy_data = load_json('lunar_features.json')
+    LUNAR_FEATURES_FULL = LUNAR_FEATURES_FULL or legacy_data
+    LUNAR_FEATURES_CURATED = LUNAR_FEATURES_CURATED or legacy_data
+
 
 MOON_RADIUS_KM = 1737.4
 
@@ -20,13 +33,15 @@ def haversine_moon(lat1, lon1, lat2, lon2):
 def get_live_data():
     return skyfield_client.get_live_moon_data()
 
-def get_features(category: str = None):
+def get_features(category: str = None, dataset: str = "curated"):
+    data = LUNAR_FEATURES_FULL if dataset == "full" else LUNAR_FEATURES_CURATED
     if category and category.lower() != "all":
-        return [f for f in LUNAR_FEATURES_DATA if f.get('category', '').lower() == category.lower()]
-    return LUNAR_FEATURES_DATA
+        return [f for f in data if f.get('category', '').lower() == category.lower() or f.get('type', '').lower() == category.lower()]
+    return data
 
 def get_feature_by_id(feature_id: str):
-    for f in LUNAR_FEATURES_DATA:
+    # Search in full dataset as it contains everything
+    for f in LUNAR_FEATURES_FULL:
         if f.get('id') == feature_id:
             return f
     return None
@@ -40,7 +55,7 @@ def get_nearby_features(feature_id: str, limit: int = 5):
     lon = feature['longitude']
     
     nearby = []
-    for f in LUNAR_FEATURES_DATA:
+    for f in LUNAR_FEATURES_FULL:
         if f['id'] == feature_id:
             continue
         dist = haversine_moon(lat, lon, f['latitude'], f['longitude'])

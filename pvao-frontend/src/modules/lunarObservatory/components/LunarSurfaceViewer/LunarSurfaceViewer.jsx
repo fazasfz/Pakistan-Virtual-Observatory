@@ -1,18 +1,21 @@
 import '@google/model-viewer';
 import styles from './LunarSurfaceViewer.module.css';
 
-export default function LunarSurfaceViewer({ features = [], onSelectFeature }) {
+export default function LunarSurfaceViewer({ liveData, features = [], onSelectFeature }) {
+  // Phase angle: 0 = New Moon, 90 = First Quarter, 180 = Full Moon, 270 = Third Quarter
+  const sunAngle = liveData?.sun_moon_angle ?? 180;
+  const rotationY = 180 - sunAngle;
+
   return (
     <div className={styles.wrapper}>
       <model-viewer
         src="/assets/moon.glb"
         alt="3D model of the Moon"
         camera-controls
-        auto-rotate
-        auto-rotate-delay="3000"
-        rotation-per-second="8deg"
         exposure="1"
         shadow-intensity="1"
+        orientation={`0 ${rotationY}deg 0`}
+        camera-orbit={`${rotationY}deg 90deg auto`}
         class={styles.viewer}
       >
         {features.map((f) => (

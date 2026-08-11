@@ -15,8 +15,8 @@ class LiveMoonData(BaseModel):
 
 class FeatureVisibility(BaseModel):
     naked_eye: bool
-    binoculars: str
-    telescope: str
+    binoculars: bool
+    telescope: bool
 
 class LunarFeature(BaseModel):
     id: str

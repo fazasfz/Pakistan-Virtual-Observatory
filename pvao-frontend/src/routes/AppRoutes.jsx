@@ -8,12 +8,12 @@ import CreditsPage from '../pages/credits/CreditsPage';
 // Sub-pages
 import SkyPortal from '../modules/skyPortal';
 import EarthView from '../modules/earthView';
-import SatelliteTracker from '../modules/satelliteTracker';
+import AstronomicalProbeTracker from '../modules/astronomicalProbeTracker';
 
 import SolarSystemSimulator from '../modules/solarSystemSimulator';
 import SolarObservatory from '../modules/solarObservatory';
 
-import ExoVista from '../modules/exoVista';
+import Exora from '../modules/exora';
 import DeepSkyExplorer from '../modules/deepSkyExplorer';
 import ObservationPlanner from '../modules/observationPlanner';
 import LunarObservatory from '../modules/lunarObservatory';
@@ -33,12 +33,12 @@ const AppRoutes = () => {
         
         <Route path={PATHS.SKY_PORTAL} element={<SkyPortal />} />
         <Route path={PATHS.EARTH_VIEW} element={<EarthView />} />
-        <Route path={PATHS.SATELLITE_TRACKER} element={<SatelliteTracker />} />
+        <Route path={PATHS.ASTRONOMICAL_PROBE_TRACKER} element={<AstronomicalProbeTracker />} />
 
         <Route path={PATHS.SOLAR_SYSTEM_SIMULATOR} element={<SolarSystemSimulator />} />
         <Route path={PATHS.SOLAR_OBSERVATORY} element={<SolarObservatory />} />
 
-        <Route path={PATHS.EXOVISTA} element={<ExoVista />} />
+        <Route path={PATHS.EXORA} element={<Exora />} />
         <Route path={PATHS.DEEP_SKY_EXPLORER} element={<DeepSkyExplorer />} />
 
         <Route path={PATHS.OBSERVATION_PLANNER} element={<ObservationPlanner />} />

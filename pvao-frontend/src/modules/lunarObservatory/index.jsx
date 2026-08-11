@@ -12,12 +12,17 @@ import CategoryFilters from './components/CategoryFilters/CategoryFilters';
 import FeatureList from './components/FeatureList/FeatureList';
 import FeatureDetailPanel from './components/FeatureDetailPanel/FeatureDetailPanel';
 import MoonWeight from './components/MoonWeight/MoonWeight';
+import LunarMap2D from './components/LunarMap2D/LunarMap2D';
+import ViewModeSelector from './components/ViewModeSelector/ViewModeSelector';
+import MoonPhaseSnapshot from './components/MoonPhaseSnapshot/MoonPhaseSnapshot';
+import LunarFunFacts from './components/LunarFunFacts/LunarFunFacts';
 
 const LunarObservatory = () => {
   const { liveData, loading: liveLoading, error } = useLunarData();
   const { width } = useBreakpoint();
   const isMobile = width <= 1024;
   const [activeTab, setActiveTab] = useState('TELEMETRY');
+  const [viewMode, setViewMode] = useState('Snapshot');
 
   const {
     features,
@@ -29,7 +34,7 @@ const LunarObservatory = () => {
     selectedFeature,
     setSelectedFeatureId,
     nearbyFeatures,
-  } = useFeatureCatalogue();
+  } = useFeatureCatalogue(viewMode);
 
   return (
     <div className={styles.container}>
@@ -46,12 +51,29 @@ const LunarObservatory = () => {
 
       <div className={`${styles.mainLayout} ${isMobile ? mobileStyles.mainLayoutMobile : ''}`}>
         <div className={`${styles.viewerSection} ${isMobile ? mobileStyles.viewerSectionMobile : ''}`}>
-          <LunarSurfaceViewer 
-            liveData={liveData} 
-            features={features} 
-            loading={liveLoading || catalogLoading} 
-            onSelectFeature={setSelectedFeatureId}
-          />
+          <ViewModeSelector viewMode={viewMode} setViewMode={setViewMode} />
+          
+          {viewMode === 'Snapshot' && (
+            <MoonPhaseSnapshot liveData={liveData} loading={liveLoading} />
+          )}
+
+          {viewMode === '3D' && (
+            <LunarSurfaceViewer 
+              liveData={liveData} 
+              features={features} 
+              loading={liveLoading || catalogLoading} 
+              onSelectFeature={setSelectedFeatureId}
+            />
+          )}
+          
+          {['Terrain', 'Geographic', 'Shade'].includes(viewMode) && (
+            <LunarMap2D
+              viewMode={viewMode}
+              features={features}
+              selectedFeature={selectedFeature}
+              onSelectFeature={setSelectedFeatureId}
+            />
+          )}
           
           <FeatureDetailPanel 
             feature={selectedFeature} 
@@ -103,6 +125,7 @@ const LunarObservatory = () => {
                 onSelectFeature={setSelectedFeatureId} 
               />
               <MoonWeight />
+              <LunarFunFacts />
             </div>
           )}
         </aside>

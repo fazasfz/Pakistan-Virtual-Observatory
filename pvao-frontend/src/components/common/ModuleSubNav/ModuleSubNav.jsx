@@ -6,11 +6,11 @@ import styles from './ModuleSubNav.module.css';
 
 const iconMap = {
   'sky-portal': Star,
-  'satellite-tracker': Satellite,
+  'astronomical-probe-tracker': Satellite,
   'solar-observatory': Sun,
   'earth-view': Globe,
   'deep-sky-explorer': Telescope,
-  'exovista': Compass,
+  'exora': Compass,
   'solar-system-simulator': Orbit,
   'observation-planner': Calendar,
   'lunar-observatory': Moon,

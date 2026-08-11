@@ -8,7 +8,7 @@
 
 .title {
   font-family: var(--font-mono, monospace);
-  font-size: var(--text-xs, 0.75rem);
+  font-size: 14px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: white;
@@ -42,7 +42,8 @@
 
 .unit {
   color: rgba(255, 255, 255, 0.5);
-  font-size: 0.85rem;
+  font-size: 10px;
+  letter-spacing: 0.05em;
 }
 
 .resultBox {
@@ -56,7 +57,8 @@
 }
 
 .resultLabel {
-  font-size: 0.85rem;
+  font-size: 10px;
+  letter-spacing: 0.05em;
   color: rgba(255, 255, 255, 0.7);
 }
 

@@ -33,17 +33,18 @@
 }
 
 .title {
-  font-size: 1.25rem;
+  font-size: 14px;
   font-weight: 600;
   color: white;
   margin: 0;
 }
 
 .categoryTag {
-  font-size: 0.75rem;
+  font-size: 10px;
   color: #a0a0ff;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-family: var(--font-mono, monospace);
 }
 
 .closeButton {
@@ -68,8 +69,8 @@
 }
 
 .description {
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 13px;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.8);
 }
 
@@ -80,11 +81,12 @@
 }
 
 .sectionTitle {
-  font-size: 0.85rem;
+  font-size: 10px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-family: var(--font-mono, monospace);
 }
 
 .dataRow {
@@ -96,12 +98,14 @@
 
 .dataLabel {
   color: rgba(255, 255, 255, 0.6);
-  font-size: 0.9rem;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono, monospace);
 }
 
 .dataValue {
   color: white;
-  font-size: 0.9rem;
+  font-size: 13px;
   font-weight: 500;
 }
 
