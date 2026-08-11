@@ -15,6 +15,7 @@ html, body {
   background-color: var(--obsidian-1);
   color: var(--starlight);
   font-family: var(--font-body);
+  font-size: 115%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;

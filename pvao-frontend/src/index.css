@@ -15,7 +15,7 @@
   --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
+  font: 24px/145% var(--sans);
   letter-spacing: 0.18px;
   color-scheme: light dark;
   color: var(--text);
@@ -28,7 +28,7 @@
 }
 
 .mobile-layout {
-  font-size: 16px;
+  font-size: 20px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -75,18 +75,18 @@ h2 {
 }
 
 h1 {
-  font-size: 56px;
+  font-size: 72px;
   letter-spacing: -1.68px;
   margin: 32px 0;
   margin: 32px 0;
 }
 
 .mobile-layout h1 {
-  font-size: 36px;
+  font-size: 48px;
   margin: 20px 0;
 }
 h2 {
-  font-size: 24px;
+  font-size: 32px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
@@ -94,7 +94,7 @@ h2 {
 }
 
 .mobile-layout h2 {
-  font-size: 20px;
+  font-size: 26px;
 }
 p {
   margin: 0;
@@ -109,7 +109,7 @@ code,
 }
 
 code {
-  font-size: 15px;
+  font-size: 20px;
   line-height: 135%;
   padding: 4px 8px;
   background: var(--code-bg);

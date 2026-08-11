@@ -9,5 +9,6 @@ export const PATHS = {
   EXOVISTA: '/exovista',
   DEEP_SKY_EXPLORER: '/deep-sky-explorer',
   OBSERVATION_PLANNER: '/observation-planner',
+  LUNAR_OBSERVATORY: '/lunar-observatory',
   CREDITS: '/credits',
 };

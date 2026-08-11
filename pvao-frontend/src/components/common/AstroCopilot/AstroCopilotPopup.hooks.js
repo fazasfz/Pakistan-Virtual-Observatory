@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { askAstroCopilot } from './astroCopilotApi';
+import { useAstroCopilotContext } from '../../../context/AstroCopilotContext';
 
 export const useCopilotState = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, setIsOpen } = useAstroCopilotContext();
   const [messages, setMessages] = useState([
     { id: 1, sender: 'ai', text: 'Astro-Copilot online. How can I assist with your observations today?' }
   ]);
