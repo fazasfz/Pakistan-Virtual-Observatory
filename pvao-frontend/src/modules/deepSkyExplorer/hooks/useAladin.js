@@ -29,6 +29,15 @@ export function useAladin(options = {}) {
     });
 
     setAladin(instance);
+    // Enable clickable object info popups (SIMBAD catalog)
+    instance.addCatalog(
+      A.catalogFromSimbad(
+        options.target || '0 0',
+        options.fov || 60,
+        { onClick: 'showPopup' }
+       )
+    );
+
     setIsReady(true);
 
     // Cleanup on unmount

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CategoryLanding from './components/CategoryLanding';
 import DeepSkyViewer from './components/DeepSkyViewer';
 
 const DeepSkyExplorer = () => {
+  const [category, setCategory] = useState(null);
+
   return (
     <div style={{ padding: '1rem' }}>
-      <h2 style={{ fontFamily: 'var(--font-mono)' }}>Deep Sky Explorer</h2>
-      <DeepSkyViewer />
+      {!category ? (
+        <CategoryLanding onSelectCategory={setCategory} />
+      ) : (
+        <DeepSkyViewer category={category} onBack={() => setCategory(null)} />
+      )}
     </div>
   );
 };

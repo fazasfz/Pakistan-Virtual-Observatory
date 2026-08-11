@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from .service import get_object_info, get_object_images
 from .schemas import ObjectInfo, ObjectImagesResponse
 
-router = APIRouter(prefix="/api/deep-sky-explorer", tags=["Deep Sky Explorer"])
+router = APIRouter(tags=["Deep Sky Explorer"])
 
 
 @router.get("/object/{object_name}", response_model=ObjectInfo)
