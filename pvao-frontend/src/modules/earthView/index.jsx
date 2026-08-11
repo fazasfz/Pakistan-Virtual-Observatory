@@ -1,11 +1,18 @@
 import React from 'react';
+import 'leaflet/dist/leaflet.css';
+import EarthMap from './EarthMap';
+import './earthView.css';
 
-const SubPage = () => {
+const EarthView = () => {
   return (
-    <div style={{ padding: '2rem', textAlign: 'center', fontFamily: 'var(--font-mono)', color: 'var(--brass)' }}>
-      <h2>SUB-MODULE</h2>
-      <p style={{ color: 'var(--slate-ui)' }}>System calibrating...</p>
+    <div className="earthview-page">
+      <div className="earthview-title-panel">
+        <span className="earthview-title">EARTH OBSERVATORY</span>
+        <span className="earthview-subtitle">Live map · click anywhere</span>
+      </div>
+      <EarthMap />
     </div>
   );
 };
-export default SubPage;
+
+export default EarthView;

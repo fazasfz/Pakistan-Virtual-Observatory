@@ -78,5 +78,14 @@ export const modulesData = [
     bgImage: imgObservationPlanner,
     externalUrl: 'https://observation-planner-placeholder-url.com',
     sourceTag: 'Global Telescope Network • Scheduling System'
+  },
+  {
+    id: 'lunar-observatory',
+    number: 'MOD.09',
+    name: 'Lunar Observatory',
+    path: '/lunar-observatory',
+    description: 'Live moon data and interactive 3D lunar surface map.',
+    bgImage: imgSkyPortal,
+    sourceTag: 'NASA Goddard SVS • USGS Gazetteer'
   }
 ];

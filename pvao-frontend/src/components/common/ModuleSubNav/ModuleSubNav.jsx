@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Telescope, Star, Satellite, Sun, Globe, Orbit, Compass, Calendar } from 'lucide-react';
+import { Telescope, Star, Satellite, Sun, Globe, Orbit, Compass, Calendar, Moon } from 'lucide-react';
 import { modulesData } from '../../../pages/landing/data/modules.data';
 import styles from './ModuleSubNav.module.css';
 
@@ -13,6 +13,7 @@ const iconMap = {
   'exovista': Compass,
   'solar-system-simulator': Orbit,
   'observation-planner': Calendar,
+  'lunar-observatory': Moon,
 };
 
 export default function ModuleSubNav() {

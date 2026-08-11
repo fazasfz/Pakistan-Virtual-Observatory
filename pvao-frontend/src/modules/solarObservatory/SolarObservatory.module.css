@@ -1,0 +1,1236 @@
+.mainWrapper {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #020205;
+    color: #fff;
+}
+
+.fullScreenHero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.denseStarsLayer1,
+.denseStarsLayer2 {
+    position: absolute;
+    inset: -100px;
+    background-repeat: repeat;
+    pointer-events: none;
+}
+
+.denseStarsLayer1 {
+    background-image:
+        radial-gradient(1px 1px at 25px 40px, #ffffff, transparent),
+        radial-gradient(1.5px 1.5px at 120px 220px, #ffcc00, transparent),
+        radial-gradient(1px 1px at 280px 90px, #ffffff, transparent),
+        radial-gradient(2px 2px at 340px 300px, #ff6600, transparent);
+    background-size: 350px 350px;
+    animation: starTwinkle 3s ease-in-out infinite alternate;
+}
+
+.denseStarsLayer2 {
+    background-image:
+        radial-gradient(1px 1px at 70px 180px, #ffffff, transparent),
+        radial-gradient(1.2px 1.2px at 200px 310px, #ffaa00, transparent),
+        radial-gradient(1px 1px at 310px 140px, #ffffff, transparent);
+    background-size: 450px 450px;
+    animation: starDrift 90s linear infinite;
+}
+
+.nebulaGlow {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 70% 30%, rgba(180, 50, 0, 0.18) 0%, transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(255, 120, 0, 0.12) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.unifiedGlassSidebar {
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 280px;
+    background: rgba(12, 10, 15, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(243, 156, 18, 0.25);
+    border-radius: 12px;
+    padding: 1.5rem;
+    z-index: 10;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+}
+
+.sidebarHeader {
+    color: #f39c12;
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: serif;
+}
+
+.metricSection {
+    margin-bottom: 0.8rem;
+}
+
+.sectionLabel {
+    color: #f39c12;
+    font-size: 0.65rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    font-family: monospace;
+}
+
+.metricValue {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.1;
+    font-family: monospace;
+}
+
+.metricValueHighlight {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ff5533;
+    line-height: 1.1;
+    font-family: monospace;
+}
+
+.metricUnit {
+    font-size: 0.8rem;
+    color: #888;
+    font-weight: 400;
+}
+
+.metricSubLabel {
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-bottom: 0.6rem;
+}
+
+.divider {
+    border: 0;
+    height: 1px;
+    background: rgba(243, 156, 18, 0.2);
+    margin: 1rem 0;
+}
+
+.solarStage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sunViewport {
+    position: relative;
+    width: 580px;
+    height: 580px;
+    border-radius: 50%;
+    cursor: grab;
+    transition: transform 0.05s ease-out;
+}
+
+.outerFlareRay {
+    position: absolute;
+    inset: -90px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 100, 0, 0.5) 0%, rgba(243, 156, 18, 0.2) 40%, transparent 70%);
+    filter: blur(25px);
+    animation: flarePulse 4s ease-in-out infinite alternate;
+}
+
+.plasmaCorona {
+    position: absolute;
+    inset: -30px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ff6600 0%, #d35400 50%, rgba(144, 12, 63, 0.8) 80%, transparent 100%);
+    filter: blur(12px);
+}
+
+.chromosphereFlares {
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    box-shadow: 0 0 60px #ff4500, inset 0 0 50px #ff2200;
+}
+
+.photosphereCore {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    overflow: hidden;
+    background: radial-gradient(circle, #fff3cd 0%, #ffaa00 35%, #e65100 75%, #800000 100%);
+    box-shadow: inset -20px -20px 80px rgba(0, 0, 0, 0.8);
+}
+
+.turbulentPlasmaTexture {
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, #ffe082 10%, #ff8f00 40%, #d84315 70%, #4e0d00 95%);
+    mix-blend-mode: overlay;
+    opacity: 0.9;
+    animation: rotateSun 180s linear infinite;
+}
+
+.organicSunspot {
+    position: absolute;
+    width: 26px;
+    height: 22px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+}
+
+.penumbraRing {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, #7a2d00 20%, #3d1400 80%);
+    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    filter: blur(1px);
+}
+
+.umbraCore {
+    position: absolute;
+    inset: 5px;
+    background: #080100;
+    border-radius: 40% 60% 50% 50% / 55% 40% 60% 45%;
+    box-shadow: 0 0 4px #000;
+}
+
+.fixedDetailPanel {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(10, 10, 15, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid #f39c12;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    color: #fff;
+    font-family: monospace;
+    font-size: 0.85rem;
+    z-index: 20;
+    pointer-events: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+}
+
+.timestampBadge {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 2rem;
+    color: #f39c12;
+    font-family: monospace;
+    font-size: 0.8rem;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(243, 156, 18, 0.3);
+}
+
+.gallerySection {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    width: 100%;
+}
+
+.galleryHeading {
+    color: #f39c12;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-family: serif;
+}
+
+.galleryGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.imageCard {
+    flex: 1 1 220px;
+    background-color: #121212;
+    border: 1px solid #222;
+    border-radius: 6px;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.solarImage {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: #000;
+}
+
+.imageCaption {
+    margin-top: 0.5rem;
+    font-size: 0.75rem;
+    color: #aaa;
+    font-family: monospace;
+    text-align: center;
+}
+
+.imagePlaceholder {
+    width: 100%;
+    height: 200px;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f39c12;
+    font-size: 0.8rem;
+    font-family: monospace;
+    border-radius: 4px;
+}
+
+@keyframes starTwinkle {
+    0% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes starDrift {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-450px);
+    }
+}
+
+@keyframes flarePulse {
+    from {
+        transform: scale(0.96);
+        opacity: 0.7;
+    }
+
+    to {
+        transform: scale(1.05);
+        opacity: 1;
+    }
+}
+
+@keyframes rotateSun {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.sketchfabWrapper {
+    position: relative;
+    width: 650px;
+    height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    box-shadow: 0 0 80px rgba(255, 100, 0, 0.35);
+}
+
+.sketchfabIframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+}
+
+.hotspotOverlayLayer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+.hotspotOverlayLayer .organicSunspot {
+    pointer-events: auto;
+}
+
+.organicSunspot {
+    position: absolute;
+    width: 12px;
+    height: 10px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.2s ease, transform 0.1s linear;
+    mix-blend-mode: multiply;
+    filter: drop-shadow(0 0 2px rgba(100, 20, 0, 0.8));
+}
+
+.organicSunspot:hover {
+    transform: translate(-50%, -50%) scale(1.35);
+    mix-blend-mode: normal;
+}
+
+.penumbraRing {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(80, 20, 0, 0.9) 20%, rgba(40, 10, 0, 0.7) 80%);
+    border-radius: 48% 52% 58% 42% / 52% 48% 52% 48%;
+    filter: blur(0.8px);
+}
+
+.umbraCore {
+    position: absolute;
+    inset: 2px;
+    background: #050100;
+    border-radius: 40% 60% 50% 50% / 55% 40% 60% 45%;
+    box-shadow: inset 0 0 2px #000;
+}
+
+.sketchfabIframe :global(.annotation-container),
+.sketchfabIframe :global(.s-annotation) {
+    background: rgba(10, 5, 0, 0.85) !important;
+    border: 1px solid #c8893b !important;
+    border-radius: 50% !important;
+    width: 14px !important;
+    height: 14px !important;
+    box-shadow: 0 0 8px rgba(200, 137, 59, 0.8) !important;
+}
+
+.sketchfabIframe :global(.annotation-tooltip) {
+    background: rgba(15, 12, 10, 0.9) !important;
+    border: 1px solid #f39c12 !important;
+    color: #e0e0e0 !important;
+    font-family: monospace !important;
+    font-size: 0.75rem !important;
+    border-radius: 6px !important;
+    backdrop-filter: blur(8px);
+}
+
+.hotspotOverlayLayer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.organicSunspot {
+    position: absolute;
+    width: 20px;
+    height: 18px;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    pointer-events: auto;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.organicSunspot:hover {
+    transform: translate(-50%, -50%) scale(1.4);
+    z-index: 20;
+}
+
+.penumbraRing {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(160, 50, 0, 0.95) 20%, rgba(60, 15, 0, 0.85) 80%);
+    border-radius: 48% 52% 58% 42% / 52% 48% 52% 48%;
+    box-shadow: 0 0 6px rgba(255, 100, 0, 0.7);
+}
+
+.umbraCore {
+    position: absolute;
+    inset: 4px;
+    background: #080200;
+    border-radius: 40% 60% 50% 50% / 55% 40% 60% 45%;
+    box-shadow: inset 0 0 4px #000;
+}
+
+.spotPulseRing {
+    position: absolute;
+    inset: -4px;
+    border: 1px dashed rgba(243, 156, 18, 0.6);
+    border-radius: 50%;
+    animation: spotPulse 2.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes spotPulse {
+    0% {
+        transform: scale(0.9);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(0.9);
+        opacity: 0.3;
+    }
+}
+
+.chartLoading {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #e2e8f0;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.chartError {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #ef4444;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.chartBody :global(.recharts-cartesian-axis-tick-value) {
+    fill: #e2e8f0;
+    font-size: 11px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.chartBody :global(.recharts-default-tooltip) {
+    background-color: #0f172a !important;
+    border-color: #334155 !important;
+    color: #f8fafc !important;
+    border-radius: 8px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.chartTitle {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #ff8c00;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    margin-bottom: 20px;
+    text-transform: none;
+}
+
+.chartCard {
+    margin-top: 48px;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+
+.sectionTitle {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #ff8c00;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    margin-top: 40px;
+    margin-bottom: 24px;
+    text-align: left;
+}
+
+.chartBody {
+    width: 100%;
+    height: 320px;
+    min-height: 320px;
+    margin-bottom: 32px;
+}
+
+.factsWrapper {
+    margin-top: 48px;
+    margin-bottom: 48px;
+    padding: 0 24px;
+}
+
+.tickerContainer {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    border-radius: 12px;
+    padding: 24px 32px;
+    backdrop-filter: blur(8px);
+    position: relative;
+}
+
+.tickerHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.tickerBadge {
+    background-color: rgba(255, 140, 0, 0.15);
+    color: #ff8c00;
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+}
+
+.tickerCategory {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    letter-spacing: 0.03em;
+}
+
+.tickerBody {
+    min-height: 80px;
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+.fadeIn {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fadeOut {
+    opacity: 0;
+    transform: translateY(-6px);
+}
+
+.factQuestion {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #f8fafc;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.factAnswer {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #cbd5e1;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.dotsContainer {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.activeDot {
+    background-color: #ff8c00;
+    width: 20px;
+    border-radius: 4px;
+}
+
+/* Gallery Interactive Card Style */
+.imageCard {
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.imageCard:hover {
+    transform: translateY(-4px);
+}
+
+/* Modal Backdrop Overlay */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(5, 8, 15, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Modal Wrapper Box */
+.modalContent {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+/* Fullscreen High-Res Image */
+.fullSolarImage {
+    max-width: 80vw;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+/* Close Button (top-right of modal) */
+.closeButton {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: #ff8c00;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.closeButton:hover {
+    color: #ffffff;
+}
+
+/* Modal Bottom Caption */
+.modalCaption {
+    margin-top: 16px;
+    text-align: center;
+}
+
+.modalCaption h3 {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #ff8c00;
+    font-size: 1.2rem;
+    margin: 0 0 4px 0;
+}
+
+.modalCaption p {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.modalCaption kbd {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #f8fafc;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.flaresSection {
+    margin-top: 48px;
+    margin-bottom: 32px;
+    padding: 0 24px;
+}
+
+.flaresGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: stretch;
+}
+
+.flareTelemetryCard {
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 140, 0, 0.25);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    backdrop-filter: blur(8px);
+}
+
+.telemetryHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.telemetryBadge {
+    background-color: rgba(255, 140, 0, 0.15);
+    color: #ff8c00;
+    border: 1px solid rgba(255, 140, 0, 0.3);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+}
+
+.liveIndicator {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 0.75rem;
+    color: #22c55e;
+    letter-spacing: 0.05em;
+}
+
+.telemetryStatus {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #94a3b8;
+    font-size: 0.95rem;
+    padding: 20px 0;
+}
+
+.telemetryError {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #ef4444;
+    font-size: 0.95rem;
+    padding: 20px 0;
+}
+
+.flareClassContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.flareMetric {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.metricLabel {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.metricValueNormal {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+    color: #38bdf8;
+    font-weight: 600;
+}
+
+.metricValuePeak {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+    color: #ff8c00;
+    font-weight: 600;
+}
+
+.telemetryDescription {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .flaresGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.embeddedImageWrapper {
+    margin-top: 1.5rem;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+.embeddedImageWrapper:hover {
+    border-color: rgba(255, 165, 0, 0.5);
+}
+
+.solarImage {
+    max-width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.imageCaption {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: #a0aec0;
+    font-family: monospace;
+}
+
+.flaresGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+}
+
+.flareImageCard {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.flareImageCard:hover {
+    border-color: rgba(0, 200, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.galleryStyleImage {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.cardInnerLayout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.cardTextContent {
+    flex: 1;
+}
+
+.embeddedRightImageWrapper {
+    width: 280px;
+    height: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.embeddedRightImageWrapper:hover {
+    border-color: rgba(0, 200, 255, 0.4);
+    transform: scale(1.02);
+}
+
+.galleryStyleImage {
+    width: 100%;
+    height: calc(100% - 1.5rem);
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.chartsContainer {
+    margin-top: 2.5rem;
+    width: 100%;
+}
+
+.doubleChartStack {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.chartCard {
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.chartSubTitle {
+    font-size: 1rem;
+    color: #cbd5e1;
+    margin-bottom: 1rem;
+    font-family: monospace;
+}
+
+.chartBodyComposed {
+    width: 100%;
+    height: 300px;
+}
+
+.chartBodyRadial {
+    width: 100%;
+    height: 350px;
+}
+
+.chartsContainer {
+    margin-top: 2.5rem;
+    width: 100%;
+}
+
+.sideBySideGrid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.chartCard {
+    flex: 1;
+    min-width: 0;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.chartSubTitle {
+    font-size: 1rem;
+    color: #cbd5e1;
+    margin-bottom: 1rem;
+    font-family: monospace;
+}
+
+.chartsContainer {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sideBySideGrid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.chartCard {
+    flex: 1;
+    min-width: 0;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+}
+
+.chartSubTitle {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: monospace;
+}
+
+.chartBodyComposed,
+.chartBodyRadial {
+    width: 100%;
+    height: 320px;
+}
+
+.sectionWrapper {
+    width: 100%;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    box-sizing: border-box;
+}
+
+.sideBySideGrid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.chartCard {
+    flex: 1;
+    min-width: 0;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+}
+
+.chartSubTitle {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: monospace;
+}
+
+.chartBodyComposed,
+.chartBodyRadial {
+    width: 100%;
+    height: 320px;
+}
+
+.sectionWrapper {
+    width: 100%;
+    margin: 2rem 0;
+    box-sizing: border-box;
+}
+
+.sideBySideGrid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.chartCard {
+    flex: 1;
+    min-width: 0;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+}
+
+.chartSubTitle {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: monospace;
+}
+
+.chartBodyComposed,
+.chartBodyRadial {
+    width: 100%;
+    height: 320px;
+}
+
+/* Layout Wrapper for Sections */
+.sectionWrapper {
+    width: 100%;
+    margin: 2rem 0;
+    box-sizing: border-box;
+}
+
+/* Image Cards Top Grid (The Sun Right Now) */
+.imageCard {
+    background: #0c0f17;
+    border: 1px solid #883e0c;
+    /* Golden border matching solar theme */
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+/* Main Flare Activity Container */
+.flareContainer {
+    background: #0c0f17;
+    /* Changed from blue to dark greyish-black */
+    border: 1px solid #883e0c;
+    /* Golden border */
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Side-by-Side Flex Grid for Charts */
+.sideBySideGrid {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Chart Cards (Composed Metrics & Radial Metrics) */
+.chartCard {
+    flex: 1;
+    min-width: 0;
+    background: #0c0f17;
+    /* Dark greyish-black background */
+    border: 1px solid #883e0c;
+    /* Golden border outline */
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.chartSubTitle {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-family: monospace;
+}
+
+.chartBodyComposed,
+.chartBodyRadial {
+    width: 100%;
+    height: 320px;
+}
+
+.solarStage {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

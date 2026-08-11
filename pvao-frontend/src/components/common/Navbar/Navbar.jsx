@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { Telescope, Menu as MenuIcon } from 'lucide-react';
 import { PATHS } from '../../../routes/routePaths';
 import { useBreakpoint } from '../../../hooks/useBreakpoint';
+import { useAstroCopilotContext } from '../../../context/AstroCopilotContext';
 import styles from './Navbar.module.css';
 
 const { Header } = Layout;
@@ -11,6 +12,7 @@ const { Header } = Layout;
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isMobile } = useBreakpoint();
+  const { openCopilot } = useAstroCopilotContext();
 
   return (
     <Header className={styles.navbar}>
@@ -44,6 +46,13 @@ const Navbar = () => {
             >
               CREDITS
             </NavLink>
+            <button
+              onClick={openCopilot}
+              className={styles.navBtn}
+              style={{ marginRight: '16px', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
+            >
+              ASTRO-COPILOT
+            </button>
             <div className={styles.statusIndicator}>
               <span className={styles.pulseDot}></span>
               <span className={styles.statusLabel}>SYSTEM ONLINE</span>
@@ -86,6 +95,16 @@ const Navbar = () => {
           >
             <span className={styles.modNumber}>SYS.01</span> CREDITS
           </NavLink>
+          <button 
+            className={styles.mobileModuleLink}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', textAlign: 'left' }}
+            onClick={() => {
+              setMobileMenuOpen(false);
+              openCopilot();
+            }}
+          >
+            <span className={styles.modNumber}>SYS.02</span> ASTRO-COPILOT
+          </button>
           <div className={styles.mobileStatusWrapper}>
             <div className={styles.statusIndicator}>
               <span className={styles.pulseDot}></span>
