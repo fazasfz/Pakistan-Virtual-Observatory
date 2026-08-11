@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CategoryLanding from './components/CategoryLanding';
+import DeepSkyViewer from './components/DeepSkyViewer';
 
-const SubPage = () => {
+const DeepSkyExplorer = () => {
+  const [category, setCategory] = useState(null);
+
   return (
-    <div style={{ padding: '2rem', textAlign: 'center', fontFamily: 'var(--font-mono)', color: 'var(--brass)' }}>
-      <h2>SUB-MODULE</h2>
-      <p style={{ color: 'var(--slate-ui)' }}>System calibrating...</p>
+    <div style={{ padding: '1rem' }}>
+      {!category ? (
+        <CategoryLanding onSelectCategory={setCategory} />
+      ) : (
+        <DeepSkyViewer category={category} onBack={() => setCategory(null)} />
+      )}
     </div>
   );
 };
-export default SubPage;
+
+export default DeepSkyExplorer;

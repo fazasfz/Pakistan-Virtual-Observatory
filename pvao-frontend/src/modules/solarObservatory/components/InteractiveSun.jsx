@@ -1,7 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../SolarObservatory.module.css';
 
 export const InteractiveSun = ({ telemetry, loading }) => {
+    const [currentTime, setCurrentTime] = useState('');
+
+    useEffect(() => {
+        const updateTime = () => {
+            const now = new Date();
+            const options = {
+                timeZone: 'Asia/Karachi',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            setCurrentTime(now.toLocaleString('en-US', options));
+        };
+        
+        updateTime();
+        const interval = setInterval(updateTime, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
     const embedUrl =
         'https://sketchfab.com/models/4cc0061b574941c4b6e77858a3d6acc7/embed?autostart=1&internal=1&ui_animation=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0';
 
@@ -21,7 +44,7 @@ export const InteractiveSun = ({ telemetry, loading }) => {
 
             <div className={styles.timestampBadge}>
                 LIVE OBSERVED TIME (PKT):{' '}
-                {loading ? 'FETCHING...' : telemetry?.timestamp_pkt || 'N/A'}
+                {currentTime}
             </div>
         </div>
     );

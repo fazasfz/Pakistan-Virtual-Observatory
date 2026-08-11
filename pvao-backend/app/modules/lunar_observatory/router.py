@@ -10,8 +10,8 @@ async def fetch_live_data():
     return get_live_data()
 
 @router.get("/features", response_model=List[LunarFeature])
-async def fetch_features(category: Optional[str] = Query(None)):
-    return get_features(category)
+async def fetch_features(category: Optional[str] = Query(None), dataset: str = Query("curated")):
+    return get_features(category, dataset)
 
 @router.get("/features/{feature_id}", response_model=LunarFeature)
 async def fetch_feature(feature_id: str):

@@ -46,16 +46,16 @@
 
 .featureName {
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 14px;
   color: white;
 }
 
 .featureCategory {
   font-family: var(--font-mono, monospace);
-  font-size: var(--text-xs, 0.65rem);
+  font-size: 10px;
   color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0.05em;
 }
 
 .emptyState {

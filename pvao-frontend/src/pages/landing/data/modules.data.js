@@ -1,12 +1,13 @@
 // pvao-frontend/src/pages/landing/data/modules.data.js
 import imgSkyPortal from '../../../assets/images/modules/sky-portal.jpg';
-import imgSatellite from '../../../assets/images/modules/satellite-tracker.jpg';
+import imgAstronomicalProbe from '../../../assets/images/modules/astronomical-probe-tracker.jpg';
 import imgSolarObservatory from '../../../assets/images/modules/solar-observatory.jpg';
 import imgEarth from '../../../assets/images/modules/earth.jpg';
 import imgDeepSky from '../../../assets/images/modules/deep-sky.jpg';
-import imgExovista from '../../../assets/images/modules/exovista.jpg';
+import imgExora from '../../../assets/images/modules/exora-bg.jpg';
 import imgSolarSystem from '../../../assets/images/modules/solar-system.jpg';
 import imgObservationPlanner from '../../../assets/images/modules/observation-planner.jpg';
+import imgLunar from '../../../assets/images/modules/lunar-bg.jpg';
 
 export const modulesData = [
   { 
@@ -18,12 +19,12 @@ export const modulesData = [
     bgImage: imgSkyPortal
   },
   { 
-    id: 'satellite-tracker', 
+    id: 'astronomical-probe-tracker', 
     number: 'MOD.02', 
-    name: 'Satellite Tracker', 
-    path: '/satellite-tracker',
+    name: 'Astronomical Probe Tracker', 
+    path: '/astronomical-probe-tracker',
     description: 'Track the positions and orbits of satellites circling the Earth.',
-    bgImage: imgSatellite
+    bgImage: imgAstronomicalProbe
   },
   { 
     id: 'solar-observatory', 
@@ -50,13 +51,13 @@ export const modulesData = [
     bgImage: imgDeepSky
   },
   { 
-    id: 'exovista', 
-    number: 'MOD.06', 
-    name: 'ExoVista', 
-    path: '/exovista',
-    description: 'Explore worlds beyond our solar system',
-    bgImage: imgExovista,
-    externalUrl: 'https://exovista-placeholder-url.com',
+    id: 'exora', 
+    category: 'DEEP COSMOS & EXOPLANET', 
+    name: 'Exora', 
+    path: '/exora',
+    description: 'Explore visually stunning, scientifically accurate renderings of known exoplanets based on transit data.',
+    bgImage: imgExora,
+    externalUrl: 'https://exora-placeholder-url.com',
     sourceTag: 'NASA Data Explorer • Digital Observatory'
   },
   { 
@@ -66,8 +67,8 @@ export const modulesData = [
     path: '/solar-system-simulator',
     description: 'Simulate planetary alignments and near-earth object tracking.',
     bgImage: imgSolarSystem,
-    externalUrl: 'https://solar-system-simulator-placeholder-url.com',
-    sourceTag: 'JPL Orbit Simulator • Real-time Physics Engine'
+    externalUrl: 'https://dynamix209.github.io/solar-system-orbital-simulator/',
+    sourceTag: 'Community Orbital Simulator • Open Source'
   },
   { 
     id: 'observation-planner', 
@@ -85,7 +86,7 @@ export const modulesData = [
     name: 'Lunar Observatory',
     path: '/lunar-observatory',
     description: 'Live moon data and interactive 3D lunar surface map.',
-    bgImage: imgSkyPortal,
+    bgImage: imgLunar,
     sourceTag: 'NASA Goddard SVS • USGS Gazetteer'
   }
 ];
