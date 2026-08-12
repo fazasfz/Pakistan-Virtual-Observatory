@@ -19,4 +19,5 @@ api_router.include_router(
     prefix="/deep-sky-explorer",
     tags=["Deep Sky Explorer"]
 )
+
 # Add other routers here as they are developed

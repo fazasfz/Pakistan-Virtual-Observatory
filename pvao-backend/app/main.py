@@ -22,7 +22,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def on_startup():
-    await init_db()
+    pass 
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
