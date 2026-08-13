@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { ChevronRight } from 'lucide-react';
 import styles from './FeatureList.module.css';
 
@@ -30,4 +30,4 @@ const FeatureList = ({ features, loading, selectedFeatureId, onSelectFeature }) 
   );
 };
 
-export default FeatureList;
+export default memo(FeatureList);

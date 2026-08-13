@@ -24,6 +24,7 @@ class LunarFeature(BaseModel):
     category: str
     latitude: float
     longitude: float
+    diameter: float
     description: str
     visibility: FeatureVisibility
     distance_km: Optional[float] = None

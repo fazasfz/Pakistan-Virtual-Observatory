@@ -1,0 +1,156 @@
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+}
+
+.welcomeCard {
+  background: var(--bg-obsidian, #141414);
+  border: 1px solid var(--border-subtle, rgba(255,255,255,0.1));
+  border-radius: var(--radius-lg, 12px);
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+}
+
+.welcomeTitle {
+  color: var(--starlight, #F4EFE6);
+  font-family: var(--font-primary, sans-serif);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.welcomeText {
+  color: var(--obsidian-light, #8a8a9a);
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.welcomeActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.tourCard {
+  background: var(--bg-obsidian, #141414);
+  border: 1px solid var(--border-subtle, rgba(255,255,255,0.1));
+  border-radius: var(--radius-lg, 12px);
+  width: 320px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+  animation: slideUp 0.3s ease-out forwards;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tourImageContainer {
+  height: 140px;
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-subtle, rgba(255,255,255,0.1));
+}
+
+.tourImage {
+  width: 64px;
+  height: 64px;
+  color: var(--accent-gold, #cda434);
+}
+
+.tourContent {
+  padding: 1.5rem;
+}
+
+.tourHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.tourTitle {
+  color: var(--starlight, #F4EFE6);
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.stepCounter {
+  color: var(--obsidian-light, #8a8a9a);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.8rem;
+}
+
+.tourDescription {
+  color: var(--obsidian-light, #8a8a9a);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.tourActions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skipButton {
+  background: none;
+  border: none;
+  color: var(--obsidian-light, #8a8a9a);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  transition: color 0.2s;
+}
+
+.skipButton:hover {
+  color: var(--starlight, #F4EFE6);
+}
+
+.nextButton {
+  background: var(--accent-gold, #cda434);
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.nextButton:hover {
+  opacity: 0.9;
+}
+
+.primaryButton {
+  background: var(--accent-gold, #cda434);
+  color: #000;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.secondaryButton {
+  background: transparent;
+  color: var(--obsidian-light, #8a8a9a);
+  border: 1px solid var(--border-subtle, rgba(255,255,255,0.1));
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}

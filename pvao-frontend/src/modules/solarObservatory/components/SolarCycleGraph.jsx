@@ -4,6 +4,7 @@ import {
     Tooltip, Legend, ResponsiveContainer, RadialBarChart, RadialBar
 } from 'recharts';
 import styles from '../SolarObservatory.module.css';
+import SectionHeading from '../../../components/common/SectionHeading/SectionHeading';
 
 export const SolarCycleGraph = () => {
     const [cycleData, setCycleData] = useState([]);
@@ -49,7 +50,7 @@ export const SolarCycleGraph = () => {
 
     return (
         <div className={styles.sectionWrapper}>
-            <h2 className={styles.sectionTitle}>Solar Cycle Progression & Radial Diagnostics</h2>
+            <SectionHeading>Solar Cycle Progression & Radial Diagnostics</SectionHeading>
 
             {loading && <div className={styles.chartLoading}>Fetching real-time NOAA data...</div>}
             {error && <div className={styles.chartError}>Error: {error}</div>}

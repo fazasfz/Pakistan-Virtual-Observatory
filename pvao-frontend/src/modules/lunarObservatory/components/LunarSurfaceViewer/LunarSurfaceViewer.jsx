@@ -1,10 +1,11 @@
+import React, { memo } from 'react';
 import '@google/model-viewer';
 import styles from './LunarSurfaceViewer.module.css';
 
-export default function LunarSurfaceViewer({ liveData, features = [], onSelectFeature }) {
+const LunarSurfaceViewer = ({ liveData, features = [], onSelectFeature }) => {
   // Phase angle: 0 = New Moon, 90 = First Quarter, 180 = Full Moon, 270 = Third Quarter
   const sunAngle = liveData?.sun_moon_angle ?? 180;
-  const rotationY = 180 - sunAngle;
+  const rotationY = parseFloat((180 - sunAngle).toFixed(1));
 
   return (
     <div className={styles.wrapper}>
@@ -33,4 +34,6 @@ export default function LunarSurfaceViewer({ liveData, features = [], onSelectFe
       </model-viewer>
     </div>
   );
-}
+};
+
+export default memo(LunarSurfaceViewer);

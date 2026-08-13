@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../SolarObservatory.module.css';
+import SectionHeading from '../../../components/common/SectionHeading/SectionHeading';
 
 export const SolarFlares = ({ flareImage = '', loading = false }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -36,7 +37,7 @@ export const SolarFlares = ({ flareImage = '', loading = false }) => {
 
     return (
         <section className={styles.flaresSection}>
-            <h2 className={styles.sectionTitle}>Solar Flare Activity & High-Energy EUV</h2>
+            <SectionHeading>Solar Flare Activity & High-Energy EUV</SectionHeading>
 
             {/* Main Single Card Container */}
             <div className={styles.flareTelemetryCard}>

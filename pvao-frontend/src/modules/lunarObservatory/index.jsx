@@ -7,21 +7,21 @@ import MoonVisibilityCard from './components/MoonVisibilityCard/MoonVisibilityCa
 import { useLunarData } from './hooks/useLunarData';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { useFeatureCatalogue } from './hooks/useFeatureCatalogue';
-import FeatureSearch from './components/FeatureSearch/FeatureSearch';
-import CategoryFilters from './components/CategoryFilters/CategoryFilters';
-import FeatureList from './components/FeatureList/FeatureList';
-import FeatureDetailPanel from './components/FeatureDetailPanel/FeatureDetailPanel';
-import MoonWeight from './components/MoonWeight/MoonWeight';
 import LunarMap2D from './components/LunarMap2D/LunarMap2D';
 import ViewModeSelector from './components/ViewModeSelector/ViewModeSelector';
 import MoonPhaseSnapshot from './components/MoonPhaseSnapshot/MoonPhaseSnapshot';
 import LunarFunFacts from './components/LunarFunFacts/LunarFunFacts';
+import MoonRightNowGrid from './components/MoonRightNowGrid/MoonRightNowGrid';
+import FeatureExploreSection from './components/FeatureExploreSection/FeatureExploreSection';
+import FeatureDetailsSection from './components/FeatureDetailsSection/FeatureDetailsSection';
+
+import { lunarFunFacts } from './components/LunarFunFacts/funFacts.data';
+import LoadingOverlay from '../../components/common/LoadingOverlay/LoadingOverlay';
 
 const LunarObservatory = () => {
   const { liveData, loading: liveLoading, error } = useLunarData();
   const { width } = useBreakpoint();
   const isMobile = width <= 1024;
-  const [activeTab, setActiveTab] = useState('TELEMETRY');
   const [viewMode, setViewMode] = useState('Snapshot');
 
   const {
@@ -35,6 +35,12 @@ const LunarObservatory = () => {
     setSelectedFeatureId,
     nearbyFeatures,
   } = useFeatureCatalogue(viewMode);
+
+  const handleCloseFeature = React.useCallback(() => setSelectedFeatureId(null), [setSelectedFeatureId]);
+
+  if (liveLoading || catalogLoading) {
+    return <LoadingOverlay funFacts={lunarFunFacts.map(fact => fact.answer)} />;
+  }
 
   return (
     <div className={styles.container}>
@@ -50,85 +56,80 @@ const LunarObservatory = () => {
       </header>
 
       <div className={`${styles.mainLayout} ${isMobile ? mobileStyles.mainLayoutMobile : ''}`}>
-        <div className={`${styles.viewerSection} ${isMobile ? mobileStyles.viewerSectionMobile : ''}`}>
-          <ViewModeSelector viewMode={viewMode} setViewMode={setViewMode} />
-          
-          {viewMode === 'Snapshot' && (
-            <MoonPhaseSnapshot liveData={liveData} loading={liveLoading} />
-          )}
+        <div className={styles.fullScreenHero}>
+          {/* Main Viewer on the Left */}
+          <div className={`${styles.viewerSection} ${isMobile ? mobileStyles.viewerSectionMobile : ''}`}>
+            <ViewModeSelector viewMode={viewMode} setViewMode={setViewMode} />
+            
+            {viewMode === 'Snapshot' && (
+              <MoonPhaseSnapshot liveData={liveData} loading={liveLoading} />
+            )}
 
-          {viewMode === '3D' && (
-            <LunarSurfaceViewer 
-              liveData={liveData} 
-              features={features} 
-              loading={liveLoading || catalogLoading} 
-              onSelectFeature={setSelectedFeatureId}
-            />
-          )}
-          
-          {['Terrain', 'Geographic', 'Shade'].includes(viewMode) && (
-            <LunarMap2D
-              viewMode={viewMode}
-              features={features}
-              selectedFeature={selectedFeature}
-              onSelectFeature={setSelectedFeatureId}
-            />
-          )}
-          
-          <FeatureDetailPanel 
-            feature={selectedFeature} 
-            nearbyFeatures={nearbyFeatures} 
-            onClose={() => setSelectedFeatureId(null)}
-            onSelectFeature={setSelectedFeatureId}
-          />
-
-          <div className={styles.attribution}>
-            <span>NASA Goddard SVS (3D model, ID:14959)</span>
-            <span className={styles.separator}>·</span>
-            <span>USGS Gazetteer of Planetary Nomenclature</span>
-          </div>
-        </div>
-
-        <aside className={`${styles.hudSidebar} ${isMobile ? mobileStyles.hudSidebarMobile : ''}`}>
-          <div className={styles.tabsContainer}>
-            <button 
-              className={`${styles.tab} ${activeTab === 'TELEMETRY' ? styles.tabActive : ''}`}
-              onClick={() => setActiveTab('TELEMETRY')}
-            >
-              TELEMETRY
-            </button>
-            <button 
-              className={`${styles.tab} ${activeTab === 'EXPLORE' ? styles.tabActive : ''}`}
-              onClick={() => setActiveTab('EXPLORE')}
-            >
-              EXPLORE
-            </button>
-          </div>
-
-          {error && <div className={styles.error}>Error loading lunar data</div>}
-          
-          {activeTab === 'TELEMETRY' && (
-            <div className={styles.tabContent}>
-              <MoonPhaseCard data={liveData} loading={liveLoading} />
-              <MoonVisibilityCard data={liveData} loading={liveLoading} />
-            </div>
-          )}
-
-          {activeTab === 'EXPLORE' && (
-            <div className={styles.tabContent}>
-              <FeatureSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-              <CategoryFilters activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
-              <FeatureList 
+            {viewMode === '3D' && (
+              <LunarSurfaceViewer 
+                liveData={liveData} 
                 features={features} 
-                loading={catalogLoading} 
-                selectedFeatureId={selectedFeature?.id}
-                onSelectFeature={setSelectedFeatureId} 
+                loading={liveLoading || catalogLoading} 
+                onSelectFeature={setSelectedFeatureId}
               />
-              <MoonWeight />
-              <LunarFunFacts />
+            )}
+            
+            {['Terrain', 'Geographic', 'Shade'].includes(viewMode) && (
+              <LunarMap2D
+                viewMode={viewMode}
+                features={features}
+                selectedFeature={selectedFeature}
+                onSelectFeature={setSelectedFeatureId}
+              />
+            )}
+            
+            <div className={styles.viewerFooter}>
+              {viewMode === 'Snapshot' ? (
+                <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '11px', color: 'var(--obsidian-light, #8a8a9a)', letterSpacing: '0.1em' }}>
+                  2D SNAPSHOT (LIVE)
+                </div>
+              ) : <div />}
+              <div className={styles.attribution}>
+                <span>NASA Goddard SVS (3D model, ID:14959)</span>
+                <span className={styles.separator}>·</span>
+                <span>USGS Gazetteer of Planetary Nomenclature</span>
+              </div>
             </div>
-          )}
-        </aside>
+          </div>
+
+          {/* Persistent Sidebar Card on the Right */}
+          <aside className={`${styles.hudSidebar} ${isMobile ? mobileStyles.hudSidebarMobile : ''}`}>
+            {error && <div className={styles.error}>Error loading lunar data</div>}
+            <MoonPhaseCard data={liveData} loading={liveLoading} />
+            <MoonVisibilityCard data={liveData} loading={liveLoading} />
+          </aside>
+        </div>
+      </div>
+
+      <MoonRightNowGrid setViewMode={setViewMode} />
+      
+      <FeatureExploreSection 
+        searchTerm={searchTerm} 
+        setSearchTerm={setSearchTerm}
+        activeCategory={activeCategory} 
+        setActiveCategory={setActiveCategory}
+        features={features}
+        catalogLoading={catalogLoading}
+        selectedFeatureId={selectedFeature?.id}
+        onSelectFeature={setSelectedFeatureId}
+      />
+      
+      <FeatureDetailsSection 
+        selectedFeature={selectedFeature}
+        nearbyFeatures={nearbyFeatures}
+        onCloseFeature={handleCloseFeature}
+        onSelectFeature={setSelectedFeatureId}
+        liveData={liveData}
+        liveLoading={liveLoading}
+      />
+
+      <div className={styles.funFactsContainer}>
+        <LunarFunFacts />
       </div>
     </div>
   );

@@ -1,0 +1,10 @@
+.sectionTitle {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: #ff8c00;
+    font-size: 1.5rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    margin-top: 40px;
+    margin-bottom: 24px;
+    text-align: left;
+}

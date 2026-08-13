@@ -1,6 +1,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import VisibilityWidget from '../VisibilityWidget/VisibilityWidget';
+import LocatorThumbnail from '../LocatorThumbnail/LocatorThumbnail';
 import styles from './FeatureDetailPanel.module.css';
 
 const FeatureDetailPanel = ({ feature, nearbyFeatures, onClose, onSelectFeature }) => {
@@ -27,17 +28,19 @@ const FeatureDetailPanel = ({ feature, nearbyFeatures, onClose, onSelectFeature 
               <h3 className={styles.sectionTitle}>Coordinates & Size</h3>
               <div className={styles.dataRow}>
                 <span className={styles.dataLabel}>Latitude</span>
-                <span className={styles.dataValue}>{feature.latitude.toFixed(2)}°</span>
+                <span className={styles.dataValue}>{feature.latitude != null ? `${feature.latitude.toFixed(2)}°` : 'Unknown'}</span>
               </div>
               <div className={styles.dataRow}>
                 <span className={styles.dataLabel}>Longitude</span>
-                <span className={styles.dataValue}>{feature.longitude.toFixed(2)}°</span>
+                <span className={styles.dataValue}>{feature.longitude != null ? `${feature.longitude.toFixed(2)}°` : 'Unknown'}</span>
               </div>
               <div className={styles.dataRow}>
                 <span className={styles.dataLabel}>Diameter</span>
-                <span className={styles.dataValue}>{feature.diameter.toFixed(1)} km</span>
+                <span className={styles.dataValue}>{feature.diameter != null ? `${feature.diameter.toFixed(1)} km` : 'Unknown'}</span>
               </div>
             </div>
+            
+            <LocatorThumbnail feature={feature} />
 
             {feature.visibility && (
               <VisibilityWidget visibility={feature.visibility} />

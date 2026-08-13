@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import styles from './FeatureSearch.module.css';
 
 const FeatureSearch = ({ searchTerm, setSearchTerm }) => {
+  const [localSearch, setLocalSearch] = useState(searchTerm);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearchTerm(localSearch);
+    }, 300);
+
+    return () => clearTimeout(handler);
+  }, [localSearch, setSearchTerm]);
+
   return (
     <div className={styles.searchContainer}>
       <Search size={16} className={styles.searchIcon} />
@@ -10,8 +20,8 @@ const FeatureSearch = ({ searchTerm, setSearchTerm }) => {
         type="text"
         className={styles.searchInput}
         placeholder="Search lunar features..."
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        value={localSearch}
+        onChange={(e) => setLocalSearch(e.target.value)}
       />
     </div>
   );

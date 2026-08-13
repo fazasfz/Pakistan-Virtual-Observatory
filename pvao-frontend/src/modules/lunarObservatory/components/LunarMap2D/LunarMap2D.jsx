@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { MapContainer, ImageOverlay, Marker, Popup, useMap } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import styles from './LunarMap2D.module.css';
+import GeologicLegend from '../GeologicLegend/GeologicLegend';
 
 // Fix for default Leaflet marker icons in React
 delete L.Icon.Default.prototype._getIconUrl;
@@ -14,6 +15,14 @@ L.Icon.Default.mergeOptions({
 });
 
 const MOON_BOUNDS = [[-90, -180], [90, 180]];
+
+// Custom marker icon to match our theme
+const customIcon = new L.DivIcon({
+  className: styles.customMarker,
+  html: `<div class="${styles.markerPulse}"></div>`,
+  iconSize: [20, 20],
+  iconAnchor: [10, 10],
+});
 
 // Component to handle flying to selected feature
 function MapController({ selectedFeature }) {
@@ -28,18 +37,33 @@ function MapController({ selectedFeature }) {
   return null;
 }
 
-export default function LunarMap2D({ viewMode, features, selectedFeature, onSelectFeature }) {
-  
-  // Custom marker icon to match our theme
-  const customIcon = new L.DivIcon({
-    className: styles.customMarker,
-    html: `<div class="${styles.markerPulse}"></div>`,
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],
-  });
+const LunarMap2D = ({ viewMode, features, selectedFeature, onSelectFeature }) => {
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [imageError, setImageError] = useState(false);
+
+  // Reset loading state when viewMode changes
+  useEffect(() => {
+    setIsImageLoading(true);
+    setImageError(false);
+  }, [viewMode]);
 
   return (
     <div className={styles.mapContainer}>
+      {viewMode === 'Geographic' && <GeologicLegend />}
+      
+      {isImageLoading && !imageError && (
+        <div className={styles.mapLoadingOverlay}>
+          <div className={styles.spinner}></div>
+          <div>Loading high-resolution map...</div>
+        </div>
+      )}
+
+      {imageError && (
+        <div className={styles.mapErrorOverlay}>
+          <div>Failed to load map asset.</div>
+        </div>
+      )}
+
       <MapContainer 
         center={[0, 0]} 
         zoom={2} 
@@ -53,6 +77,13 @@ export default function LunarMap2D({ viewMode, features, selectedFeature, onSele
         <ImageOverlay
           url={`/assets/maps/${viewMode}.jpg`}
           bounds={MOON_BOUNDS}
+          eventHandlers={{
+            load: () => setIsImageLoading(false),
+            error: () => {
+              setIsImageLoading(false);
+              setImageError(true);
+            }
+          }}
         />
         
         <MarkerClusterGroup
@@ -81,4 +112,6 @@ export default function LunarMap2D({ viewMode, features, selectedFeature, onSele
       </MapContainer>
     </div>
   );
-}
+};
+
+export default memo(LunarMap2D);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../SolarObservatory.module.css';
+import SectionHeading from '../../../components/common/SectionHeading/SectionHeading';
 
 export const LiveSunGallery = ({ images, loading }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -30,7 +31,7 @@ export const LiveSunGallery = ({ images, loading }) => {
 
     return (
         <section className={styles.gallerySection}>
-            <h2 className={styles.sectionTitle}>The Sun Right Now (Live SDO / SOHO)</h2>
+            <SectionHeading>The Sun Right Now (Live SDO / SOHO)</SectionHeading>
             <div className={styles.galleryGrid}>
                 {cards.map((card) => (
                     <div

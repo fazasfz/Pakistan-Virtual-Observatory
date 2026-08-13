@@ -37,7 +37,6 @@ export default function MoonPhaseSnapshot({ liveData, loading }) {
           className={styles.moonLit}
         />
       </svg>
-      <div className={styles.label}>2D SNAPSHOT (LIVE)</div>
     </div>
   );
 }

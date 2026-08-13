@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import axiosClient from '../../../api/axiosClient';
 
 export const useFeatureCatalogue = (viewMode = '3D') => {
@@ -54,9 +54,17 @@ export const useFeatureCatalogue = (viewMode = '3D') => {
     fetchFeatureDetails();
   }, [selectedFeatureId]);
 
-  const filteredFeatures = features.filter(f => 
-    f.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredFeatures = useMemo(() => {
+    return features.filter(f => 
+      f.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [features, searchTerm]);
+
+  useEffect(() => {
+    if (filteredFeatures.length > 0 && !selectedFeatureId && !loading) {
+      setSelectedFeatureId(filteredFeatures[0].id);
+    }
+  }, [filteredFeatures, selectedFeatureId, loading]);
 
   return {
     features: filteredFeatures,

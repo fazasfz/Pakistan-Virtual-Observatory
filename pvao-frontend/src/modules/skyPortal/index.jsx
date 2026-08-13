@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { BookOpen } from 'lucide-react';
-import GuideDrawer from './components/GuideDrawer/GuideDrawer';
+import { HelpCircle } from 'lucide-react';
+import OnboardingTour from './components/OnboardingTour/OnboardingTour';
 
 const SkyPortal = () => {
-  const [isGuideOpen, setIsGuideOpen] = useState(false);
+  const [isTourOpen, setIsTourOpen] = useState(false);
 
-  const toggleGuide = () => {
-    setIsGuideOpen(!isGuideOpen);
+  const toggleTour = () => {
+    setIsTourOpen(!isTourOpen);
   };
 
   return (
@@ -19,42 +19,38 @@ const SkyPortal = () => {
       ></iframe>
       
       <button 
-        onClick={toggleGuide}
+        onClick={toggleTour}
         style={{
           position: 'absolute',
-          top: '6rem',
+          bottom: '2rem',
           left: '1.5rem',
           backgroundColor: 'var(--bg-obsidian, rgba(20, 20, 20, 0.9))',
-          border: '1px solid var(--accent-gold, #cda434)',
-          color: 'var(--accent-gold, #cda434)',
-          padding: '0.75rem 1.5rem',
-          borderRadius: '8px',
+          border: '1px solid var(--border-subtle, rgba(255,255,255,0.1))',
+          color: 'var(--starlight, #F4EFE6)',
+          padding: '0.5rem',
+          borderRadius: '50%',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
-          gap: '0.5rem',
-          fontWeight: 'bold',
-          textTransform: 'uppercase',
-          letterSpacing: '1px',
+          justifyContent: 'center',
           transition: 'all 0.3s ease',
           zIndex: 9999,
           boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
         }}
         onMouseOver={(e) => {
-          e.currentTarget.style.backgroundColor = 'var(--accent-gold, #cda434)';
-          e.currentTarget.style.color = '#000';
+          e.currentTarget.style.color = 'var(--accent-gold, #cda434)';
+          e.currentTarget.style.borderColor = 'var(--accent-gold, #cda434)';
         }}
         onMouseOut={(e) => {
-          e.currentTarget.style.backgroundColor = 'var(--bg-obsidian, rgba(20, 20, 20, 0.9))';
-          e.currentTarget.style.color = 'var(--accent-gold, #cda434)';
+          e.currentTarget.style.color = 'var(--starlight, #F4EFE6)';
+          e.currentTarget.style.borderColor = 'var(--border-subtle, rgba(255,255,255,0.1))';
         }}
-        title="Open Guide"
+        title="Re-open Tutorial"
       >
-        <BookOpen size={20} />
-        <span>User Manual</span>
+        <HelpCircle size={24} />
       </button>
 
-      <GuideDrawer isOpen={isGuideOpen} onClose={() => setIsGuideOpen(false)} />
+      <OnboardingTour isOpen={isTourOpen} onClose={() => setIsTourOpen(false)} />
     </div>
   );
 };

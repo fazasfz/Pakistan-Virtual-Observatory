@@ -80,17 +80,20 @@ class SkyfieldClient:
         ra, dec, distance = apparent.radec()
 
         t0 = t
-        t1 = self.ts.utc(t.utc.year, t.utc.month, t.utc.day + 1)
+        end_dt = t.utc_datetime() + timedelta(days=2)
+        t1 = self.ts.from_datetime(end_dt)
         f = almanac.risings_and_settings(self.eph, self.moon, Topos(latitude_degrees=lat, longitude_degrees=lon))
         t_rs, y_rs = almanac.find_discrete(t0, t1, f)
 
         rise_time = None
         set_time = None
         for time_rs, event_type in zip(t_rs, y_rs):
-            if event_type == 1:
+            if event_type == 1 and rise_time is None:
                 rise_time = time_rs.utc_datetime().isoformat()
-            else:
+            elif event_type == 0 and set_time is None:
                 set_time = time_rs.utc_datetime().isoformat()
+            if rise_time and set_time:
+                break
 
         t2 = self.ts.utc(t.utc.year, t.utc.month, t.utc.day + 30)
         f_phase = almanac.moon_phases(self.eph)
