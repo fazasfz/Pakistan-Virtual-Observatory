@@ -1,3 +1,8 @@
+/**
+ * Displays the landing page for the Deep Sky Explorer.
+ * Renders selectable category cards (Nebulas, Star Clusters, Galaxies) for the user to explore.
+ * Props: onSelectCategory (function).
+ */
 import React from 'react';
 import nebulaImg from '../../../assets/images/modules/nebula.webp';
 import starClusterImg from '../../../assets/images/modules/starCluster.jpeg';
@@ -30,12 +35,11 @@ const categories = [
 export default function CategoryLanding({ onSelectCategory }) {
   return (
     <div style={{ padding: '2rem' }}>
-      <h1 style={{ fontFamily: 'var(--font-mono)', marginBottom: '0.5rem' }}>
+      <h1 style={{ marginBottom: '0.5rem' }}>
         Deep Sky Explorer
       </h1>
       <p style={{ color: '#aaa', marginBottom: '2rem' }}>
-        New to deep sky exploration? Pick a category below to learn what it is
-        and start exploring real objects.
+        Select a category below to observe deep sky objects.
       </p>
 
       <div

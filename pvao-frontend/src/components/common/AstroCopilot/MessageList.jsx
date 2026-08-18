@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Bot, User } from 'lucide-react';
+
 import { Spin } from 'antd';
 import ReactMarkdown from 'react-markdown';
 import styles from './AstroCopilotPopup.module.css';
@@ -25,7 +26,11 @@ export default function MessageList({ messages, isLoading, isOpen }) {
           className={`${styles.messageWrapper} ${msg.sender === 'user' ? styles.messageUser : styles.messageAi}`}
         >
           <div className={styles.avatar}>
-            {msg.sender === 'user' ? <User size={16} /> : <Bot size={16} />}
+            {msg.sender === 'user' ? (
+              <User size={16} />
+            ) : (
+              <Bot size={16} />
+            )}
           </div>
           <div className={`${styles.messageBubble} ${msg.limited || msg.error ? styles.messageLimited : ''}`}>
             {msg.sender === 'ai' ? (

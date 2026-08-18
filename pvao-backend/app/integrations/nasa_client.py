@@ -1,3 +1,7 @@
+"""
+Integration client for the NASA APOD (Astronomy Picture of the Day) API.
+Provides utility methods to fetch the latest space imagery.
+"""
 import httpx
 from app.core.config import settings
 

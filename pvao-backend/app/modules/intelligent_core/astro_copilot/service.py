@@ -1,10 +1,14 @@
+"""
+Core business logic for the Astro-Copilot intelligent assistant.
+Enforces daily usage caps via MongoDB and routes valid questions to the Gemini client.
+"""
 from datetime import date
 from .models import UsageLog
 from .schemas import AskResponse
 from app.core.config import settings
 from app.integrations.gemini_client import ask_gemini
 
-async def ask_astro_copilot(question: str) -> AskResponse:
+async def ask_astro_copilot(question: str, history: list = None) -> AskResponse:
     today = date.today()
     
     # Get or create today's usage log
@@ -25,7 +29,7 @@ async def ask_astro_copilot(question: str) -> AskResponse:
     await usage_log.save()
 
     try:
-        answer = await ask_gemini(question)
+        answer = await ask_gemini(question, history)
         return AskResponse(answer=answer, limited=False)
     except Exception as e:
         # Graceful fallback, log the error in a real app

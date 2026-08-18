@@ -1,3 +1,7 @@
+"""
+MongoDB connection and initialization logic using Beanie and Motor.
+Provides the init_db function called during application startup in main.py.
+"""
 from pymongo import AsyncMongoClient
 from beanie import init_beanie
 from app.core.config import settings

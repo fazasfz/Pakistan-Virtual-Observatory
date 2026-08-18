@@ -1,4 +1,0 @@
-#
-Placeholder
-for
-# pvao-backend/app/modules/earth_atmosphere/sky_portal/models.py

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from 'antd';
 import { Bot } from 'lucide-react';
+
 import styles from './AstroCopilotPopup.module.css';
 import { useBreakpoint } from '../../../hooks/useBreakpoint';
 import MessageList from './MessageList';
@@ -13,7 +14,7 @@ const AstroCopilotPopup = ({ isOpen, onClose, messages, onSendMessage, isLoading
     <Modal
       title={
         <div className={styles.modalTitle}>
-          <Bot size={20} className={styles.titleIcon} />
+          <div className={styles.titleIcon}><Bot size={20} /></div>
           <span>ASTRO-COPILOT</span>
         </div>
       }
@@ -24,7 +25,6 @@ const AstroCopilotPopup = ({ isOpen, onClose, messages, onSendMessage, isLoading
       wrapClassName={styles.copilotModalWrap}
       width={400}
       mask={false}
-      maskClosable={false}
     >
       <div className={styles.chatContainer}>
         <MessageList 

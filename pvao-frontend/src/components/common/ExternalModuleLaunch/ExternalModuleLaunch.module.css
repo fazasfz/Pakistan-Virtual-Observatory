@@ -88,13 +88,13 @@
   padding: 3rem;
   background: rgba(10, 10, 12, 0.6);
   border: 1px solid rgba(224, 224, 224, 0.1);
-  backdrop-filter: blur(8px);
+  
 }
 
 
 
 .title {
-  font-family: var(--font-heading);
+  font-family: var(--font-headline);
   font-size: 3rem;
   margin: 0 0 1.5rem 0;
   font-weight: 300;
@@ -102,6 +102,7 @@
 }
 
 .description {
+  font-family: var(--font-headline);
   font-size: 1.1rem;
   line-height: 1.6;
   color: var(--slate-ui);
@@ -117,7 +118,7 @@
   background-color: transparent;
   color: var(--brass);
   border: 1px solid var(--brass);
-  font-family: var(--font-mono);
+  font-family: var(--font-headline);
   font-size: 0.9rem;
   letter-spacing: 2px;
   text-decoration: none;
@@ -134,7 +135,7 @@
 }
 
 .sourceTag {
-  font-family: var(--font-mono);
+  font-family: var(--font-headline);
   font-size: 0.85rem;
   color: rgba(160, 174, 192, 0.6);
   letter-spacing: 1px;

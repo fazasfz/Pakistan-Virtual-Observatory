@@ -42,7 +42,7 @@ def parse_usgs_csv(csv_path):
             
             # Clean up category (e.g. "Crater, craters" -> "Crater")
             category = str(feature_type).split(',')[0].strip() if pd.notna(feature_type) else "Unknown"
-            origin_str = str(origin) if pd.notna(origin) else ""
+            origin_str = str(origin).strip('";“”\u201c\u201d').strip() if pd.notna(origin) else ""
             name_str = str(name)
             
             # Visibility logic

@@ -1,3 +1,7 @@
+/**
+ * Defines the Bortle scale classification logic and color mappings.
+ * Provides utility functions to map pixel brightness to dark-sky classes.
+ */
 export const BORTLE_CLASSES = [
   { max: 20, n: 1, label: 'Excellent dark sky', color: [10, 10, 20] },
   { max: 40, n: 2, label: 'Typical dark site', color: [10, 60, 120] },

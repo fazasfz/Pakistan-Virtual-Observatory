@@ -1,3 +1,7 @@
+/**
+ * Sidebar component showing real-time solar wind speed and related space weather metrics.
+ * Props: telemetry (object), loading (boolean).
+ */
 import React from 'react';
 import styles from '../SolarObservatory.module.css';
 

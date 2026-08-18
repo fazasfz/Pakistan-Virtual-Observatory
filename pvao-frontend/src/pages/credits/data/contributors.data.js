@@ -1,3 +1,6 @@
+/**
+ * Static data store defining the project's team members and contributors.
+ */
 export const contributors = [
   {
     name: '',

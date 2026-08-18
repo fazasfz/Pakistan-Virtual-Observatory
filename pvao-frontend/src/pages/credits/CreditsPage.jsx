@@ -1,3 +1,6 @@
+/**
+ * Credits page displaying the contributors, supervisors, and interns of the project.
+ */
 import React from 'react';
 import { Row, Col } from 'antd';
 import SectionWrapper from '../../components/common/SectionWrapper/SectionWrapper';

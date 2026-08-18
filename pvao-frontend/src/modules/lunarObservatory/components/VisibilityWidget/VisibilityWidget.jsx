@@ -1,11 +1,15 @@
+/**
+ * Displays badges indicating what optical equipment is needed to view a lunar feature.
+ * Props: visibility (object).
+ */
 import React from 'react';
-import { Eye, Binoculars, Telescope } from 'lucide-react';
+
 import styles from './VisibilityWidget.module.css';
 
 const VISIBILITY_LABELS = { 
-  naked_eye: { label: 'Naked Eye', icon: Eye },
-  binoculars: { label: 'Binoculars', icon: Binoculars },
-  telescope: { label: 'Telescope', icon: Telescope }
+  naked_eye: { label: 'Naked Eye' },
+  binoculars: { label: 'Binoculars' },
+  telescope: { label: 'Telescope' }
 };
 
 export default function VisibilityWidget({ visibility }) {
@@ -17,7 +21,6 @@ export default function VisibilityWidget({ visibility }) {
       <div className={styles.badges}>
         {Object.entries(VISIBILITY_LABELS).map(([key, config]) => {
           const isVisible = visibility[key];
-          const Icon = config.icon;
           
           return (
             <div 
@@ -25,7 +28,6 @@ export default function VisibilityWidget({ visibility }) {
               className={`${styles.badge} ${isVisible ? styles.visible : styles.notVisible}`}
               title={isVisible ? `Visible with ${config.label}` : `Difficult/Not visible with ${config.label}`}
             >
-              <Icon size={14} />
               <span>{config.label}</span>
             </div>
           );

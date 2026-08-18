@@ -1,28 +1,45 @@
+/**
+ * Root entry point for the Lunar Observatory module.
+ * Composes panels, viewers, and global layout state based on screen breakpoints.
+ */
 import React, { useState } from 'react';
 import styles from './LunarObservatory.module.css';
 import mobileStyles from './LunarObservatoryMobile.module.css';
-import LunarSurfaceViewer from './components/LunarSurfaceViewer/LunarSurfaceViewer';
-import MoonPhaseCard from './components/MoonPhaseCard/MoonPhaseCard';
-import MoonVisibilityCard from './components/MoonVisibilityCard/MoonVisibilityCard';
+
 import { useLunarData } from './hooks/useLunarData';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { useFeatureCatalogue } from './hooks/useFeatureCatalogue';
-import FeatureSearch from './components/FeatureSearch/FeatureSearch';
-import CategoryFilters from './components/CategoryFilters/CategoryFilters';
-import FeatureList from './components/FeatureList/FeatureList';
-import FeatureDetailPanel from './components/FeatureDetailPanel/FeatureDetailPanel';
-import MoonWeight from './components/MoonWeight/MoonWeight';
-import LunarMap2D from './components/LunarMap2D/LunarMap2D';
-import ViewModeSelector from './components/ViewModeSelector/ViewModeSelector';
+
+// 1. Moon Now Panel (Time Slider + Snapshot)
+import TimeSliderView from './components/TimeSliderView/TimeSliderView';
 import MoonPhaseSnapshot from './components/MoonPhaseSnapshot/MoonPhaseSnapshot';
+import MoonPhaseCard from './components/MoonPhaseCard/MoonPhaseCard';
+
+// 2. Lunar Phase Panel
+import LunarPhasePanel from './components/LunarPhasePanel/LunarPhasePanel';
+
+// 3. Lunar Surface Explorer
+import FeatureExploreSection from './components/FeatureExploreSection/FeatureExploreSection';
+import LunarMapLeaflet from './components/LunarMapLeaflet/LunarMapLeaflet';
+import FeatureDetailsSection from './components/FeatureDetailsSection/FeatureDetailsSection';
+
+// 4. Lunar Events Panel
+import LunarEventsPanel from './components/LunarEventsPanel/LunarEventsPanel';
+
+// 5. Lunar View Panel (3D Viewer)
+import LunarSurfaceViewer from './components/LunarSurfaceViewer/LunarSurfaceViewer';
+import ViewModeSelector from './components/ViewModeSelector/ViewModeSelector';
+
 import LunarFunFacts from './components/LunarFunFacts/LunarFunFacts';
+import LoadingOverlay from '../../components/common/LoadingOverlay/LoadingOverlay';
+import { lunarFunFacts } from './components/LunarFunFacts/funFacts.data';
 
 const LunarObservatory = () => {
-  const { liveData, loading: liveLoading, error } = useLunarData();
+  const [targetDate, setTargetDate] = useState(null);
+  const { liveData, loading: liveLoading, error } = useLunarData(targetDate);
   const { width } = useBreakpoint();
   const isMobile = width <= 1024;
-  const [activeTab, setActiveTab] = useState('TELEMETRY');
-  const [viewMode, setViewMode] = useState('Snapshot');
+  const [viewMode, setViewMode] = useState('3D');
 
   const {
     features,
@@ -36,99 +53,112 @@ const LunarObservatory = () => {
     nearbyFeatures,
   } = useFeatureCatalogue(viewMode);
 
+  const handleCloseFeature = React.useCallback(() => setSelectedFeatureId(null), [setSelectedFeatureId]);
+
+  if (liveLoading && !liveData && !catalogLoading) {
+    return <LoadingOverlay funFacts={lunarFunFacts.map(fact => fact.answer)} themeColor="var(--lunar-blue)" />;
+  }
+  if (catalogLoading) {
+    return <LoadingOverlay funFacts={lunarFunFacts.map(fact => fact.answer)} themeColor="var(--lunar-blue)" />;
+  }
+
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
-        <div className={styles.titleGroup}>
-          <span className={styles.modNumber}>MOD.09</span>
-          <h1>LUNAR OBSERVATORY</h1>
-        </div>
-        <div className={styles.statusGroup}>
-          <span className={styles.statusDot}></span>
-          <span>LIVE TELEMETRY (JPL DE440)</span>
-        </div>
-      </header>
+      {error && <div className={styles.error}>Error loading lunar data</div>}
 
-      <div className={`${styles.mainLayout} ${isMobile ? mobileStyles.mainLayoutMobile : ''}`}>
-        <div className={`${styles.viewerSection} ${isMobile ? mobileStyles.viewerSectionMobile : ''}`}>
-          <ViewModeSelector viewMode={viewMode} setViewMode={setViewMode} />
-          
-          {viewMode === 'Snapshot' && (
-            <MoonPhaseSnapshot liveData={liveData} loading={liveLoading} />
-          )}
-
-          {viewMode === '3D' && (
+      <div className={styles.mainLayout}>
+        <div className={styles.fullScreenHero}>
+          {/* Main 3D Viewer in the Center */}
+          <div className={`${styles.viewerSection} ${isMobile ? mobileStyles.viewerSectionMobile : ''}`} style={{ width: '100%', height: '80vh', minHeight: '500px' }}>
             <LunarSurfaceViewer 
               liveData={liveData} 
               features={features} 
               loading={liveLoading || catalogLoading} 
               onSelectFeature={setSelectedFeatureId}
             />
-          )}
-          
-          {['Terrain', 'Geographic', 'Shade'].includes(viewMode) && (
-            <LunarMap2D
-              viewMode={viewMode}
-              features={features}
-              selectedFeature={selectedFeature}
-              onSelectFeature={setSelectedFeatureId}
-            />
-          )}
-          
-          <FeatureDetailPanel 
-            feature={selectedFeature} 
-            nearbyFeatures={nearbyFeatures} 
-            onClose={() => setSelectedFeatureId(null)}
-            onSelectFeature={setSelectedFeatureId}
-          />
-
-          <div className={styles.attribution}>
-            <span>NASA Goddard SVS (3D model, ID:14959)</span>
-            <span className={styles.separator}>·</span>
-            <span>USGS Gazetteer of Planetary Nomenclature</span>
           </div>
+          
         </div>
+      </div>
 
-        <aside className={`${styles.hudSidebar} ${isMobile ? mobileStyles.hudSidebarMobile : ''}`}>
-          <div className={styles.tabsContainer}>
-            <button 
-              className={`${styles.tab} ${activeTab === 'TELEMETRY' ? styles.tabActive : ''}`}
-              onClick={() => setActiveTab('TELEMETRY')}
-            >
-              TELEMETRY
-            </button>
-            <button 
-              className={`${styles.tab} ${activeTab === 'EXPLORE' ? styles.tabActive : ''}`}
-              onClick={() => setActiveTab('EXPLORE')}
-            >
-              EXPLORE
-            </button>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', width: '100%', padding: '0 2rem', marginTop: '2rem' }}>
+        
+        {/* 1. Moon Now Panel */}
+        <section style={{ position: 'relative' }}>
+          <div style={{ marginBottom: '2rem' }}>
+            <h2 style={{ fontFamily: 'sans-serif', fontSize: '24px', fontWeight: 'bold', color: 'var(--starlight)', textAlign: 'center' }}>LIVE LUNAR TELEMETRY</h2>
           </div>
-
-          {error && <div className={styles.error}>Error loading lunar data</div>}
-          
-          {activeTab === 'TELEMETRY' && (
-            <div className={styles.tabContent}>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr', gap: '2rem', alignItems: 'start' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+              <TimeSliderView targetDate={targetDate} setTargetDate={setTargetDate} />
+              <div>
+                <MoonPhaseSnapshot liveData={liveData} loading={liveLoading} />
+              </div>
+            </div>
+            <div>
               <MoonPhaseCard data={liveData} loading={liveLoading} />
-              <MoonVisibilityCard data={liveData} loading={liveLoading} />
             </div>
-          )}
+          </div>
+        </section>
+        
+        {/* 2. Lunar Phase Panel */}
+        <section>
+          <LunarPhasePanel liveData={liveData} loading={liveLoading} />
+        </section>
 
-          {activeTab === 'EXPLORE' && (
-            <div className={styles.tabContent}>
-              <FeatureSearch searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-              <CategoryFilters activeCategory={activeCategory} setActiveCategory={setActiveCategory} />
-              <FeatureList 
-                features={features} 
-                loading={catalogLoading} 
+        {/* 3. Lunar Surface Explorer */}
+        <section>
+          <div style={{ marginBottom: '2rem' }}>
+            <h2 style={{ fontFamily: 'sans-serif', fontSize: '24px', fontWeight: 'bold', color: 'var(--starlight)', textAlign: 'center' }}>LUNAR SURFACE EXPLORER</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr 1fr', gap: '2rem', alignItems: 'start' }}>
+            {/* Left Column: List & Filters */}
+            <div>
+              <FeatureExploreSection 
+                searchTerm={searchTerm} 
+                setSearchTerm={setSearchTerm}
+                activeCategory={activeCategory} 
+                setActiveCategory={setActiveCategory}
+                features={features}
+                catalogLoading={catalogLoading}
                 selectedFeatureId={selectedFeature?.id}
-                onSelectFeature={setSelectedFeatureId} 
+                onSelectFeature={setSelectedFeatureId}
               />
-              <MoonWeight />
-              <LunarFunFacts />
             </div>
-          )}
-        </aside>
+
+            {/* Center Column: 2D Moon Map */}
+            <div style={{ height: '600px', background: 'var(--obsidian-1)', borderRadius: '12px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <LunarMapLeaflet 
+                features={features}
+                selectedFeatureId={selectedFeature?.id}
+                onSelectFeature={setSelectedFeatureId}
+              />
+            </div>
+
+            {/* Right Column: Details & Minimap */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <FeatureDetailsSection 
+                selectedFeature={selectedFeature}
+                nearbyFeatures={nearbyFeatures}
+                onCloseFeature={handleCloseFeature}
+                onSelectFeature={setSelectedFeatureId}
+                liveData={liveData}
+                liveLoading={liveLoading}
+              />
+
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Lunar Events Panel */}
+        <section>
+          <LunarEventsPanel liveData={liveData} />
+        </section>
+
+        {/* 5. Lunar Fun Facts */}
+        <section>
+          <LunarFunFacts />
+        </section>
       </div>
     </div>
   );

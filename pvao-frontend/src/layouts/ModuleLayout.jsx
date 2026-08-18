@@ -1,2 +1,0 @@
-// Placeholder for pvao-frontend/src/layouts/ModuleLayout.jsx
-//his is a specialized frame for your heavy interactive tools (like the Sky Portal or Solar System Simulator). It probably looks different than the main layout—for example, it might hide the Footer to give you 100% screen height for the simulator, or it might include a specialized sidebar for observatory controls.

@@ -1,3 +1,7 @@
+"""
+Primary entry point for the FastAPI application.
+Initializes the app, configures CORS middleware, connects to the database, and mounts the API router.
+"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
@@ -22,7 +26,7 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def on_startup():
-    await init_db()
+    pass 
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 

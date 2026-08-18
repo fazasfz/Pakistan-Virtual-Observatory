@@ -1,7 +1,11 @@
+/**
+ * Custom hook to orchestrate fetching live lunar telemetry and the core feature list.
+ * Inputs: targetDate (Date). Returns: liveData, features, loading, error.
+ */
 import { useState, useEffect } from 'react';
 import { fetchLiveData, fetchFeatures } from '../api/lunarObservatoryApi';
 
-export const useLunarData = () => {
+export const useLunarData = (targetDate = null) => {
   const [liveData, setLiveData] = useState(null);
   const [features, setFeatures] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,7 +18,7 @@ export const useLunarData = () => {
       try {
         setLoading(true);
         const [data, fData] = await Promise.all([
-          fetchLiveData(),
+          fetchLiveData(targetDate),
           fetchFeatures()
         ]);
         
@@ -44,7 +48,7 @@ export const useLunarData = () => {
       mounted = false;
       clearInterval(intervalId);
     };
-  }, []);
+  }, [targetDate]);
 
   return { liveData, features, loading, error };
 };

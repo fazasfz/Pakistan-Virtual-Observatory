@@ -1,3 +1,7 @@
+"""
+Core business logic for the Deep Sky Explorer module.
+Integrates with astroquery (NED and MAST) to fetch object classifications and imagery.
+"""
 from astroquery.ipac.ned import Ned
 from astroquery.mast import Observations
 

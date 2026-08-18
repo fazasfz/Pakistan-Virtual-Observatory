@@ -1,3 +1,8 @@
+/**
+ * Custom hook to interface with the backend for celestial object searches.
+ * Queries NED for object info and MAST for available imagery.
+ * Returns: info, images, loading, error states, and search function.
+ */
 import { useState } from 'react';
 
 const API_BASE = 'http://localhost:8000/api/v1/deep-sky-explorer';
