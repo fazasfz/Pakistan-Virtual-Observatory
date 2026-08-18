@@ -23,11 +23,8 @@
 }
 
 .tickerContainer {
-  background: var(--bg-obsidian, rgba(20, 20, 20, 0.6));
-  border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
-  border-radius: 8px;
-  padding: 1.5rem;
-  backdrop-filter: blur(12px);
+  padding: 1.5rem 0;
+  
   position: relative;
   overflow: hidden;
   min-height: 160px;
@@ -45,19 +42,20 @@
 }
 
 .tickerBadge {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.75rem;
-  color: var(--accent-gold, #cda434);
-  background: rgba(205, 164, 52, 0.1);
+  font-family: sans-serif;
+  font-size: 12px;
+  color: var(--lunar-blue);
+  background: rgba(119, 172, 230, 0.1);
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
   letter-spacing: 0.05em;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
 .tickerCategory {
-  font-family: var(--font-mono, monospace);
-  font-size: 0.75rem;
+  font-family: sans-serif;
+  font-size: 12px;
   color: var(--obsidian-light, #8a8a9a);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -77,7 +75,7 @@
 }
 
 .factQuestion {
-  font-family: var(--font-primary, sans-serif);
+  font-family: sans-serif;
   color: var(--starlight, #F4EFE6);
   font-size: 1.1rem;
   font-weight: 600;
@@ -86,8 +84,8 @@
 }
 
 .factAnswer {
-  font-family: var(--font-primary, sans-serif);
-  color: var(--obsidian-light, #8a8a9a);
+  font-family: sans-serif;
+  color: var(--starlight, #F4EFE6);
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -115,6 +113,6 @@
 }
 
 .activeDot {
-  background: var(--accent-gold, #cda434);
+  background: var(--lunar-blue);
   transform: scale(1.2);
 }

@@ -1,3 +1,8 @@
+/**
+ * Integrates the Aladin Lite sky viewer for a specific celestial category.
+ * Provides interactive panning, zooming, and fetching imagery for deep sky objects.
+ * Props: category (string), onBack (function).
+ */
 import React, { useState } from 'react';
 import { useAladin } from '../hooks/useAladin';
 import { useObjectSearch } from '../hooks/useObjectSearch';
@@ -151,7 +156,7 @@ export default function DeepSkyViewer({ category, onBack }) {
 
       <div style={{ marginTop: '1rem', padding: '1rem', background: '#111', borderRadius: '8px', color: '#eee' }}>
         {loading && <p>Loading object data...</p>}
-        {error && <p style={{ color: '#f88' }}>{error} (backend not running — sky viewer above still works fine)</p>}
+        {error && <p style={{ color: '#f88' }}>{error} (backend not running - sky viewer above still works fine)</p>}
         {info && !error && (
           <div>
             <h3 style={{ marginTop: 0 }}>{info.name}</h3>
@@ -166,7 +171,7 @@ export default function DeepSkyViewer({ category, onBack }) {
             <h4>Available Observations</h4>
             <ul>
               {images.map((img, idx) => (
-                <li key={idx}>{img.mission} — {img.instrument} — target: {img.target}</li>
+                <li key={idx}>{img.mission} - {img.instrument} - target: {img.target}</li>
               ))}
             </ul>
           </div>

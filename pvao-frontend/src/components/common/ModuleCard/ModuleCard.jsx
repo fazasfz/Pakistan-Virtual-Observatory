@@ -1,13 +1,15 @@
+/**
+ * UI card component for displaying and linking to a specific observatory module.
+ * Props: name, description, linkTo, bgImage.
+ */
 import React, { useState } from 'react';
-import { Card } from 'antd';
 import { NavLink } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
-import HUDLabel from '../HUDLabel/HUDLabel';
+import { ArrowRightOutlined } from '@ant-design/icons';
 import styles from './ModuleCard.module.css';
 
-const FALLBACK_IMG = 'https://images-assets.nasa.gov/image/PIA12348/PIA12348~orig.jpg'; // Reliable generic NASA fallback
+const FALLBACK_IMG = 'https://images-assets.nasa.gov/image/PIA12348/PIA12348~orig.jpg'; 
 
-const ModuleCard = ({ number, name, description, linkTo, bgImage }) => {
+const ModuleCard = ({ name, description, linkTo, bgImage }) => {
   const [currentBg, setCurrentBg] = useState(bgImage);
 
   const handleImageError = () => {
@@ -15,34 +17,23 @@ const ModuleCard = ({ number, name, description, linkTo, bgImage }) => {
   };
 
   return (
-    <Card 
-      className={styles.moduleCard} 
-      bordered={false}
-      style={{ backgroundImage: `url(${currentBg})` }}
-    >
-      {/* Hidden img tag just to detect load errors for the background image */}
-      <img 
-        src={currentBg} 
-        style={{ display: 'none' }} 
-        onError={handleImageError} 
-        alt="" 
-      />
+    <NavLink to={linkTo} className={styles.moduleCard} style={{ backgroundImage: `url(${currentBg})` }}>
+      <img src={currentBg} style={{ display: 'none' }} onError={handleImageError} alt="" />
       
-      <div className={styles.overlay}></div>
+      <div className={styles.overlayGradient}></div>
+      
       <div className={styles.content}>
-        <div className={styles.header}>
-          <HUDLabel text={number} />
-          <h3 className={styles.title}>{name}</h3>
+        <div className={styles.textContainer}>
+          <div className={styles.titleRow}>
+            <h3 className={styles.title}>{name}</h3>
+            <div className={styles.arrowIcon}>
+              <ArrowRightOutlined />
+            </div>
+          </div>
           <p className={styles.description}>{description}</p>
         </div>
-
-        <div className={styles.footer}>
-          <NavLink to={linkTo} className={styles.cta}>
-            ENTER MODULE <ArrowRight size={16} />
-          </NavLink>
-        </div>
       </div>
-    </Card>
+    </NavLink>
   );
 };
 

@@ -27,8 +27,8 @@
   width: 100%;
   height: 100%;
   border: 2px solid transparent;
-  border-top-color: var(--accent-gold, #cda434);
-  border-bottom-color: var(--accent-gold, #cda434);
+  border-top-color: var(--theme-color);
+  border-bottom-color: var(--theme-color);
   border-radius: 50%;
   animation: spin 3s linear infinite;
   opacity: 0.8;
@@ -49,15 +49,15 @@
 .core {
   width: 20%;
   height: 20%;
-  background-color: var(--accent-gold, #cda434);
+  background-color: var(--theme-color);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
-  box-shadow: 0 0 15px var(--accent-gold, #cda434);
+  box-shadow: 0 0 15px var(--theme-color);
 }
 
 .statusText {
   font-family: var(--font-mono, monospace);
-  color: var(--accent-gold, #cda434);
+  color: var(--theme-color);
   font-size: 0.85rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;

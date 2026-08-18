@@ -1,3 +1,7 @@
+"""
+Primary entry point for the FastAPI application.
+Initializes the app, configures CORS middleware, connects to the database, and mounts the API router.
+"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings

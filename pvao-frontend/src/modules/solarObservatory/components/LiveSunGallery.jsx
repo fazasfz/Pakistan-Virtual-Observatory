@@ -1,3 +1,8 @@
+/**
+ * Displays a gallery of live solar images across different wavelengths from SDO.
+ * Allows users to select and view specific solar imagery feeds.
+ * Props: images (array), loading (boolean).
+ */
 import React, { useState, useEffect } from 'react';
 import styles from '../SolarObservatory.module.css';
 import SectionHeading from '../../../components/common/SectionHeading/SectionHeading';

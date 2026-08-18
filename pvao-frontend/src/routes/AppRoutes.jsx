@@ -6,7 +6,7 @@ import LandingPage from '../pages/landing/LandingPage';
 import CreditsPage from '../pages/credits/CreditsPage';
 
 // Sub-pages
-import SkyPortal from '../modules/skyPortal';
+import Zenith from '../modules/zenith';
 import EarthView from '../modules/earthView';
 import AstronomicalProbeTracker from '../modules/astronomicalProbeTracker';
 
@@ -34,8 +34,8 @@ const AppRoutes = () => {
         <Route element={<MainLayout />}>
           <Route path={PATHS.LANDING} element={<LandingPage />} />
           
-          <Route path={PATHS.SKY_PORTAL} element={<SkyPortal />} />
-          <Route path={PATHS.EARTH_VIEW} element={<EarthView />} />
+          <Route path={PATHS.ZENITH} element={<Zenith />} />
+          {/* <Route path={PATHS.EARTH_VIEW} element={<EarthView />} /> */}
           <Route path={PATHS.ASTRONOMICAL_PROBE_TRACKER} element={<AstronomicalProbeTracker />} />
 
           <Route path={PATHS.SOLAR_SYSTEM_SIMULATOR} element={<SolarSystemSimulator />} />

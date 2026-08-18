@@ -1,3 +1,7 @@
+/**
+ * Reusable stylized heading component for major page sections.
+ * Props: children (React nodes), className (string).
+ */
 import React from 'react';
 import styles from './SectionHeading.module.css';
 

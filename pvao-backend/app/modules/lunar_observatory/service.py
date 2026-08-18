@@ -1,3 +1,7 @@
+"""
+Core business logic for the Lunar Observatory module.
+Integrates with the skyfield_client to compute live moon ephemerides and loads local feature datasets.
+"""
 import json
 import os
 import math
@@ -30,8 +34,8 @@ def haversine_moon(lat1, lon1, lat2, lon2):
     a = math.sin(dlat/2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2
     return 2 * MOON_RADIUS_KM * math.asin(math.sqrt(a))
 
-def get_live_data():
-    return skyfield_client.get_live_moon_data()
+def get_live_data(target_time=None):
+    return skyfield_client.get_live_moon_data(target_time=target_time)
 
 def get_features(category: str = None, dataset: str = "curated"):
     data = LUNAR_FEATURES_FULL if dataset == "full" else LUNAR_FEATURES_CURATED

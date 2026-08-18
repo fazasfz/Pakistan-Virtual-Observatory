@@ -17,7 +17,12 @@ export const useCopilotState = () => {
     setIsLoading(true);
     
     try {
-      const response = await askAstroCopilot(text);
+      // Exclude the initial greeting message and errors from history
+      const history = messages
+        .filter(msg => !msg.error && msg.id !== 1)
+        .map(msg => ({ role: msg.sender, text: msg.text }));
+
+      const response = await askAstroCopilot(text, history);
       setMessages(prev => [...prev, { 
         id: Date.now() + 1, 
         sender: 'ai', 

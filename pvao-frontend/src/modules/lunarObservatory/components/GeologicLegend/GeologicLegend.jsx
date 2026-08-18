@@ -1,5 +1,10 @@
+/**
+ * Displays a color-coded legend of geologic periods (e.g., Copernican, Imbrian) for lunar features.
+ * Computes color mappings based on the feature's era.
+ * Props: feature (object).
+ */
 import React, { useState } from 'react';
-import { Layers, ChevronDown, ChevronUp } from 'lucide-react';
+
 import styles from './GeologicLegend.module.css';
 
 const GEOLOGIC_PERIODS = [
@@ -17,9 +22,9 @@ const GeologicLegend = () => {
   return (
     <div className={styles.legendContainer}>
       <button className={styles.toggleButton} onClick={() => setIsOpen(!isOpen)}>
-        <Layers size={16} />
+        <span>[ L ]</span>
         Legend
-        {isOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+        {isOpen ? <span>^</span> : <span>v</span>}
       </button>
 
       {isOpen && (

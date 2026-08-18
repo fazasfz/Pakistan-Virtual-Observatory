@@ -1,3 +1,7 @@
+/**
+ * Renders a chart visualizing the progression of the solar cycle (sunspot activity over time).
+ * Integrates external space weather data to plot solar maximum/minimum.
+ */
 import React, { useEffect, useState } from 'react';
 import {
     ComposedChart, Area, Bar, Line, Scatter, XAxis, YAxis, CartesianGrid,

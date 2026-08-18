@@ -1,3 +1,8 @@
+/**
+ * Top navigation and control bar for the Probe Tracker.
+ * Handles celestial target selection (Earth, Moon, Mars, Sun) and probe search.
+ * Props: currentTarget, onSelectTarget, searchQuery, onSearchChange, etc.
+ */
 import React from "react";
 
 export const ProbeTrackerHeader = ({

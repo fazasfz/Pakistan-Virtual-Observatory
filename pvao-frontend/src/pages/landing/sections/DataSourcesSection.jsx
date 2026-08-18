@@ -1,3 +1,7 @@
+/**
+ * Landing page section highlighting the integrated data sources (e.g., NASA APOD).
+ * Fetches and displays the Astronomy Picture of the Day.
+ */
 import React, { useEffect, useState } from 'react';
 import { Row, Col } from 'antd';
 import SectionWrapper from '../../../components/common/SectionWrapper/SectionWrapper';
@@ -48,7 +52,9 @@ const DataSourcesSection = () => {
     <div ref={revealRef}>
       <SectionWrapper id="data-sources" className={styles.dataSection} overlay={false}>
         <div className={styles.container}>
-          <HUDLabel text="SEC.03 // TELEMETRY SOURCES" className={styles.label} />
+          <div className={styles.header}>
+            <h2 className={styles.heading}>TELEMETRY SOURCES</h2>
+          </div>
           
           <Row gutter={[48, 48]} className={styles.contentRow}>
             <Col xs={24} lg={14} className={styles.apodCol}>

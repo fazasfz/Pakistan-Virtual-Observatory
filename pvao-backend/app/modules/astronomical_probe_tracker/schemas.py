@@ -1,3 +1,7 @@
+"""
+Pydantic data models for the Astronomical Probe Tracker module.
+Defines schemas for probe basic info and live telemetry responses.
+"""
 from pydantic import BaseModel
 from typing import List, Optional
 

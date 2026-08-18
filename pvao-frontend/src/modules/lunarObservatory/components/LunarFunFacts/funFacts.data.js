@@ -1,3 +1,7 @@
+/**
+ * Static data store containing a collection of educational fun facts about the Moon.
+ * Used by the LunarFunFacts component.
+ */
 export const lunarFunFacts = [
   {
     category: "ORBIT & ROTATION",

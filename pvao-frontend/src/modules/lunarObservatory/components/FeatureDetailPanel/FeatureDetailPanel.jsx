@@ -1,5 +1,10 @@
+/**
+ * Sidebar panel displaying detailed information about a selected lunar feature.
+ * Renders telemetry, geologic legend, and a 3D locator thumbnail.
+ * Props: selectedFeature (object), onClear (function).
+ */
 import React from 'react';
-import { X } from 'lucide-react';
+
 import VisibilityWidget from '../VisibilityWidget/VisibilityWidget';
 import LocatorThumbnail from '../LocatorThumbnail/LocatorThumbnail';
 import styles from './FeatureDetailPanel.module.css';
@@ -16,8 +21,8 @@ const FeatureDetailPanel = ({ feature, nearbyFeatures, onClose, onSelectFeature 
               <h2 className={styles.title}>{feature.name}</h2>
               <span className={styles.categoryTag}>{feature.category}</span>
             </div>
-            <button className={styles.closeButton} onClick={onClose} aria-label="Close panel">
-              <X size={20} />
+            <button type="button" className={styles.closeButton} onClick={onClose} aria-label="Close panel">
+              <span>[X]</span>
             </button>
           </div>
 
@@ -40,7 +45,6 @@ const FeatureDetailPanel = ({ feature, nearbyFeatures, onClose, onSelectFeature 
               </div>
             </div>
             
-            <LocatorThumbnail feature={feature} />
 
             {feature.visibility && (
               <VisibilityWidget visibility={feature.visibility} />
@@ -50,7 +54,7 @@ const FeatureDetailPanel = ({ feature, nearbyFeatures, onClose, onSelectFeature 
               <h3 className={styles.sectionTitle}>Nearby Features</h3>
               {nearbyFeatures && nearbyFeatures.length > 0 ? (
                 <div className={styles.nearbyList}>
-                  {nearbyFeatures.map(nearby => (
+                  {nearbyFeatures.slice(0, 2).map(nearby => (
                     <div 
                       key={nearby.id} 
                       className={styles.nearbyItem}

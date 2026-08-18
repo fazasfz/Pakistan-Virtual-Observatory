@@ -1,3 +1,7 @@
+/**
+ * Renders a mini 3D globe indicating the global coordinates of the selected feature.
+ * Props: feature (object).
+ */
 import React from 'react';
 import styles from './LocatorThumbnail.module.css';
 

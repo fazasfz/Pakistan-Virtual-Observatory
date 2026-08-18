@@ -1,3 +1,7 @@
+"""
+Integration wrapper for the Skyfield astronomy library.
+Used by the Lunar Observatory service to calculate high-precision ephemerides and celestial mechanics.
+"""
 import os
 from datetime import datetime, timedelta
 
@@ -28,10 +32,10 @@ class SkyfieldClient:
                 print(f"Failed to load ephemeris: {e}")
                 self.eph = None
 
-    def get_live_moon_data(self, lat=33.7294, lon=73.0931):
+    def get_live_moon_data(self, lat=33.7294, lon=73.0931, target_time: datetime = None):
         if not SKYFIELD_AVAILABLE or getattr(self, 'eph', None) is None:
             # Return mock data matching real-ish values for today
-            now = datetime.utcnow()
+            now = target_time or datetime.utcnow()
             return {
                 "phase_name": "Waxing Crescent",
                 "illumination_percentage": 23.5,
@@ -46,7 +50,12 @@ class SkyfieldClient:
             }
 
         observer = self.earth + Topos(latitude_degrees=lat, longitude_degrees=lon)
-        t = self.ts.now()
+        
+        if target_time:
+            # Skyfield requires UTC timezone-aware datetime or naive UTC datetime
+            t = self.ts.from_datetime(target_time)
+        else:
+            t = self.ts.now()
 
         astrometric = observer.at(t).observe(self.moon)
         apparent = astrometric.apparent()

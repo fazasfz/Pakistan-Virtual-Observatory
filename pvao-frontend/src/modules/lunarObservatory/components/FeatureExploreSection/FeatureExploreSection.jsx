@@ -1,3 +1,8 @@
+/**
+ * Main exploration layout combining the lunar map viewer and feature list.
+ * Manages category filtering, search, and active feature selection.
+ * Props: catalogue, viewMode.
+ */
 import React from 'react';
 import styles from './FeatureExploreSection.module.css';
 import SectionHeading from '../../../../components/common/SectionHeading/SectionHeading';
@@ -13,7 +18,6 @@ const FeatureExploreSection = ({
 }) => {
     return (
         <section className={styles.exploreSection}>
-            <SectionHeading>Explore Lunar Features</SectionHeading>
             <div className={styles.exploreCard}>
                 <div className={styles.controlsRow}>
                     <div className={styles.searchContainer}>

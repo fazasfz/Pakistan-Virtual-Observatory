@@ -11,7 +11,8 @@ const DEFAULT_STATUS_MESSAGES = [
 const LoadingOverlay = ({ 
   funFacts = [], 
   statusMessages = DEFAULT_STATUS_MESSAGES,
-  intervalMs = 3000
+  intervalMs = 3000,
+  themeColor = 'var(--brass)'
 }) => {
   const [statusIndex, setStatusIndex] = useState(0);
   const [factIndex, setFactIndex] = useState(0);
@@ -31,7 +32,7 @@ const LoadingOverlay = ({
   const currentFact = (funFacts && funFacts.length > 0) ? funFacts[factIndex] : null;
 
   return (
-    <div className={styles.overlay}>
+    <div className={styles.overlay} style={{ '--theme-color': themeColor }}>
       <div className={styles.spinnerContainer}>
         <div className={styles.ringOuter}></div>
         <div className={styles.ringInner}></div>

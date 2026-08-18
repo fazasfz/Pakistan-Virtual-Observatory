@@ -5,15 +5,29 @@
 .header {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  align-items: center;
+  text-align: center;
+  gap: var(--space-16);
   margin-bottom: var(--space-48);
   width: 100%;
 }
 
 .heading {
+  font-family: var(--font-headline);
+  font-weight: 700;
   font-size: 2rem;
   color: var(--starlight);
   letter-spacing: 0.1em;
+  margin-bottom: 0;
+}
+
+.subhead {
+  font-family: var(--font-headline);
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: var(--slate-ui);
+  margin-top: 0;
+  letter-spacing: 0.02em;
 }
 
 .grid {

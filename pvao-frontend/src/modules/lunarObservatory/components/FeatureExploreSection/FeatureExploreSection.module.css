@@ -1,15 +1,9 @@
 .exploreSection {
-    margin-top: 2rem;
-    padding: 0 2rem;
     width: 100%;
 }
 
 .exploreCard {
-    background: rgba(15, 23, 42, 0.4);
-    border: 1px solid rgba(243, 156, 18, 0.25);
-    border-radius: 12px;
-    padding: 1.5rem;
-    backdrop-filter: blur(8px);
+    background: transparent;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -21,22 +15,7 @@
     gap: 1rem;
 }
 
-@media (min-width: 768px) {
-    .controlsRow {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-    
-    .searchContainer {
-        flex: 1;
-        max-width: 400px;
-    }
-    
-    .filtersContainer {
-        flex: 2;
-    }
-}
+
 
 .listContainer {
     width: 100%;

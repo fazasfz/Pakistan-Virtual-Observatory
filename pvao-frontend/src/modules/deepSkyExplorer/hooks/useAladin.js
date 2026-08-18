@@ -1,3 +1,8 @@
+/**
+ * Custom hook to initialize and manage an Aladin Lite sky viewer instance.
+ * Provides the viewer context and container reference for deep sky navigation.
+ * Inputs: options. Returns: containerRef, aladin, isReady.
+ */
 import { useEffect, useRef, useState } from 'react';
 import A from 'aladin-lite';
 

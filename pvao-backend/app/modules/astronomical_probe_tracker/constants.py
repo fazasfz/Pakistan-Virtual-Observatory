@@ -1,3 +1,7 @@
+"""
+Static configuration and constants for the Astronomical Probe Tracker.
+Defines the PROBE_CATALOG categorizing known space probes by their celestial targets.
+"""
 # Celestial target and probe registry
 PROBE_CATALOG = {
     "earth": [

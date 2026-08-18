@@ -1,3 +1,7 @@
+/**
+ * Reusable carousel component to display a rotating list of educational facts.
+ * Props: title (string), facts (array).
+ */
 import React, { useState, useEffect } from 'react';
 import styles from './FactCarousel.module.css';
 import SectionHeading from '../SectionHeading/SectionHeading';

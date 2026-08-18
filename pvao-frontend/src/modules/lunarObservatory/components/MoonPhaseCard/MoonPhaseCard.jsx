@@ -1,3 +1,7 @@
+/**
+ * UI card displaying numeric telemetry for the current moon phase (illumination, age).
+ * Props: data (object), loading (boolean).
+ */
 import React from 'react';
 import styles from './MoonPhaseCard.module.css';
 
