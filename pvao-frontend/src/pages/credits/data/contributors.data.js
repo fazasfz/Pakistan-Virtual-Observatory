@@ -5,6 +5,7 @@ import mohibImg from '../../../assets/images/team/mohib.jpg';
 import quratulainImg from '../../../assets/images/team/quratulain.jpg';
 import radhiyaImg from '../../../assets/images/team/radhiya.jpg';
 import yawarImg from '../../../assets/images/team/yawar.jpg';
+import junaidImg from '../../../assets/images/team/junaid.jpg';
 import simraImg from '../../../assets/images/team/simra.jpg';
 import fatimaImg from '../../../assets/images/team/fatima.jpg';
 import amnaImg from '../../../assets/images/team/amna.jpg';
@@ -25,7 +26,8 @@ export const contributors = [
     role: 'Supervisor',
     title: 'Research Supervisor',
     institution: 'NCGSA,IST',
-    description: 'Delivered critical scientific insights throughout the project\'s development, leveraging astrophysics expertise to anchor data and ensure the core research met rigorous academic standards.'
+    description: 'Delivered critical scientific insights throughout the project\'s development, leveraging astrophysics expertise to anchor data and ensure the core research met rigorous academic standards.',
+    image: junaidImg
   },
   {
     name: 'Syeda Fatima Zahra',
