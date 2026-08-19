@@ -52,8 +52,9 @@ export default function LunarEventsPanel({ liveData }) {
             {events.length > 0 ? events.map(event => (
               <tr key={event.id}>
                 <td className={styles.eventDate}>
-                  {event.date.toLocaleDateString(undefined, { 
-                    month: 'short', day: 'numeric', year: 'numeric' 
+                  {event.date.toLocaleDateString('en-US', { 
+                    month: 'short', day: 'numeric', year: 'numeric',
+                    timeZone: 'Asia/Karachi'
                   })}
                 </td>
                 <td style={{ fontWeight: 500 }}>{event.name}</td>

@@ -4,6 +4,8 @@ import { PATHS } from './routePaths';
 import MainLayout from '../layouts/MainLayout';
 import LandingPage from '../pages/landing/LandingPage';
 import CreditsPage from '../pages/credits/CreditsPage';
+import DataSourcesPage from '../pages/dataSources/DataSourcesPage';
+import GlossaryPage from '../pages/glossary/GlossaryPage';
 
 // Sub-pages
 import Zenith from '../modules/zenith';
@@ -47,6 +49,8 @@ const AppRoutes = () => {
           <Route path={PATHS.OBSERVATION_PLANNER} element={<ObservationPlanner />} />
           <Route path={PATHS.LUNAR_OBSERVATORY} element={<LunarObservatory />} />
 
+          <Route path={PATHS.DATA_SOURCES} element={<DataSourcesPage />} />
+          <Route path={PATHS.GLOSSARY} element={<GlossaryPage />} />
           <Route path={PATHS.CREDITS} element={<CreditsPage />} />
         </Route>
       </Routes>

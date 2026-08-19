@@ -11,9 +11,9 @@
   --lunar-blue: #4b96ff;
 
   /* Typography */
-  --font-mono: 'JetBrains Mono', 'Space Mono', monospace;
+  --font-mono: 'Inter', sans-serif;
   --font-headline: 'Inter', sans-serif;
-  --font-body: var(--font-mono);
+  --font-body: 'Inter', sans-serif;
 
   /* HUD Settings */
   --hud-border-width: 1px;

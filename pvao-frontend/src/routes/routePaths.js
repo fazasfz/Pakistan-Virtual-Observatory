@@ -11,4 +11,6 @@ export const PATHS = {
   OBSERVATION_PLANNER: '/observation-planner',
   LUNAR_OBSERVATORY: '/lunar-observatory',
   CREDITS: '/credits',
+  DATA_SOURCES: '/data-sources',
+  GLOSSARY: '/glossary',
 };

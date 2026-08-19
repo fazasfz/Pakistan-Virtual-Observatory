@@ -29,6 +29,16 @@ const Navbar = () => {
     { key: 'probes', label: <NavLink to={PATHS.ASTRONOMICAL_PROBE_TRACKER}>Astronomical Probes</NavLink> },
   ];
 
+  const exploreItems = [
+    { key: 'credits', label: <NavLink to={PATHS.CREDITS}>Credits</NavLink> },
+    { key: 'dataSources', label: <NavLink to={PATHS.DATA_SOURCES}>Data Sources</NavLink> },
+    { key: 'glossary', label: <NavLink to={PATHS.GLOSSARY}>Glossary</NavLink> },
+  ];
+
+  const toolsItems = [
+    { key: 'simulator', label: <a href="https://dynamix209.github.io/solar-system-orbital-simulator/" target="_blank" rel="noopener noreferrer">Solar System Simulator</a> },
+    { key: 'copilot', label: <div onClick={openCopilot} style={{ cursor: 'pointer' }}>Astro-Copilot</div> },
+  ];
 
   const getNavClass = ({ isActive }) => isActive ? `${styles.navBtn} ${styles.activeNavBtn}` : styles.navBtn;
   const getMobileNavClass = ({ isActive }) => isActive ? `${styles.mobileModuleLink} ${styles.activeMobileLink}` : styles.mobileModuleLink;
@@ -59,8 +69,12 @@ const Navbar = () => {
       <div className={styles.rightGroup}>
         {!showMobileMenu && (
           <>
-            <NavLink to={PATHS.SOLAR_SYSTEM_SIMULATOR} className={getNavClass}>SOLAR SYSTEM SIMULATOR</NavLink>
-            <button onClick={openCopilot} className={styles.copilotBadge}>ASTRO-COPILOT</button>
+            <Dropdown menu={{ items: exploreItems }} trigger={['hover']} rootClassName={styles.navDropdown}>
+              <span className={`${styles.navBtn} ${styles.dropdownTrigger}`}>EXPLORE</span>
+            </Dropdown>
+            <Dropdown menu={{ items: toolsItems }} trigger={['hover']} rootClassName={styles.navDropdown}>
+              <span className={`${styles.navBtn} ${styles.dropdownTrigger}`}>TOOLS</span>
+            </Dropdown>
           </>
         )}
       </div>
@@ -68,14 +82,27 @@ const Navbar = () => {
       <Drawer title="SYSTEM NAV" placement="right" onClose={() => setMobileMenuOpen(false)} open={mobileMenuOpen} className={styles.mobileDrawer}>
         <div className={styles.mobileModuleList}>
           <NavLink to={PATHS.LANDING} className={getMobileNavClass} onClick={() => setMobileMenuOpen(false)} end>HOME</NavLink>
-          <NavLink to={PATHS.SOLAR_SYSTEM_SIMULATOR} className={getMobileNavClass} onClick={() => setMobileMenuOpen(false)}>SOLAR SYSTEM SIMULATOR</NavLink>
+          
+          <div className={styles.mobileModuleLink}>EXPLORE</div>
+          <div className={styles.mobileSubMenu}>
+             {exploreItems.map(item => (
+                <div key={item.key} className={styles.mobileSubMenuItem} onClick={() => setMobileMenuOpen(false)}>{item.label}</div>
+             ))}
+          </div>
+
           <div className={styles.mobileModuleLink}>MODULES</div>
           <div className={styles.mobileSubMenu}>
              {moduleItems.map(item => (
                 <div key={item.key} className={styles.mobileSubMenuItem} onClick={() => setMobileMenuOpen(false)}>{item.label}</div>
              ))}
           </div>
-          <button className={`${styles.copilotBadge} ${styles.mobileCopilotBadge}`} onClick={() => { setMobileMenuOpen(false); openCopilot(); }}>ASTRO-COPILOT</button>
+
+          <div className={styles.mobileModuleLink}>TOOLS</div>
+          <div className={styles.mobileSubMenu}>
+             {toolsItems.map(item => (
+                <div key={item.key} className={styles.mobileSubMenuItem} onClick={() => setMobileMenuOpen(false)}>{item.label}</div>
+             ))}
+          </div>
         </div>
       </Drawer>
     </Header>

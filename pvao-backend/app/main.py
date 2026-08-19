@@ -26,10 +26,10 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def on_startup():
-    pass 
+    await init_db()
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to PVAO API. Status: ONLINE"}
+    return {"message": "Welcome to VAO API. Status: ONLINE"}

@@ -38,11 +38,6 @@ const SectionWrapper = forwardRef(({
       <div className={styles.content}>
         {children}
       </div>
-      {/* Corner brackets simulating viewfinder */}
-      <div className={`${styles.bracket} ${styles.tl}`}></div>
-      <div className={`${styles.bracket} ${styles.tr}`}></div>
-      <div className={`${styles.bracket} ${styles.bl}`}></div>
-      <div className={`${styles.bracket} ${styles.br}`}></div>
     </section>
   );
 });

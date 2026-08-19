@@ -15,7 +15,7 @@ SYSTEM_PROMPT = (
 
 GEMINI_URL = (
     "https://generativelanguage.googleapis.com/v1beta/models/"
-    "gemini-3.5-flash:generateContent"
+    "gemini-3.6-flash:generateContent"
 )
 
 async def ask_gemini(question: str, history: list = None) -> str:

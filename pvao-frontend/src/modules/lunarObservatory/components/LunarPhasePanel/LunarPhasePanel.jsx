@@ -53,13 +53,13 @@ export default function LunarPhasePanel({ liveData, loading }) {
         <div className={styles.dateBlock}>
           <span className={styles.dateLabel}>NEXT NEW MOON</span>
           <span className={styles.dateValue}>
-            {new Date(next_new_moon).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+            {new Date(next_new_moon).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'Asia/Karachi' })}
           </span>
         </div>
         <div className={styles.dateBlock}>
           <span className={styles.dateLabel}>NEXT FULL MOON</span>
           <span className={styles.dateValue}>
-            {new Date(next_full_moon).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+            {new Date(next_full_moon).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'Asia/Karachi' })}
           </span>
         </div>
       </div>

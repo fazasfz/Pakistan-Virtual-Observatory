@@ -6,7 +6,7 @@ from beanie import Document
 from datetime import date
 
 class UsageLog(Document):
-    day: date
+    day: str
     request_count: int = 0
 
     class Settings:

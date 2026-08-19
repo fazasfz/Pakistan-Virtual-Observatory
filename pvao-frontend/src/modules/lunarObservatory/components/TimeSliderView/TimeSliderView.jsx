@@ -41,9 +41,10 @@ export default function TimeSliderView({ targetDate, setTargetDate }) {
       <div className={styles.header}>
         <h3 className={styles.title}>TIME TRAVEL</h3>
         <span className={styles.currentDate}>
-          {displayDate.toLocaleString(undefined, { 
-            month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit'
-          })}
+          {displayDate.toLocaleString('en-US', { 
+            month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit',
+            timeZone: 'Asia/Karachi'
+          })} PKT
         </span>
       </div>
       <div className={styles.sliderWrapper}>

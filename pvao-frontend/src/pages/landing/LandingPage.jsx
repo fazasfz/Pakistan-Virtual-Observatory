@@ -5,14 +5,16 @@
 import React from 'react';
 import HeroSection from './sections/HeroSection';
 import ModulesOverviewSection from './sections/ModulesOverviewSection';
-import DataSourcesSection from './sections/DataSourcesSection';
+import ApodSpotlightSection from './sections/ApodSpotlightSection';
+import InteractiveToolsSection from './sections/InteractiveToolsSection';
 
 const LandingPage = () => {
   return (
     <div style={{ width: '100%' }}>
       <HeroSection />
       <ModulesOverviewSection />
-      <DataSourcesSection />
+      <ApodSpotlightSection />
+      <InteractiveToolsSection />
     </div>
   );
 };

@@ -137,7 +137,8 @@
   margin-bottom: var(--space-8);
 }
 
-.mobileSubMenuItem a {
+.mobileSubMenuItem a,
+.mobileSubMenuItem div {
   color: var(--starlight);
   text-decoration: none;
   font-family: var(--font-headline);
@@ -150,7 +151,8 @@
   border-radius: 4px;
 }
 
-.mobileSubMenuItem a:hover {
+.mobileSubMenuItem a:hover,
+.mobileSubMenuItem div:hover {
   color: var(--brass);
   background-color: rgba(200, 137, 59, 0.1);
 }
@@ -201,7 +203,8 @@
   background-color: rgba(243, 156, 18, 0.1) !important; /* Subtle amber background */
 }
 
-.navDropdown :global(.ant-dropdown-menu-item a) {
+.navDropdown :global(.ant-dropdown-menu-item a),
+.navDropdown :global(.ant-dropdown-menu-item div) {
   color: var(--starlight) !important;
   font-family: var(--font-headline);
   font-weight: 500;
@@ -211,6 +214,7 @@
   transition: color 0.2s ease;
 }
 
-.navDropdown :global(.ant-dropdown-menu-item:hover a) {
+.navDropdown :global(.ant-dropdown-menu-item:hover a),
+.navDropdown :global(.ant-dropdown-menu-item:hover div) {
   color: var(--brass) !important;
 }

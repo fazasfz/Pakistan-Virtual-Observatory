@@ -33,34 +33,34 @@ const Footer = () => {
 
         <div className={styles.linksSection}>
           <div className={styles.linkColumn}>
-            <span className={styles.columnHeader}>Site</span>
+            <span className={styles.columnHeader}>Explore</span>
             <NavLink to={PATHS.LANDING} className={styles.footerLink}>Home</NavLink>
             <NavLink to={PATHS.CREDITS} className={styles.footerLink}>Credits</NavLink>
+            <NavLink to={PATHS.DATA_SOURCES} className={styles.footerLink}>Data Sources</NavLink>
+            <NavLink to={PATHS.GLOSSARY} className={styles.footerLink}>Glossary</NavLink>
+          </div>
+
+          <div className={styles.linkColumn}>
+            <span className={styles.columnHeader}>Tools</span>
             <button onClick={openCopilot} className={styles.footerButton}>Astro-Copilot</button>
+            <a href="https://dynamix209.github.io/solar-system-orbital-simulator/" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>Solar System Simulator</a>
           </div>
 
           <div className={styles.linkColumn}>
             <span className={styles.columnHeader}>Modules</span>
             <NavLink to={PATHS.SOLAR_OBSERVATORY} className={styles.footerLink}>Solar Observatory</NavLink>
             <NavLink to={PATHS.LUNAR_OBSERVATORY} className={styles.footerLink}>Lunar Observatory</NavLink>
-            <NavLink to={PATHS.ZENITH} className={styles.footerLink}>Zenith</NavLink>
-            <NavLink to={PATHS.DEEP_SKY_EXPLORER} className={styles.footerLink}>Deep Sky Explorer</NavLink>
             <NavLink to={PATHS.EXORA} className={styles.footerLink}>Exora</NavLink>
+            <NavLink to={PATHS.DEEP_SKY_EXPLORER} className={styles.footerLink}>Deep Sky Explorer</NavLink>
+            <NavLink to={PATHS.ZENITH} className={styles.footerLink}>Zenith</NavLink>
             <NavLink to={PATHS.ASTRONOMICAL_PROBE_TRACKER} className={styles.footerLink}>Astronomical Probes</NavLink>
           </div>
 
           <div className={styles.linkColumn}>
-            <span className={styles.columnHeader}>Console</span>
-            <NavLink to={PATHS.SOLAR_SYSTEM_SIMULATOR} className={styles.footerLink}>Solar System Simulator</NavLink>
-            <NavLink to={PATHS.OBSERVATION_PLANNER} className={styles.footerLink}>Observation Planner</NavLink>
-          </div>
-          
-          <div className={styles.linkColumn}>
             <span className={styles.columnHeader}>Connect</span>
-            {/* Note: Update these href links with the final NCGSA social URLs when available */}
-            <a href="https://www.linkedin.com/company/ncgsa/" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>LinkedIn</a>
-            <a href="https://www.facebook.com/ncgsa.ist" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>Facebook</a>
             <a href="https://www.instagram.com/ncgsa.ist/" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>Instagram</a>
+            <a href="https://www.facebook.com/ncgsa.ist" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>Facebook</a>
+            <a href="https://www.linkedin.com/company/ncgsa/" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>LinkedIn</a>
             <a href="https://www.youtube.com/@ncgsaist" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>YouTube</a>
           </div>
         </div>

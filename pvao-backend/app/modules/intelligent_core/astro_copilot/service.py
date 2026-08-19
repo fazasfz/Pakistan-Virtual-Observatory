@@ -9,12 +9,12 @@ from app.core.config import settings
 from app.integrations.gemini_client import ask_gemini
 
 async def ask_astro_copilot(question: str, history: list = None) -> AskResponse:
-    today = date.today()
+    today_str = date.today().isoformat()
     
     # Get or create today's usage log
-    usage_log = await UsageLog.find_one(UsageLog.day == today)
+    usage_log = await UsageLog.find_one({"day": today_str})
     if not usage_log:
-        usage_log = UsageLog(day=today, request_count=0)
+        usage_log = UsageLog(day=today_str, request_count=0)
         await usage_log.insert()
 
     # Check daily limit
