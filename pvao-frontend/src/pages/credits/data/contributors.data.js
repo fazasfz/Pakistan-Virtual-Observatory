@@ -56,7 +56,8 @@ export const contributors = [
     title: 'Research Intern',
     institution: 'Institute of Space Technology',
     description: 'Sourced and synthesized critical astronomical data, laying the factual groundwork for the Solar Observatory and Probe Tracker.',
-    image: tehreemImg
+    image: tehreemImg,
+    noZoom: true
   },
   {
     name: 'Syeda Amna Mehdi Zaidi',
