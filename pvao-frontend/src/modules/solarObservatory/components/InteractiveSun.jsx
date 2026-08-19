@@ -1,3 +1,7 @@
+/**
+ * Renders an interactive 3D model or graphic of the Sun.
+ * Handles user interactions and visual representations of the solar surface.
+ */
 import React, { useState, useEffect } from 'react';
 import styles from '../SolarObservatory.module.css';
 

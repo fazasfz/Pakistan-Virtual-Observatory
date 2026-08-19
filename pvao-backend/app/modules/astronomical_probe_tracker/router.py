@@ -1,3 +1,7 @@
+"""
+Defines the FastAPI route endpoints for the Astronomical Probe Tracker.
+Exposes /probes and /live endpoints by relying on the service layer.
+"""
 from fastapi import APIRouter, HTTPException
 from typing import Dict, List
 import logging

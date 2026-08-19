@@ -1,0 +1,140 @@
+.apodSection {
+  background-color: var(--obsidian-1);
+  padding: var(--space-64) 0;
+  position: relative;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--breakpoint-xl);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-48);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-16);
+}
+
+.heading {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: var(--starlight);
+  letter-spacing: 0.1em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.cinematicContainer {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+}
+
+.imageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.apodImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(10, 11, 13, 0.9) 0%, rgba(10, 11, 13, 0.2) 60%, transparent 100%);
+}
+
+.glassPanel {
+  position: absolute;
+  bottom: var(--space-32);
+  left: var(--space-32);
+  max-width: 500px;
+  background: rgba(10, 11, 13, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: var(--space-32);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  border-left: 3px solid var(--copper);
+}
+
+.apodTitle {
+  font-family: var(--font-headline);
+  font-size: 1.5rem;
+  color: var(--starlight);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.apodDate {
+  font-family: var(--font-mono);
+  color: var(--brass);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
+
+.apodDesc {
+  font-family: var(--font-body);
+  color: rgba(244, 239, 230, 0.85);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-top: var(--space-8);
+}
+
+.apodCopyright {
+  font-family: var(--font-mono);
+  color: var(--slate-ui);
+  font-size: 0.75rem;
+  margin-top: var(--space-8);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .cinematicContainer {
+    height: auto;
+    min-height: 500px;
+  }
+  
+  .imageOverlay {
+    background: linear-gradient(to top, rgba(10, 11, 13, 0.95) 0%, rgba(10, 11, 13, 0.7) 40%, rgba(10, 11, 13, 0.2) 100%);
+  }
+  
+  .glassPanel {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: 100%;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: var(--space-24);
+    border-left: 3px solid var(--copper);
+    margin-top: 200px; /* Push it down so some image shows above */
+  }
+}

@@ -1,3 +1,7 @@
+/**
+ * Root entry point for the Solar Observatory module.
+ * Composes live sun imagery, telemetry, solar flare data, and interactive elements.
+ */
 import React, { useState, useEffect } from 'react';
 import styles from './SolarObservatory.module.css';
 import InteractiveSun from './components/InteractiveSun';
@@ -36,6 +40,10 @@ export const SolarObservatory = () => {
       isMounted = false;
     };
   }, []);
+
+  if (loading) {
+    return <LoadingOverlay funFacts={solarFunFacts.map(fact => fact.answer)} />;
+  }
 
   return (
     <div className={styles.mainWrapper}>

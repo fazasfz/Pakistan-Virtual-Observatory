@@ -1,18 +1,20 @@
+/**
+ * Landing page component for the Pakistan Virtual Astronomical Observatory.
+ * Composes the Hero, Modules Overview, and Data Sources sections.
+ */
 import React from 'react';
 import HeroSection from './sections/HeroSection';
-import MissionSection from './sections/MissionSection';
 import ModulesOverviewSection from './sections/ModulesOverviewSection';
-import DataSourcesSection from './sections/DataSourcesSection';
-import ClosingSection from './sections/ClosingSection';
+import ApodSpotlightSection from './sections/ApodSpotlightSection';
+import InteractiveToolsSection from './sections/InteractiveToolsSection';
 
 const LandingPage = () => {
   return (
     <div style={{ width: '100%' }}>
       <HeroSection />
-      <MissionSection />
       <ModulesOverviewSection />
-      <DataSourcesSection />
-      <ClosingSection />
+      <ApodSpotlightSection />
+      <InteractiveToolsSection />
     </div>
   );
 };

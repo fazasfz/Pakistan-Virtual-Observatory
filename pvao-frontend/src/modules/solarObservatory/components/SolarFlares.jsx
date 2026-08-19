@@ -1,5 +1,11 @@
+/**
+ * Displays recent solar flare activity and X-ray flux data fetched from NOAA.
+ * Renders interactive images and telemetry metrics.
+ * Props: flareImage (string), loading (boolean).
+ */
 import React, { useState, useEffect } from 'react';
 import styles from '../SolarObservatory.module.css';
+import SectionHeading from '../../../components/common/SectionHeading/SectionHeading';
 
 export const SolarFlares = ({ flareImage = '', loading = false }) => {
     const [selectedImage, setSelectedImage] = useState(null);

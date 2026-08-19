@@ -2,7 +2,7 @@
     width: 100%;
     min-height: 100vh;
     background-color: #020205;
-    color: #fff;
+    color: var(--starlight);
 }
 
 .fullScreenHero {
@@ -24,21 +24,12 @@
 }
 
 .denseStarsLayer1 {
-    background-image:
-        radial-gradient(1px 1px at 25px 40px, #ffffff, transparent),
-        radial-gradient(1.5px 1.5px at 120px 220px, #ffcc00, transparent),
-        radial-gradient(1px 1px at 280px 90px, #ffffff, transparent),
-        radial-gradient(2px 2px at 340px 300px, #ff6600, transparent);
-    background-size: 350px 350px;
+    background-color: transparent;
     animation: starTwinkle 3s ease-in-out infinite alternate;
 }
 
 .denseStarsLayer2 {
-    background-image:
-        radial-gradient(1px 1px at 70px 180px, #ffffff, transparent),
-        radial-gradient(1.2px 1.2px at 200px 310px, #ffaa00, transparent),
-        radial-gradient(1px 1px at 310px 140px, #ffffff, transparent);
-    background-size: 450px 450px;
+    background-color: transparent;
     animation: starDrift 90s linear infinite;
 }
 
@@ -58,8 +49,6 @@
     transform: translateY(-50%);
     width: 280px;
     background: rgba(12, 10, 15, 0.55);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(243, 156, 18, 0.25);
     border-radius: 12px;
     padding: 1.5rem;
@@ -91,7 +80,7 @@
 .metricValue {
     font-size: 1.6rem;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--starlight);
     line-height: 1.1;
     font-family: monospace;
 }
@@ -211,12 +200,10 @@
     top: 2rem;
     right: 2rem;
     background: rgba(10, 10, 15, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     border: 1px solid #f39c12;
     border-radius: 8px;
     padding: 1rem 1.25rem;
-    color: #fff;
+    color: var(--starlight);
     font-family: monospace;
     font-size: 0.85rem;
     z-index: 20;
@@ -232,8 +219,6 @@
     font-family: monospace;
     font-size: 0.8rem;
     background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     padding: 6px 12px;
     border-radius: 4px;
     border: 1px solid rgba(243, 156, 18, 0.3);
@@ -421,7 +406,7 @@
     font-family: monospace !important;
     font-size: 0.75rem !important;
     border-radius: 6px !important;
-    backdrop-filter: blur(8px);
+    
 }
 
 .hotspotOverlayLayer {
@@ -562,7 +547,7 @@
     border: 1px solid rgba(255, 140, 0, 0.2);
     border-radius: 12px;
     padding: 24px 32px;
-    backdrop-filter: blur(8px);
+    
     position: relative;
 }
 
@@ -667,7 +652,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(5, 8, 15, 0.85);
-    backdrop-filter: blur(12px);
+    
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -714,7 +699,7 @@
 }
 
 .closeButton:hover {
-    color: #ffffff;
+    color: var(--starlight);
 }
 
 /* Modal Bottom Caption */
@@ -778,7 +763,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    backdrop-filter: blur(8px);
+    
 }
 
 .telemetryHeader {

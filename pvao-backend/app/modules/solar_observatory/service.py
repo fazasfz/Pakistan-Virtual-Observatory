@@ -1,3 +1,7 @@
+"""
+Core business logic for the Solar Observatory module.
+Integrates with the noaa_client to fetch and process solar cycle data and space weather telemetry.
+"""
 from datetime import datetime, timezone, timedelta
 from app.integrations.noaa_client import fetch_noaa_raw_data
 from app.modules.solar_observatory.schemas import SolarTelemetryResponse

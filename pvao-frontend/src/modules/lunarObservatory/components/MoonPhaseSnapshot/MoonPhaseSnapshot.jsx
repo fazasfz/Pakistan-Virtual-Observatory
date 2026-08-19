@@ -1,3 +1,8 @@
+/**
+ * Renders an SVG representation of the moon's current phase and illumination.
+ * Computes SVG arc geometries based on illumination percentage.
+ * Props: liveData (object), loading (boolean).
+ */
 import React from 'react';
 import styles from './MoonPhaseSnapshot.module.css';
 
@@ -37,7 +42,6 @@ export default function MoonPhaseSnapshot({ liveData, loading }) {
           className={styles.moonLit}
         />
       </svg>
-      <div className={styles.label}>2D SNAPSHOT (LIVE)</div>
     </div>
   );
 }

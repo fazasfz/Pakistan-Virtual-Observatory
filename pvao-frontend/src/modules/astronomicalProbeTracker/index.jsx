@@ -1,3 +1,8 @@
+/**
+ * Root entry point for the Astronomical Probe Tracker module.
+ * Manages global state for target selection, active probes, and live telemetry.
+ * Composes the header, 3D orbit canvas, and telemetry cards.
+ */
 import React, { useState, useEffect } from "react";
 import { ProbeTrackerHeader } from "./ProbeTrackerHeader";
 import { ProbeTelemetryCard } from "./ProbeTelemetryCard";

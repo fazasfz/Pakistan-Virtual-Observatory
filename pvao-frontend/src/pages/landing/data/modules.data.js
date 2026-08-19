@@ -1,92 +1,70 @@
+/**
+ * Static data store defining the available modules, their routes, and metadata.
+ */
 // pvao-frontend/src/pages/landing/data/modules.data.js
-import imgSkyPortal from '../../../assets/images/modules/sky-portal.jpg';
+import imgZenith from '../../../assets/images/modules/sky-portal.jpg';
 import imgAstronomicalProbe from '../../../assets/images/modules/astronomical-probe-tracker.jpg';
 import imgSolarObservatory from '../../../assets/images/modules/solar-observatory.jpg';
-import imgEarth from '../../../assets/images/modules/earth.jpg';
 import imgDeepSky from '../../../assets/images/modules/deep-sky.jpg';
 import imgExora from '../../../assets/images/modules/exora-bg.jpg';
-import imgSolarSystem from '../../../assets/images/modules/solar-system.jpg';
-import imgObservationPlanner from '../../../assets/images/modules/observation-planner.jpg';
 import imgLunar from '../../../assets/images/modules/lunar-bg.jpg';
 
 export const modulesData = [
   { 
-    id: 'sky-portal', 
-    number: 'MOD.01', 
-    name: 'Sky Portal', 
-    path: '/sky-portal',
-    description: 'Monitor orbital telemetry and observe local atmospheric conditions in real-time.',
-    bgImage: imgSkyPortal
-  },
-  { 
-    id: 'astronomical-probe-tracker', 
-    number: 'MOD.02', 
-    name: 'Astronomical Probe Tracker', 
-    path: '/astronomical-probe-tracker',
-    description: 'Track the positions and orbits of satellites circling the Earth.',
-    bgImage: imgAstronomicalProbe
-  },
-  { 
     id: 'solar-observatory', 
-    number: 'MOD.03', 
     name: 'Solar Observatory', 
+    number: 'SEC.01',
+    readout: 'WIND: 420.5 km/s', /* TODO: Wire up to live solar wind API */
     path: '/solar-observatory',
-    description: 'Solar dynamics and detailed observations of our Sun.',
+    description: 'Monitor near real-time telemetry from the Solar Dynamics Observatory (SDO).',
     bgImage: imgSolarObservatory
   },
-  { 
-    id: 'earth-view', 
-    number: 'MOD.04', 
-    name: 'Earth View', 
-    path: '/earth-view',
-    description: 'High-resolution real-time views of Earth from space.',
-    bgImage: imgEarth
-  },
-  { 
-    id: 'deep-sky-explorer', 
-    number: 'MOD.05', 
-    name: 'Deep Sky Explorer', 
-    path: '/deep-sky-explorer',
-    description: 'Access deep-sky surveys and galactic spectroscopy archives.',
-    bgImage: imgDeepSky
+  {
+    id: 'lunar-observatory',
+    name: 'Lunar Observatory',
+    number: 'SEC.02',
+    readout: 'PHASE: 98% WAXING', /* TODO: Wire up to live moon phase calculation */
+    path: '/lunar-observatory',
+    description: 'Explore the lunar surface using high-resolution orbital data and topological maps.',
+    bgImage: imgLunar,
+    sourceTag: 'NASA Goddard SVS • USGS Gazetteer'
   },
   { 
     id: 'exora', 
-    category: 'DEEP COSMOS & EXOPLANET', 
     name: 'Exora', 
+    number: 'SEC.03',
+    readout: 'EXOPLANETS: 5,602', /* TODO: Wire up to NASA Exoplanet Archive */
     path: '/exora',
-    description: 'Explore visually stunning, scientifically accurate renderings of known exoplanets based on transit data.',
+    description: 'Discover scientifically-grounded atmospheric and topological models of known exoplanets.',
     bgImage: imgExora,
     externalUrl: 'https://exora-placeholder-url.com',
     sourceTag: 'NASA Data Explorer • Digital Observatory'
   },
   { 
-    id: 'solar-system-simulator', 
-    number: 'MOD.07', 
-    name: 'Solar System Simulator', 
-    path: '/solar-system-simulator',
-    description: 'Simulate planetary alignments and near-earth object tracking.',
-    bgImage: imgSolarSystem,
-    externalUrl: 'https://dynamix209.github.io/solar-system-orbital-simulator/',
-    sourceTag: 'Community Orbital Simulator • Open Source'
+    id: 'deep-sky-explorer', 
+    name: 'Deep Sky Explorer', 
+    number: 'SEC.04',
+    readout: 'TARGETS: 24,101', /* TODO: Wire up to deep sky catalog count */
+    path: '/deep-sky-explorer',
+    description: 'Examine distant nebulae and galactic structures using deep-sky survey data.',
+    bgImage: imgDeepSky
   },
   { 
-    id: 'observation-planner', 
-    number: 'MOD.08', 
-    name: 'Observation Planner', 
-    path: '/observation-planner',
-    description: 'Plan and schedule your astronomical observations.',
-    bgImage: imgObservationPlanner,
-    externalUrl: 'https://observation-planner-placeholder-url.com',
-    sourceTag: 'Global Telescope Network • Scheduling System'
+    id: 'zenith', 
+    name: 'Zenith', 
+    number: 'SEC.05',
+    readout: 'VISIBLE: 1,402 OBJS', /* TODO: Wire up to active Stellarium object count */
+    path: '/zenith',
+    description: 'Navigate the night sky from any global coordinate in real-time.',
+    bgImage: imgZenith
   },
-  {
-    id: 'lunar-observatory',
-    number: 'MOD.09',
-    name: 'Lunar Observatory',
-    path: '/lunar-observatory',
-    description: 'Live moon data and interactive 3D lunar surface map.',
-    bgImage: imgLunar,
-    sourceTag: 'NASA Goddard SVS • USGS Gazetteer'
+  { 
+    id: 'astronomical-probe-tracker', 
+    name: 'Astronomical Probes', 
+    number: 'SEC.06',
+    readout: 'ACTIVE: 34 PROBES', /* TODO: Wire up to JPL Horizons data */
+    path: '/astronomical-probe-tracker',
+    description: 'Track the active telemetry and heliocentric trajectories of deep space probes.',
+    bgImage: imgAstronomicalProbe
   }
 ];

@@ -1,3 +1,7 @@
+/**
+ * Root entry point for the Earth Observatory module.
+ * Composes the interactive map, overlays, and telemetry panels for Earth viewing.
+ */
 import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import EarthMap from './EarthMap';

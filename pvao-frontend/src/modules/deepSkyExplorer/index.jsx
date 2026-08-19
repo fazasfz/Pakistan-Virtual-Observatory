@@ -1,3 +1,7 @@
+/**
+ * Root entry point for the Deep Sky Explorer module.
+ * Manages state to toggle between the category selection landing page and the interactive Aladin viewer.
+ */
 import React, { useState } from 'react';
 import CategoryLanding from './components/CategoryLanding';
 import DeepSkyViewer from './components/DeepSkyViewer';

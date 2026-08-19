@@ -1,3 +1,7 @@
+"""
+Core business logic for the Astronomical Probe Tracker.
+Integrates with the NASA Horizons API to fetch and parse live ephemeris data for space probes.
+"""
 import httpx
 import re
 import math

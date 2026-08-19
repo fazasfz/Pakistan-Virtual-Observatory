@@ -1,3 +1,7 @@
+"""
+Pydantic data models for the Solar Observatory module.
+Defines schemas for solar telemetry, x-ray fluxes, and live image URLs.
+"""
 from pydantic import BaseModel
 from typing import List, Dict, Any,  Optional
 

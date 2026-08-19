@@ -1,3 +1,7 @@
+"""
+Global application configuration and environment variables management using Pydantic BaseSettings.
+Loaded by the database client, API clients, and the main application.
+"""
 from pydantic_settings import BaseSettings
 from typing import Optional
 

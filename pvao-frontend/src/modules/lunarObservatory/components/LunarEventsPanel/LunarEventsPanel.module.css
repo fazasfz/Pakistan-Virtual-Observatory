@@ -1,0 +1,67 @@
+.container {
+  padding: var(--space-24) 0;
+  color: var(--starlight);
+  font-family: sans-serif;
+}
+
+.header {
+  margin-bottom: var(--space-32);
+}
+
+.title {
+  font-family: sans-serif;
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--lunar-blue);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.eventTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.eventTable th,
+.eventTable td {
+  padding: var(--space-16);
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.eventTable th {
+  font-family: sans-serif;
+  color: var(--obsidian-light);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.eventTable tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.eventType {
+  font-family: sans-serif;
+  font-size: 10px;
+  color: var(--lunar-blue);
+  background: rgba(119, 172, 230, 0.1);
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.eventDate {
+  font-family: sans-serif;
+  color: var(--starlight);
+}
+
+.eventDesc {
+  color: var(--starlight);
+}

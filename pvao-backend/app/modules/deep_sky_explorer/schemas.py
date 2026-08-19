@@ -1,3 +1,7 @@
+"""
+Pydantic data models for the Deep Sky Explorer module.
+Defines schemas for deep sky object metadata and image responses.
+"""
 from pydantic import BaseModel
 from typing import Optional, List
 

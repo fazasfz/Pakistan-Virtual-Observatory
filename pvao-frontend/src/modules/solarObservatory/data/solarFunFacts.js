@@ -1,3 +1,7 @@
+/**
+ * Static data store containing a collection of educational fun facts about the Sun.
+ * Used by the SolarFunFacts component.
+ */
 export const solarFunFacts = [
     {
         id: 1,

@@ -1,3 +1,7 @@
+"""
+Primary entry point for the FastAPI application.
+Initializes the app, configures CORS middleware, connects to the database, and mounts the API router.
+"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
@@ -24,10 +28,10 @@ app.add_middleware(
 
 @app.on_event("startup")
 async def on_startup():
-    pass 
+    await init_db()
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to PVAO API. Status: ONLINE"}
+    return {"message": "Welcome to VAO API. Status: ONLINE"}

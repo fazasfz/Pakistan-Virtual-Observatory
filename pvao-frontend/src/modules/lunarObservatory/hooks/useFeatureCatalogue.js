@@ -1,4 +1,9 @@
-import { useState, useEffect } from 'react';
+/**
+ * Custom hook to fetch and manage the lunar feature catalogue state.
+ * Handles searching, filtering by category, and selecting features.
+ * Inputs: viewMode (string). Returns: feature state and dispatch functions.
+ */
+import React, { useState, useEffect, useMemo } from 'react';
 import axiosClient from '../../../api/axiosClient';
 
 export const useFeatureCatalogue = (viewMode = '3D') => {
@@ -22,7 +27,13 @@ export const useFeatureCatalogue = (viewMode = '3D') => {
           ? `/lunar-observatory/features?category=${activeCategory}&dataset=${dataset}`
           : `/lunar-observatory/features?dataset=${dataset}`;
         const response = await axiosClient.get(url);
-        setFeatures(response.data);
+        // Map backend schema to what frontend components expect
+        const mappedFeatures = response.data.map(f => ({
+          ...f,
+          diameter_km: f.diameter !== undefined && f.diameter !== null ? f.diameter : null,
+          type: f.type || 'Unknown'
+        }));
+        setFeatures(mappedFeatures);
         setError(null);
       } catch (err) {
         setError(err.message);
@@ -30,6 +41,7 @@ export const useFeatureCatalogue = (viewMode = '3D') => {
         setLoading(false);
       }
     };
+    setSelectedFeatureId(null); // Reset selection when category changes
     fetchFeatures();
   }, [activeCategory, viewMode]);
 
@@ -54,9 +66,17 @@ export const useFeatureCatalogue = (viewMode = '3D') => {
     fetchFeatureDetails();
   }, [selectedFeatureId]);
 
-  const filteredFeatures = features.filter(f => 
-    f.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredFeatures = useMemo(() => {
+    return features.filter(f => 
+      f.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [features, searchTerm]);
+
+  useEffect(() => {
+    if (filteredFeatures.length > 0 && !selectedFeatureId && !loading) {
+      setSelectedFeatureId(filteredFeatures[0].id);
+    }
+  }, [filteredFeatures, selectedFeatureId, loading]);
 
   return {
     features: filteredFeatures,

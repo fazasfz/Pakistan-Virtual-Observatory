@@ -1,3 +1,6 @@
+/**
+ * Landing page section rendering a grid of ModuleCards for navigation.
+ */
 import React from 'react';
 import { Row, Col } from 'antd';
 import SectionWrapper from '../../../components/common/SectionWrapper/SectionWrapper';
@@ -14,15 +17,14 @@ const ModulesOverviewSection = () => {
     <div ref={revealRef}>
       <SectionWrapper id="modules" className={styles.modulesSection} overlay={false}>
         <div className={styles.header}>
-          <HUDLabel text="SEC.02 // SYSTEM MODULES" />
-          <h2 className={styles.heading}>OPERATIONAL SECTORS</h2>
+          <h2 className={styles.heading}>NAVIGATE THE COSMOS</h2>
+          <p className={styles.subhead}>SIX INSTRUMENTS. ONE SKY.</p>
         </div>
 
         <Row gutter={[24, 24]} className={styles.grid}>
           {modulesData.map((mod) => (
             <Col xs={24} md={12} key={mod.id} className={styles.col}>
               <ModuleCard 
-                number={mod.number}
                 name={mod.name}
                 description={mod.description}
                 linkTo={mod.path}

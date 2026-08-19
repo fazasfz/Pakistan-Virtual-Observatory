@@ -1,3 +1,7 @@
+"""
+Defines the FastAPI route endpoints for the Solar Observatory module.
+Exposes /telemetry and /cycle endpoints using the underlying service layer.
+"""
 # app/modules/solar_observatory/router.py
 from fastapi import APIRouter, HTTPException
 from .service import get_sunspot_regions
