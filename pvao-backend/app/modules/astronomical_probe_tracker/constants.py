@@ -1,8 +1,7 @@
-# Celestial target and probe registry
 PROBE_CATALOG = {
     "earth": [
         {"id": "aura", "name": "Aura Satellite", "horizons_id": "-84", "norad_id": "28376"},
-        {"id": "iss", "name": "International Space Station (ISS)", "horizons_id": "-125544", "norad_id": "25544"},
+        {"id": "iss", "name": "International Space Station (ISS)", "horizons_id": "-25544", "norad_id": "25544"},
         {"id": "hubble", "name": "Hubble Space Telescope", "horizons_id": "-48", "norad_id": "20580"},
         {"id": "tess", "name": "TESS Observatory", "horizons_id": "-95", "norad_id": "43435"},
         {"id": "chandra", "name": "Chandra X-ray Observatory", "horizons_id": "-123", "norad_id": "25867"},
@@ -15,8 +14,8 @@ PROBE_CATALOG = {
     ],
     "moon": [
         {"id": "lro", "name": "Lunar Reconnaissance Orbiter (LRO)", "horizons_id": "-85"},
-        {"id": "artemis1", "name": "Artemis I (Orion)", "horizons_id": "-143522"},
-        {"id": "artemis2", "name": "Artemis II Probe", "horizons_id": "-143523"},
+        {"id": "artemis1", "name": "Artemis I (Orion)", "horizons_id": "-164"},
+        {"id": "artemis2", "name": "Artemis II Probe", "horizons_id": "-165"},
     ],
     "mars": [
         {"id": "mro", "name": "Mars Reconnaissance Orbiter (MRO)", "horizons_id": "-74"},

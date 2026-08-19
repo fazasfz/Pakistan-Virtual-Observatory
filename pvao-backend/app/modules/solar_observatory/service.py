@@ -2,6 +2,7 @@ from datetime import datetime, timezone, timedelta
 from app.integrations.noaa_client import fetch_noaa_raw_data
 from app.modules.solar_observatory.schemas import SolarTelemetryResponse
 from app.integrations.noaa_client import fetch_solar_cycle_data
+import httpx
 
 SDO_BASE = "https://sdo.gsfc.nasa.gov/assets/img/latest"
 SOHO_BASE = "https://soho.nascom.nasa.gov/data/realtime"
@@ -49,3 +50,18 @@ async def get_processed_solar_telemetry() -> SolarTelemetryResponse:
 async def get_solar_cycle_progression():
     """Fetches solar cycle indices via integration client."""
     return await fetch_solar_cycle_data()
+
+SWPC_SUNSPOTS_URL = "https://services.swpc.noaa.gov/json/solar_regions.json"
+
+async def get_sunspot_regions():
+    async with httpx.AsyncClient() as client:
+        response = await client.get(SWPC_SUNSPOTS_URL, timeout=10.0)
+        response.raise_for_status()
+        data = response.json()
+        
+        valid = [item for item in data if item.get("observed_date")]
+        if not valid:
+            return []
+            
+        latest_date = max(item["observed_date"] for item in valid)
+        return [item for item in valid if item["observed_date"] == latest_date]

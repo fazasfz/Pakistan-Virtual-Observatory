@@ -1,6 +1,6 @@
 # app/modules/solar_observatory/router.py
-
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
+from .service import get_sunspot_regions
 from app.modules.solar_observatory.schemas import SolarTelemetryResponse
 from app.modules.solar_observatory.service import (
     get_processed_solar_telemetry,
@@ -18,3 +18,10 @@ async def get_solar_telemetry():
 async def get_solar_cycle():
     """Fetch monthly solar cycle progression data from NOAA SWPC."""
     return await get_solar_cycle_progression()
+
+@router.get("/sunspots")
+async def fetch_sunspots():
+    try:
+        return await get_sunspot_regions()
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Failed to fetch SWPC sunspot data: {str(e)}")

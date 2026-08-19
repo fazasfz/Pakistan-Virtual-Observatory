@@ -4,9 +4,12 @@ import InteractiveSun from './components/InteractiveSun';
 import SolarWindTelemetry from './components/SolarWindTelemetry';
 import LiveSunGallery from './components/LiveSunGallery';
 import SolarFlares from './components/SolarFlares';
+import SolarFeatures from './components/SolarFeatures';
+import SolarTimeline from './components/SolarTimeline';
+import SunspotRegions from './components/SunspotRegions';
 import { SolarCycleGraph } from './components/SolarCycleGraph';
 import { SolarFunFacts } from './components/SolarFunFacts';
-
+import CoronalEvents from './components/CoronalEvents';
 export const SolarObservatory = () => {
   const [telemetry, setTelemetry] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -29,7 +32,9 @@ export const SolarObservatory = () => {
         if (isMounted) setLoading(false);
       });
 
-    return () => { isMounted = false; };
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
@@ -44,7 +49,11 @@ export const SolarObservatory = () => {
       </div>
 
       <LiveSunGallery images={telemetry?.live_images} loading={loading} />
+      <SolarFeatures solarImage={telemetry?.live_images?.hmi_continuum || telemetry?.live_images?.aia_171} />
       <SolarFlares flareImage={telemetry?.live_images?.aia_131} loading={loading} />
+      <SolarTimeline />
+      <SunspotRegions />
+      <CoronalEvents />
       <SolarCycleGraph />
       <SolarFunFacts />
     </div>

@@ -13,14 +13,14 @@ async def fetch_horizons_ephemeris(command_id: str, center_body: str) -> Dict[st
     
     params = {
         "format": "json",
-        "COMMAND": command_id,
+        "COMMAND": f"'{command_id}'",
         "OBJ_DATA": "NO",
         "MAKE_EPHEM": "YES",
         "EPHEM_TYPE": "VECTORS",
-        "CENTER": center_body,
-        "START_TIME": start_str,
-        "STOP_TIME": stop_str,
-        "STEP_SIZE": "1m",
+        "CENTER": f"'{center_body}'",
+        "START_TIME": f"'{start_str}'",
+        "STOP_TIME": f"'{stop_str}'",
+        "STEP_SIZE": "'1m'",
         "VEC_TABLE": "1"
     }
     
@@ -30,16 +30,27 @@ async def fetch_horizons_ephemeris(command_id: str, center_body: str) -> Dict[st
         return res.json()
 
 def calculate_fallback_orbit(probe_id: str) -> Dict[str, float]:
+    """Dynamic physics-based fallback when JPL Horizons is unreachable."""
     now = datetime.now(timezone.utc).timestamp()
     seed = sum(ord(c) for c in probe_id)
-    radius = 6700.0 + (seed % 1500)
+    
+    radius = 6700.0 + (seed * 137 % 3500)
     angle = (now / 100.0 + seed) % (2 * math.pi)
     inclination = math.radians((seed % 60) - 30)
     
+    x = radius * math.cos(angle)
+    y = radius * math.sin(angle) * math.cos(inclination)
+    z = radius * math.sin(angle) * math.sin(inclination)
+    
+    # Calculate orbital velocity based on radius: v = sqrt(mu / r)
+    mu = 398600.4418  # Earth's gravitational parameter
+    computed_vel = math.sqrt(mu / radius)
+
     return {
-        "x": round(radius * math.cos(angle), 2),
-        "y": round(radius * math.sin(angle) * math.cos(inclination), 2),
-        "z": round(radius * math.sin(angle) * math.sin(inclination), 2)
+        "x": round(x, 2),
+        "y": round(y, 2),
+        "z": round(z, 2),
+        "velocity": round(computed_vel, 2)
     }
 
 def parse_vector_data(result_json: Dict[str, Any], probe_id: str) -> Dict[str, float]:
@@ -51,12 +62,27 @@ def parse_vector_data(result_json: Dict[str, Any], probe_id: str) -> Dict[str, f
     x_m = re.search(r'X\s*=\s*([+-]?\d+\.?\d*(?:[eE][+-]?\d+)?)', data_block)
     y_m = re.search(r'Y\s*=\s*([+-]?\d+\.?\d*(?:[eE][+-]?\d+)?)', data_block)
     z_m = re.search(r'Z\s*=\s*([+-]?\d+\.?\d*(?:[eE][+-]?\d+)?)', data_block)
+    vx_m = re.search(r'VX\s*=\s*([+-]?\d+\.?\d*(?:[eE][+-]?\d+)?)', data_block)
+    vy_m = re.search(r'VY\s*=\s*([+-]?\d+\.?\d*(?:[eE][+-]?\d+)?)', data_block)
+    vz_m = re.search(r'VZ\s*=\s*([+-]?\d+\.?\d*(?:[eE][+-]?\d+)?)', data_block)
     
     if not (x_m and y_m and z_m):
         return calculate_fallback_orbit(probe_id)
-        
+
+    x_val = float(x_m.group(1))
+    y_val = float(y_m.group(1))
+    z_val = float(z_m.group(1))
+
+    if vx_m and vy_m and vz_m:
+        vx, vy, vz = float(vx_m.group(1)), float(vy_m.group(1)), float(vz_m.group(1))
+        vel = math.sqrt(vx**2 + vy**2 + vz**2)
+    else:
+        dist = math.sqrt(x_val**2 + y_val**2 + z_val**2)
+        vel = math.sqrt(398600.4418 / max(dist, 1000))
+
     return {
-        "x": round(float(x_m.group(1)), 2),
-        "y": round(float(y_m.group(1)), 2),
-        "z": round(float(z_m.group(1)), 2)
+        "x": round(x_val, 2),
+        "y": round(y_val, 2),
+        "z": round(z_val, 2),
+        "velocity": round(vel, 2)
     }
