@@ -37,7 +37,12 @@ const CreditsPage = () => {
                       </div>
                       <div className={styles.imagePlaceholder}>
                         {person.image ? (
-                          <img src={person.image} alt={person.name} className={`${styles.personImage} ${person.noZoom ? styles.noZoom : ''}`} />
+                          <img 
+                            src={person.image} 
+                            alt={person.name} 
+                            className={`${styles.personImage} ${person.noZoom ? styles.noZoom : ''}`} 
+                            style={{ objectPosition: person.imagePosition || 'top center' }}
+                          />
                         ) : (
                           <div className={styles.imagePlaceholderInner}></div>
                         )}
@@ -67,7 +72,12 @@ const CreditsPage = () => {
                       </div>
                       <div className={styles.imagePlaceholder}>
                         {person.image ? (
-                          <img src={person.image} alt={person.name} className={`${styles.personImage} ${person.noZoom ? styles.noZoom : ''}`} />
+                          <img 
+                            src={person.image} 
+                            alt={person.name} 
+                            className={`${styles.personImage} ${person.noZoom ? styles.noZoom : ''}`} 
+                            style={{ objectPosition: person.imagePosition || 'top center' }}
+                          />
                         ) : (
                           <div className={styles.imagePlaceholderInner}></div>
                         )}
