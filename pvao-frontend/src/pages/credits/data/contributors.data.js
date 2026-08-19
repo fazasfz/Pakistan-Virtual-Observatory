@@ -60,6 +60,7 @@ export const contributors = [
     institution: 'Institute of Space Technology',
     description: 'Sourced and synthesized critical astronomical data, laying the factual groundwork for the Solar Observatory and Probe Tracker.',
     image: tehreemImg,
+    imagePosition: 'center 30%',
     noZoom: true
   },
   {
