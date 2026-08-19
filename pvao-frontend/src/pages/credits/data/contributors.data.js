@@ -9,6 +9,7 @@ import simraImg from '../../../assets/images/team/simra.jpg';
 import fatimaImg from '../../../assets/images/team/fatima.jpg';
 import amnaImg from '../../../assets/images/team/amna.jpg';
 import tehreemImg from '../../../assets/images/team/tehreem.jpg';
+import saaniImg from '../../../assets/images/team/saani.jpg';
 
 export const contributors = [
   {
@@ -89,6 +90,7 @@ export const contributors = [
     role: 'Intern',
     title: 'Research Intern',
     institution: 'Institute of Space Technology',
-    description: 'Researched and built the Earth View module, while also driving key foundational research for Exora.'
+    description: 'Researched and built the Earth View module, while also driving key foundational research for Exora.',
+    image: saaniImg
   }
 ];
