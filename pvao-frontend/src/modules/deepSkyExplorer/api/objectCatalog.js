@@ -1,3 +1,7 @@
+/**
+ * Static curated catalog of well-known deep sky objects (Messier objects).
+ * Used as a default dataset before falling back to live MAST/NED queries.
+ */
 // A small curated catalog of well-known deep sky objects, grouped by type.
 // Later this can be replaced/expanded with live MAST/NED queries.
 

@@ -1,3 +1,7 @@
+/**
+ * Custom Leaflet GridLayer that renders and colorizes nighttime city lights data.
+ * Processes tiles to visualize light pollution intensities.
+ */
 import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';

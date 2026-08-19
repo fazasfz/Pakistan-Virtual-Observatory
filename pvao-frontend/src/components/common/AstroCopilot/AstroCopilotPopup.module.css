@@ -17,15 +17,16 @@
   /* Restyled via global theme usually, but adding specifics here */
 }
 
-:global(.ant-modal-content) {
-  background: var(--obsidian) !important;
+:global(.ant-modal-content),
+:global(.ant-modal-body) {
+  background-color: var(--obsidian-2) !important;
   border: 1px solid var(--hud-border-color) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
 }
 
 :global(.ant-modal-header) {
-  background: transparent !important;
+  background-color: var(--obsidian-2) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
@@ -89,36 +90,40 @@
 }
 
 .avatar {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--starlight);
   flex-shrink: 0;
-}
-
-.messageUser .avatar {
-  background: rgba(255, 215, 0, 0.2);
-  color: var(--brass);
-}
-
-.messageBubble {
-  background: rgba(255, 255, 255, 0.05);
-  padding: var(--space-12);
-  border-radius: 8px;
-  color: var(--starlight);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  line-height: 1.5;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.messageUser .avatar {
+  background: rgba(200, 137, 59, 0.15);
+  color: var(--brass);
+  border-color: rgba(200, 137, 59, 0.3);
+}
+
+.messageBubble {
+  background: rgba(255, 255, 255, 0.03);
+  padding: var(--space-12) var(--space-16);
+  border-radius: 12px;
+  border-top-left-radius: 2px;
+  color: var(--starlight);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .messageUser .messageBubble {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: rgba(255, 215, 0, 0.2);
+  background: rgba(200, 137, 59, 0.1);
+  border-color: rgba(200, 137, 59, 0.2);
+  border-radius: 12px;
+  border-top-right-radius: 2px;
 }
 
 .inputArea {
@@ -147,6 +152,9 @@
 
 .sendBtn {
   color: var(--brass) !important;
+  font-family: var(--font-headline) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em;
 }
 
 .sendBtn:hover {
@@ -173,15 +181,16 @@
   /* Restyled via global theme usually, but adding specifics here */
 }
 
-:global(.ant-modal-content) {
-  background: var(--obsidian) !important;
+:global(.ant-modal-content),
+:global(.ant-modal-body) {
+  background-color: var(--obsidian-2) !important;
   border: 1px solid var(--hud-border-color) !important;
-  border-radius: 8px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6) !important;
 }
 
 :global(.ant-modal-header) {
-  background: transparent !important;
+  background-color: var(--obsidian-2) !important;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
@@ -245,36 +254,40 @@
 }
 
 .avatar {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   color: var(--starlight);
   flex-shrink: 0;
-}
-
-.messageUser .avatar {
-  background: rgba(255, 215, 0, 0.2);
-  color: var(--brass);
-}
-
-.messageBubble {
-  background: rgba(255, 255, 255, 0.05);
-  padding: var(--space-12);
-  border-radius: 8px;
-  color: var(--starlight);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  line-height: 1.5;
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.messageUser .avatar {
+  background: rgba(200, 137, 59, 0.15);
+  color: var(--brass);
+  border-color: rgba(200, 137, 59, 0.3);
+}
+
+.messageBubble {
+  background: rgba(255, 255, 255, 0.03);
+  padding: var(--space-12) var(--space-16);
+  border-radius: 12px;
+  border-top-left-radius: 2px;
+  color: var(--starlight);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
 .messageUser .messageBubble {
-  background: rgba(255, 215, 0, 0.1);
-  border-color: rgba(255, 215, 0, 0.2);
+  background: rgba(200, 137, 59, 0.1);
+  border-color: rgba(200, 137, 59, 0.2);
+  border-radius: 12px;
+  border-top-right-radius: 2px;
 }
 
 .inputArea {
@@ -303,6 +316,9 @@
 
 .sendBtn {
   color: var(--brass) !important;
+  font-family: var(--font-headline) !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em;
 }
 
 .sendBtn:hover {

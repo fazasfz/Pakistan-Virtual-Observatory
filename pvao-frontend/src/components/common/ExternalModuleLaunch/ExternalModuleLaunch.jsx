@@ -1,3 +1,7 @@
+/**
+ * Wrapper component for redirecting users to external module applications.
+ * Displays a splash screen before navigating to external URLs.
+ */
 import React, { useState } from 'react';
 import styles from './ExternalModuleLaunch.module.css';
 

@@ -1,3 +1,7 @@
+/**
+ * 3D WebGL viewer using React Three Fiber to display a target celestial body and its orbiting probes.
+ * Props: target (string).
+ */
 import React, { useRef, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF, OrbitControls, Stars } from "@react-three/drei";

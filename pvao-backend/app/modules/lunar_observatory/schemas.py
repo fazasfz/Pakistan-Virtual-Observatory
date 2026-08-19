@@ -1,3 +1,7 @@
+"""
+Pydantic data models for the Lunar Observatory module.
+Defines the schema for LiveMoonData and LunarFeature API responses.
+"""
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -24,6 +28,7 @@ class LunarFeature(BaseModel):
     category: str
     latitude: float
     longitude: float
+    diameter: float
     description: str
     visibility: FeatureVisibility
     distance_km: Optional[float] = None

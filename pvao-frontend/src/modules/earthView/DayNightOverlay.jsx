@@ -1,3 +1,7 @@
+/**
+ * Renders a dynamic terminator line and night-shade overlay on the interactive Earth map.
+ * Indicates current daytime and nighttime regions globally.
+ */
 import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
 import terminator from '@joergdietrich/leaflet.terminator';

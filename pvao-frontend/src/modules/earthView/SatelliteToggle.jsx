@@ -1,3 +1,7 @@
+/**
+ * UI toggle control to switch between different map baselayers (Map, Satellite, Lights).
+ * Props: mode (string), onChange (function).
+ */
 import React from 'react';
 import './satelliteToggle.css';
 

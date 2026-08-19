@@ -1,3 +1,7 @@
+/**
+ * Fetches and displays the latest full-disk image of Earth from the NASA EPIC camera.
+ * Handles API integration and image rendering.
+ */
 import React, { useEffect, useState } from 'react';
 import './liveEarthPhoto.css';
 

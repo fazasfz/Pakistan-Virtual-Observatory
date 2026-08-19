@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Input, Button } from 'antd';
-import { Send } from 'lucide-react';
+
 import styles from './AstroCopilotPopup.module.css';
 
 export default function ChatInput({ onSendMessage, isLoading }) {
@@ -31,11 +31,12 @@ export default function ChatInput({ onSendMessage, isLoading }) {
         suffix={
           <Button 
             type="text" 
-            icon={<Send size={16} />} 
             onClick={handleSend}
             disabled={isLoading}
             className={styles.sendBtn}
-          />
+          >
+            SEND
+          </Button>
         }
       />
     </div>

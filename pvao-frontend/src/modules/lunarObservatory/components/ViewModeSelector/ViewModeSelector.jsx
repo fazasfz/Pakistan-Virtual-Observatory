@@ -1,6 +1,10 @@
+/**
+ * Dropdown selector to switch the lunar viewer between 2D Map and 3D Globe modes.
+ * Props: viewMode (string), setViewMode (function).
+ */
 import React from 'react';
 import { Select } from 'antd';
-import { Map, Globe, Mountain, Sun, Circle } from 'lucide-react';
+
 import styles from './ViewModeSelector.module.css';
 
 export default function ViewModeSelector({ viewMode, setViewMode }) {
@@ -17,7 +21,7 @@ export default function ViewModeSelector({ viewMode, setViewMode }) {
             value: 'Snapshot',
             label: (
               <div className={styles.option}>
-                <Circle size={16} />
+                <span>[ MOON ]</span>
                 <span>2D Snapshot</span>
               </div>
             ),
@@ -26,7 +30,7 @@ export default function ViewModeSelector({ viewMode, setViewMode }) {
             value: '3D',
             label: (
               <div className={styles.option}>
-                <Globe size={16} />
+                <span>[ GLB ]</span>
                 <span>3D Model</span>
               </div>
             ),
@@ -35,7 +39,7 @@ export default function ViewModeSelector({ viewMode, setViewMode }) {
             value: 'Terrain',
             label: (
               <div className={styles.option}>
-                <Mountain size={16} />
+                <span>[ MTN ]</span>
                 <span>Terrain Map</span>
               </div>
             ),
@@ -44,7 +48,7 @@ export default function ViewModeSelector({ viewMode, setViewMode }) {
             value: 'Geographic',
             label: (
               <div className={styles.option}>
-                <Map size={16} />
+                <span>[ MAP ]</span>
                 <span>Geographic Map</span>
               </div>
             ),
@@ -53,7 +57,7 @@ export default function ViewModeSelector({ viewMode, setViewMode }) {
             value: 'Shade',
             label: (
               <div className={styles.option}>
-                <Sun size={16} />
+                <span>[ SUN ]</span>
                 <span>Shaded Relief</span>
               </div>
             ),

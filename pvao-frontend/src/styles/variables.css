@@ -8,10 +8,11 @@
   --starlight: #F4EFE6;
   --slate-ui: #8A8F98;
   --deep-teal: #0C1614;
+  --lunar-blue: #4b96ff;
 
   /* Typography */
-  --font-mono: 'JetBrains Mono', 'Space Mono', monospace;
-  --font-headline: 'Fraunces', 'Libre Caslon', serif;
+  --font-mono: 'Inter', sans-serif;
+  --font-headline: 'Inter', sans-serif;
   --font-body: 'Inter', sans-serif;
 
   /* HUD Settings */

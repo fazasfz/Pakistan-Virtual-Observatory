@@ -4,7 +4,7 @@
     width: 100%;
     height: 100%;
     background: #030712;
-    color: #ffffff;
+    color: var(--starlight);
     padding: 20px;
     box-sizing: border-box;
 }
@@ -40,7 +40,7 @@
 .apt-search-input {
     background: #111827;
     border: 1px solid #374151;
-    color: #fff;
+    color: var(--starlight);
     padding: 8px 12px;
     border-radius: 6px;
     width: 220px;
@@ -98,7 +98,7 @@
 
 .apt-tab-active {
     background: #2563eb;
-    color: #fff;
+    color: var(--starlight);
 }
 
 .apt-viewport {
@@ -115,11 +115,6 @@
 .apt-stars-bg {
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0, 0, 0, 0)),
-        radial-gradient(2px 2px at 40px 70px, #fff, rgba(0, 0, 0, 0)),
-        radial-gradient(1px 1px at 90px 40px, #ddd, rgba(0, 0, 0, 0));
-    background-repeat: repeat;
-    background-size: 200px 200px;
     opacity: 0.4;
 }
 
@@ -178,9 +173,9 @@
 .apt-probe-dot {
     width: 10px;
     height: 10px;
-    background: #ffffff;
+    background: var(--starlight);
     border-radius: 50%;
-    box-shadow: 0 0 6px #ffffff;
+    box-shadow: 0 0 6px var(--starlight);
 }
 
 .apt-probe-selected .apt-probe-dot {
@@ -193,7 +188,7 @@
     background: rgba(0, 0, 0, 0.8);
     padding: 2px 6px;
     border-radius: 4px;
-    color: #fff;
+    color: var(--starlight);
 }
 
 .apt-telemetry-card {
@@ -205,7 +200,7 @@
     border: 1px solid #334155;
     border-radius: 8px;
     padding: 14px;
-    backdrop-filter: blur(8px);
+    
     z-index: 10;
 }
 

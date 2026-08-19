@@ -1,3 +1,7 @@
+/**
+ * Renders a color-coded legend explaining the Bortle dark-sky scale.
+ * Maps numeric scale values to descriptive labels and representative colors.
+ */
 import React from 'react';
 import { BORTLE_CLASSES } from './bortleColor';
 import './bortleLegend.css';

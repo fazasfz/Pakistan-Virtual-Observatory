@@ -1,3 +1,7 @@
+/**
+ * Main interactive map component for the Earth View.
+ * Composes basemaps, satellite overlays, light pollution layers, and handles coordinates.
+ */
 import React, { useState } from 'react';
 import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
 import SatelliteToggle from './SatelliteToggle';
@@ -83,7 +87,7 @@ const EarthMap = () => {
       {bortle && base === 'lights' && (
         <div className="earthview-hud earthview-hud--info">
           <div className="earthview-hud-label">{bortle.place}</div>
-          <div className="earthview-hud-value">{bortle.bortle ? `Class ${bortle.bortle} — ${bortle.label}` : bortle.label}</div>
+          <div className="earthview-hud-value">{bortle.bortle ? `Class ${bortle.bortle} - ${bortle.label}` : bortle.label}</div>
           <div className="earthview-hud-coords">
             LAT {bortle.lat.toFixed(4)}°  LONG {bortle.lng.toFixed(4)}°
           </div>

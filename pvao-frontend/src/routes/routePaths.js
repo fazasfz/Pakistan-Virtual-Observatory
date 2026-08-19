@@ -1,7 +1,7 @@
 // pvao-frontend/src/routes/routePaths.js
 export const PATHS = {
   LANDING: '/',
-  SKY_PORTAL: '/sky-portal',
+  ZENITH: '/zenith',
   EARTH_VIEW: '/earth-view',
   ASTRONOMICAL_PROBE_TRACKER: '/astronomical-probe-tracker',
   SOLAR_SYSTEM_SIMULATOR: '/solar-system-simulator',
@@ -11,4 +11,6 @@ export const PATHS = {
   OBSERVATION_PLANNER: '/observation-planner',
   LUNAR_OBSERVATORY: '/lunar-observatory',
   CREDITS: '/credits',
+  DATA_SOURCES: '/data-sources',
+  GLOSSARY: '/glossary',
 };

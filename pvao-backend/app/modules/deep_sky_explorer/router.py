@@ -1,3 +1,7 @@
+"""
+Defines the FastAPI route endpoints for the Deep Sky Explorer module.
+Exposes /object/{name} and /images endpoints using the service layer.
+"""
 from fastapi import APIRouter
 from .service import get_object_info, get_object_images
 from .schemas import ObjectInfo, ObjectImagesResponse

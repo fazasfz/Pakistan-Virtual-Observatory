@@ -1,3 +1,7 @@
+/**
+ * Invisible map layer that intercepts click events to sample light pollution pixel data.
+ * Computes the Bortle scale value for the clicked geographic location.
+ */
 import { useMap, useMapEvents } from 'react-leaflet';
 import { classify } from './bortleColor';
 

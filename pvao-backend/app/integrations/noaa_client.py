@@ -1,3 +1,7 @@
+"""
+Integration client for NOAA Space Weather Prediction Center (SWPC) APIs.
+Used by the Solar Observatory service to fetch live solar wind, x-ray flux, and solar cycle data.
+"""
 import httpx
 from typing import Dict, Any, List
 

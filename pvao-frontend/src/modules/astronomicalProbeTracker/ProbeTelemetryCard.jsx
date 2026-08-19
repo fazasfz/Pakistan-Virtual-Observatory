@@ -1,3 +1,7 @@
+/**
+ * UI card displaying real-time velocity, distance, and position metrics for a specific space probe.
+ * Props: telemetry (object), hoveredProbe (object), onClose (function).
+ */
 import React from "react";
 
 export const ProbeTelemetryCard = ({ telemetry, hoveredProbe, onClose }) => {

@@ -1,3 +1,7 @@
+/**
+ * Root application component.
+ * Configures the router provider and wraps the app in global contexts.
+ */
 import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes/AppRoutes';
