@@ -1,6 +1,55 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../SolarObservatory.module.css';
 
+// Utility to parse coordinates like N15W54 -> 15° North, 54° West
+const formatSunCoordinates = (coord) => {
+    if (!coord || coord === 'Disk Surface' || coord === 'Limb / Disk') {
+        return coord || 'Visible Disk Surface';
+    }
+
+    const match = coord.match(/^([NS])(\d+)([EW])(\d+)$/i);
+    if (!match) return coord;
+
+    const [, latDir, latVal, longDir, longVal] = match;
+    const latitude = `${latVal}° ${latDir.toUpperCase() === 'N' ? 'North' : 'South'}`;
+    const longitude = `${longVal}° ${longDir.toUpperCase() === 'E' ? 'East' : 'West'}`;
+
+    return `${latitude}, ${longitude}`;
+};
+
+// Utility to convert raw detail strings into readable summaries
+const formatDetails = (type, desc, rawData = {}) => {
+    if (type === 'Filament') {
+        return 'Active magnetic plasma loop';
+    }
+    if (type === 'Coronal Eruption') {
+        return 'Solar plasma outburst detected';
+    }
+
+    // Extract values from region object or fallback string parsing
+    const area = rawData.area !== undefined ? rawData.area : (desc.match(/Area:\s*([^|]+)/)?.[1]?.replace('MSH', '').trim());
+    const spots = rawData.spot_count !== undefined ? rawData.spot_count : (desc.match(/Spots:\s*([^|]+)/)?.[1]?.trim());
+    const magClass = rawData.mag_type || (desc.match(/Class:\s*(.+)/)?.[1]?.trim());
+
+    const parts = [];
+
+    if (area && area !== 'N/A' && area !== 'null') {
+        parts.push(`Area: ${area} millionths of solar face`);
+    } else {
+        parts.push('Area: Unmeasured');
+    }
+
+    if (spots && spots !== 'N/A' && spots !== 'null') {
+        parts.push(`${spots} spot${spots === 1 ? '' : 's'}`);
+    }
+
+    if (magClass && magClass !== 'N/A') {
+        parts.push(`${magClass} Field`);
+    }
+
+    return parts.join(' • ');
+};
+
 export const SolarFeatures = ({ solarImage = '' }) => {
     const [features, setFeatures] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -19,9 +68,10 @@ export const SolarFeatures = ({ solarImage = '' }) => {
                         featureList.push({
                             id: `AR-${r.region}-${r.location}`,
                             type: 'Active Region',
+                            displayType: 'Active Sunspot Region',
                             name: `AR ${r.region}`,
-                            location: r.location || 'Disk Surface',
-                            desc: `Area: ${r.area || 'N/A'} MSH | Spots: ${r.spot_count || 'N/A'} | Class: ${r.mag_type || 'Beta'}`,
+                            location: formatSunCoordinates(r.location),
+                            desc: formatDetails('Active Region', '', r),
                         });
                     });
                 }
@@ -34,12 +84,14 @@ export const SolarFeatures = ({ solarImage = '' }) => {
 
                     dynamicEvents.slice(-6).forEach((e, idx) => {
                         const isEruption = (e.type || '').toUpperCase() === 'CME';
+                        const featureType = isEruption ? 'Coronal Eruption' : 'Filament';
                         featureList.push({
                             id: `FEAT-${idx}-${e.beginTime || idx}`,
-                            type: isEruption ? 'Coronal Eruption' : 'Filament',
+                            type: featureType,
+                            displayType: isEruption ? 'Coronal Eruption' : 'Solar Filament',
                             name: e.region ? `AR ${e.region}` : 'Disk Event',
-                            location: e.location || 'Limb / Disk',
-                            desc: e.particulars || 'Dynamic magnetic structure observed',
+                            location: formatSunCoordinates(e.location),
+                            desc: formatDetails(featureType, e.particulars || ''),
                         });
                     });
                 }
@@ -84,10 +136,10 @@ export const SolarFeatures = ({ solarImage = '' }) => {
                             <table className={styles.sunspotTable}>
                                 <thead>
                                     <tr>
-                                        <th>Feature ID</th>
-                                        <th>Type</th>
-                                        <th>Location</th>
-                                        <th>Details</th>
+                                        <th>FEATURE NAME</th>
+                                        <th>CATEGORY</th>
+                                        <th>POSITION ON SUN</th>
+                                        <th>KEY CHARACTERISTICS</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,9 +149,10 @@ export const SolarFeatures = ({ solarImage = '' }) => {
                                         filtered.map((f) => (
                                             <tr key={f.id}>
                                                 <td className={styles.featureName}>{f.name}</td>
-                                                <td>{f.type}</td>
-                                                <td>{f.location}</td>
-                                                <td className={styles.featureDesc}>{f.desc}</td>
+                                                {/* Fallback to f.displayType or format f.type if displayType isn't set */}
+                                                <td>{f.displayType || (f.type === 'Active Region' ? 'Active Sunspot Region' : f.type === 'Filament' ? 'Solar Filament' : f.type)}</td>
+                                                <td>{formatSunCoordinates(f.location)}</td>
+                                                <td className={styles.featureDesc}>{formatDetails(f.type, f.desc)}</td>
                                             </tr>
                                         ))
                                     ) : (
@@ -119,7 +172,7 @@ export const SolarFeatures = ({ solarImage = '' }) => {
                 </div>
             </div>
         </section>
-    );
+    ); s
 };
 
 export default SolarFeatures;

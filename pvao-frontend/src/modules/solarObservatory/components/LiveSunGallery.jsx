@@ -36,7 +36,7 @@ export const LiveSunGallery = ({ images, loading }) => {
 
     return (
         <section className={styles.gallerySection}>
-            <SectionHeading>The Sun Right Now (Live SDO / SOHO)</SectionHeading>
+            <SectionHeading>The Sun Through Different Lenses</SectionHeading>
             <div className={styles.galleryGrid}>
                 {cards.map((card) => (
                     <div

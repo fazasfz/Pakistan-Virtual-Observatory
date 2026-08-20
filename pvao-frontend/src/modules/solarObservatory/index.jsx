@@ -14,6 +14,8 @@ import SunspotRegions from './components/SunspotRegions';
 import { SolarCycleGraph } from './components/SolarCycleGraph';
 import { SolarFunFacts } from './components/SolarFunFacts';
 import CoronalEvents from './components/CoronalEvents';
+import LoadingOverlay from '../../components/common/LoadingOverlay/LoadingOverlay';
+import { solarFunFacts } from './data/solarFunFacts';
 export const SolarObservatory = () => {
   const [telemetry, setTelemetry] = useState(null);
   const [loading, setLoading] = useState(true);

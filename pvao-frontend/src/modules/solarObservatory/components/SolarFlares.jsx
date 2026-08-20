@@ -87,8 +87,6 @@ export const SolarFlares = ({ flareImage = '', loading = false }) => {
             <h2 className={styles.sectionTitle}>Solar Flare Activity & High-Energy EUV</h2>
             <div className={styles.flareTelemetryCard}>
                 <div className={styles.telemetryHeader}>
-                    <span className={styles.telemetryBadge}>GOES X-RAY MONITOR</span>
-                    <span className={styles.liveIndicator}>• LIVE NOAA FEED</span>
                 </div>
 
                 <div className={styles.cardInnerLayout}>

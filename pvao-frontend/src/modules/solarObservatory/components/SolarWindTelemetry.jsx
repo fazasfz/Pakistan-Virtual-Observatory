@@ -8,10 +8,8 @@ import styles from '../SolarObservatory.module.css';
 export const SolarWindTelemetry = ({ telemetry, loading }) => {
     return (
         <aside className={styles.unifiedGlassSidebar}>
-            <h3 className={styles.sidebarHeader}>Space Weather Live</h3>
 
             <div className={styles.metricSection}>
-                <div className={styles.sectionLabel}>SOLAR WIND TELEMETRY</div>
                 <div className={styles.metricValue}>
                     {loading ? '...' : (telemetry?.solar_wind_speed ?? 'N/A')}{' '}
                     <span className={styles.metricUnit}>km/s</span>
@@ -25,10 +23,7 @@ export const SolarWindTelemetry = ({ telemetry, loading }) => {
                 <div className={styles.metricSubLabel}>Proton Density</div>
             </div>
 
-            <hr className={styles.divider} />
-
             <div className={styles.metricSection}>
-                <div className={styles.sectionLabel}>SOLAR ACTIVITY STATUS</div>
                 <div className={styles.metricValueHighlight}>
                     {loading ? '...' : (telemetry?.xray_flux ?? 'N/A')}
                 </div>
