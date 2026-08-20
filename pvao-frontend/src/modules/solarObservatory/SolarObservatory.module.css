@@ -1219,3 +1219,404 @@
     align-items: center;
     justify-content: center;
 }
+
+.sketchfabWrapper {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent !important;
+    box-shadow: none !important;
+
+    /* 1. Clips the outer edges to hide the Sketchfab UI, logo, and bottom bar */
+    clip-path: circle(38% at 50% 50%);
+
+    /* 2. Softly fades the edges of the 3D model canvas into your website background */
+    mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 98%);
+    -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 98%);
+}
+
+.sketchfabIframe {
+    width: 120% !important;
+    /* Scaled slightly up to push Sketchfab watermarks outside the frame */
+    height: 120% !important;
+    border: none !important;
+    background: transparent !important;
+    mix-blend-mode: screen !important;
+    /* Blends Sketchfab's dark canvas directly with your starry background */
+    pointer-events: auto;
+}
+
+/* Container holding the Sun and its overlay stats */
+.sunStageContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 550px;
+}
+
+/* Floating overlay on the right side of the Sun */
+.embeddedSunStats {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    text-align: right;
+    z-index: 15;
+    pointer-events: none;
+    /* Lets clicks pass through to 3D controls if overlapping */
+}
+
+.statOverlayGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.statOverlayLabel {
+    font-family: 'Cinzel', serif, system-ui;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #ff8c00;
+    text-transform: uppercase;
+}
+
+.statOverlayValue {
+    font-family: monospace;
+    font-size: 0.95rem;
+    color: #ffffff;
+}
+
+.sunspotTableContainer {
+    flex: 1;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.sunspotTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: monospace;
+    font-size: 0.85rem;
+}
+
+.sunspotTable th {
+    color: #f39c12;
+    text-align: left;
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid rgba(243, 156, 18, 0.3);
+    font-family: serif;
+    text-transform: uppercase;
+}
+
+.sunspotTable td {
+    padding: 0.6rem 0.8rem;
+    color: #cbd5e1;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sunspotTable tr:hover {
+    background: rgba(243, 156, 18, 0.05);
+}
+
+.singleContainerCard {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(243, 156, 18, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    align-items: center;
+}
+
+.tableSection {
+    flex: 1.2;
+    width: 100%;
+}
+
+.imageSection {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imageClickWrapper {
+    cursor: pointer;
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.imageClickWrapper:hover {
+    transform: scale(1.01);
+    box-shadow: 0 0 15px rgba(243, 156, 18, 0.3);
+}
+
+/* Modal Lightbox Styling */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modalCard {
+    position: relative;
+    background: #0b1120;
+    border: 1px solid rgba(243, 156, 18, 0.4);
+    border-radius: 12px;
+    padding: 1.5rem;
+    max-width: 600px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.closeButton {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    color: #f39c12;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.modalImage {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.modalCaption {
+    margin-top: 1rem;
+    color: #f39c12;
+    font-family: serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.modalSubtext {
+    color: #94a3b8;
+    font-size: 0.8rem;
+    font-family: monospace;
+}
+
+.modalSubtext kbd {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.coronalGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+.coronalCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imageSubCaption {
+    color: #94a3b8;
+    font-size: 0.75rem;
+    font-family: monospace;
+    margin-top: 0.2rem;
+    text-align: center;
+}
+
+/* Container for two metric columns (Current/Peak and Latest/Location) */
+.flareClassContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Individual Metric Styling */
+.flareMetric {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.metricLabel {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    font-family: inherit;
+}
+
+.metricValueNormal {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #38bdf8;
+    font-family: monospace;
+}
+
+.metricValuePeak {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #f97316;
+    font-family: monospace;
+}
+
+/* Table Container (matches Sunspot Table styling) */
+.sunspotTableContainer {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 0.5rem;
+}
+
+.sunspotTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.sunspotTable th {
+    padding: 0.5rem 0.75rem;
+    color: #94a3b8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 500;
+}
+
+.sunspotTable td {
+    padding: 0.5rem 0.75rem;
+    color: #e2e8f0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-family: monospace;
+}
+
+.filterGroup {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.filterBtn {
+    background: transparent;
+    color: #8a99ad;
+    border: 1px solid #1e2d42;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.activeFilter {
+    background: #00e5ff;
+    color: #0a111e;
+    border-color: #00e5ff;
+}
+
+.featureName {
+    color: #00e5ff;
+    font-weight: bold;
+}
+
+.featureDesc {
+    font-size: 13px;
+    color: #a0aec0;
+}
+
+.timelineContainer {
+    padding: 16px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.timelineDesc {
+    font-size: 13px;
+    color: #a0aec0;
+    margin: 0;
+}
+
+.chartWrapper {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    background: #0a111e;
+    padding: 15px 10px 5px;
+    border-radius: 6px;
+    border: 1px solid #1e2d42;
+}
+
+.chartBar {
+    flex: 1;
+    border-radius: 2px 2px 0 0;
+    transition: height 0.3s ease;
+    cursor: pointer;
+}
+
+.normalBar {
+    background: linear-gradient(180deg, #00e5ff 0%, #0055ff 100%);
+}
+
+.flareBar {
+    background: #ff4d4d;
+}
+
+.axisLabels {
+    display: flex;
+    justify-content: space-between;
+    color: #718096;
+    font-size: 11px;
+    padding: 0 5px;
+}
+
+.timelineContainer {
+    padding: 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* Adds clean spacing between text and chart */
+}
+
+.timelineDesc {
+    font-size: 13px;
+    color: #a0aec0;
+    margin: 0 0 4px 0;
+}
+
+.chartWrapper {
+    width: 100%;
+    height: 220px;
+    background: transparent;
+    /* Removed blue container background */
+    border: none;
+    /* Removed container border */
+    padding: 0;
+}

@@ -7,8 +7,12 @@ import React, { useState, useEffect } from "react";
 import { ProbeTrackerHeader } from "./ProbeTrackerHeader";
 import { ProbeTelemetryCard } from "./ProbeTelemetryCard";
 import { OrbitCanvas } from "./OrbitCanvas";
+import { ProbeKpiHeader } from "./ProbeKpiHeader";
+import { ProbeGroundTrack } from "./ProbeGroundTrack";
+import { ProbeTimeControl } from "./ProbeTimeControl";
+import { ProbeScientificTable } from "./ProbeScientificTable";
 import { getProbesByTarget, getLiveTelemetry } from "./probeApi";
-import "./astronomicalProbeTracker.css";
+import styles from './astronomicalProbeTracker.module.css';
 
 export default function AstronomicalProbeTracker() {
   const [target, setTarget] = useState("earth");
@@ -17,23 +21,20 @@ export default function AstronomicalProbeTracker() {
   const [search, setSearch] = useState("");
   const [selectedProbe, setSelectedProbe] = useState(null);
   const [hoveredProbe, setHoveredProbe] = useState(null);
-
-  const bodyAnimations = {
-    earth: "/assets/animations/earth.gif",
-    moon: "/assets/animations/moon.gif",
-    mars: "/assets/animations/mars.gif",
-    sun: "/assets/animations/sun.gif",
-  };
+  const [isLive, setIsLive] = useState(true);
+  const [speed, setSpeed] = useState(1);
+  const [lastSync, setLastSync] = useState("");
 
   useEffect(() => {
     let isMounted = true;
-    getProbesByTarget(target).then(async (data) => {
-      const probeList = data.probes || [];
-      if (!isMounted) return;
-      setProbes(probeList);
-      setSelectedProbe(null);
 
-      // Concurrently fetch telemetry for all probes
+    getProbesByTarget(target).then(async (data) => {
+      const probeList = data?.probes || [];
+      if (!isMounted) return;
+
+      setProbes(probeList);
+      setSelectedProbe(null); // Clear previous target probe state
+
       const results = {};
       await Promise.all(
         probeList.map(async (p) => {
@@ -48,16 +49,19 @@ export default function AstronomicalProbeTracker() {
 
       if (isMounted) {
         setTelemetryMap(results);
+        setLastSync(new Date().toLocaleTimeString());
+
+        // Automatically set telemetry to the first active probe of the target
+        if (probeList.length > 0 && results[probeList[0].id]) {
+          setSelectedProbe(results[probeList[0].id]);
+        }
       }
     });
 
-    return () => {
-      isMounted = false;
-    };
+    return () => { isMounted = false; };
   }, [target]);
 
   const handleSelectProbe = async (probe) => {
-    // Immediate response from cache or direct fresh fetch
     try {
       const freshData = await getLiveTelemetry(target, probe.id);
       setSelectedProbe(freshData);
@@ -68,31 +72,49 @@ export default function AstronomicalProbeTracker() {
     setSearch("");
   };
 
+  const activeData = selectedProbe || hoveredProbe;
   const filteredProbes = probes.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className="apt-module-layout">
+    <div className={styles.aptModuleLayout}>
       <ProbeTrackerHeader
-        currentTarget={target}
-        onSelectTarget={setTarget}
+        activeBody={target}
+        setActiveBody={setTarget}
         searchQuery={search}
-        onSearchChange={setSearch}
-        searchResults={filteredProbes}
-        onSelectSearchResult={handleSelectProbe}
+        setSearchQuery={setSearch}
       />
 
-      <div className="apt-viewport">
+      <ProbeKpiHeader
+        activeCount={filteredProbes.length}
+        targetBody={target}
+        lastUpdated={lastSync}
+      />
+
+      <ProbeScientificTable telemetry={activeData} />
+
+      <div className={styles.aptViewport}>
         <OrbitCanvas
           target={target}
-          probes={probes}
+          allProbes={probes}
+          filteredProbes={filteredProbes}
           telemetryMap={telemetryMap}
           onSelectProbe={handleSelectProbe}
           onHoverProbe={setHoveredProbe}
           selectedProbe={selectedProbe}
-          bodyAnimationSrc={bodyAnimations[target]}
+          timeMultiplier={speed}
+          isLive={isLive}
         />
+
+        <ProbeTimeControl
+          isLive={isLive}
+          timeMultiplier={speed}
+          onToggleLive={() => setIsLive(!isLive)}
+          onSpeedChange={setSpeed}
+        />
+
+        <ProbeGroundTrack telemetry={activeData} />
 
         <ProbeTelemetryCard
           telemetry={selectedProbe}

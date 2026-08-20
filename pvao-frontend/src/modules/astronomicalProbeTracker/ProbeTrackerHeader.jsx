@@ -1,62 +1,33 @@
-/**
- * Top navigation and control bar for the Probe Tracker.
- * Handles celestial target selection (Earth, Moon, Mars, Sun) and probe search.
- * Props: currentTarget, onSelectTarget, searchQuery, onSearchChange, etc.
- */
-import React from "react";
+import React from 'react';
+import styles from './astronomicalProbeTracker.module.css';
 
-export const ProbeTrackerHeader = ({
-    currentTarget,
-    onSelectTarget,
-    searchQuery,
-    onSearchChange,
-    searchResults,
-    onSelectSearchResult,
-}) => {
-    const targets = ["earth", "moon", "mars", "sun"];
+export const ProbeTrackerHeader = ({ activeBody, setActiveBody, searchQuery, setSearchQuery }) => {
+    const bodies = ['earth', 'moon', 'mars', 'sun'];
 
     return (
-        <div className="apt-header-container">
-            <div className="apt-title-group">
-                <h2 className="apt-title">Astronomical Probe Tracker</h2>
-                <span className="apt-subtitle">Live NASA Horizons Telemetry</span>
+        <div className={styles.aptHeaderContainer}>
+            <div className={styles.aptTitleGroup}>
+                <h1 className={styles.aptMainTitle}>Astronomical Probe Tracker</h1>
+                <span className={styles.aptSubTitle}>Live NASA Horizons Telemetry</span>
             </div>
 
-            <div className="apt-controls">
-                <div className="apt-search-wrapper">
-                    <input
-                        type="text"
-                        className="apt-search-input"
-                        placeholder="Search probes..."
-                        value={searchQuery}
-                        onChange={(e) => onSearchChange(e.target.value)}
-                    />
-
-                    {searchQuery && searchResults && searchResults.length > 0 && (
-                        <div className="apt-search-dropdown">
-                            {searchResults.map((probe) => (
-                                <div
-                                    key={probe.id}
-                                    className="apt-dropdown-item"
-                                    onClick={() => onSelectSearchResult(probe)}
-                                >
-                                    <span className="apt-item-name">{probe.name}</span>
-                                    <span className="apt-item-id">#{probe.id}</span>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-
-                <div className="apt-target-tabs">
-                    {targets.map((tgt) => (
+            <div className={styles.aptControlsGroup}>
+                <input
+                    type="text"
+                    placeholder="Search probes..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className={styles.aptSearchInput}
+                />
+                <div className={styles.aptButtonGroup}>
+                    {bodies.map((body) => (
                         <button
-                            key={tgt}
-                            className={`apt-tab-btn ${currentTarget === tgt ? "apt-tab-active" : ""
+                            key={body}
+                            className={`${styles.aptBodyBtn} ${activeBody?.toLowerCase() === body ? styles.aptActiveBodyBtn : ''
                                 }`}
-                            onClick={() => onSelectTarget(tgt)}
+                            onClick={() => setActiveBody(body)}
                         >
-                            {tgt.toUpperCase()}
+                            {body}
                         </button>
                     ))}
                 </div>
@@ -64,3 +35,5 @@ export const ProbeTrackerHeader = ({
         </div>
     );
 };
+
+export default ProbeTrackerHeader;

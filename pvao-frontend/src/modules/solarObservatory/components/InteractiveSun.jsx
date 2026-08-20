@@ -23,14 +23,21 @@ export const InteractiveSun = ({ telemetry, loading }) => {
             };
             setCurrentTime(now.toLocaleString('en-US', options));
         };
-        
+
         updateTime();
         const interval = setInterval(updateTime, 1000);
         return () => clearInterval(interval);
     }, []);
 
     const embedUrl =
-        'https://sketchfab.com/models/4cc0061b574941c4b6e77858a3d6acc7/embed?autostart=1&internal=1&ui_animation=0&ui_infos=0&ui_stop=0&ui_inspector=0&ui_watermark_link=0&ui_watermark=0&ui_ar=0&ui_help=0&ui_settings=0&ui_vr=0&ui_fullscreen=0&ui_annotations=0';
+        'https://sketchfab.com/models/4cc0061b574941c4b6e77858a3d6acc7/embed?autostart=1&internal=1&ui_animation=0&ui_infos=0&ui_stop=0&ui_watermark=0&ui_controls=0';
+
+    const overlayStats = [
+        { label: 'AGE', value: '4.5 Billion Years' },
+        { label: 'STAR TYPE', value: 'Yellow Dwarf' },
+        { label: 'RADIUS', value: '696,340 kilometers' },
+        { label: 'TEMPERATURE', value: '5,500 degrees Celsius' }
+    ];
 
     return (
         <div className={styles.solarStage}>
@@ -44,6 +51,16 @@ export const InteractiveSun = ({ telemetry, loading }) => {
                     execution-while-not-rendered="true"
                     web-share="true"
                 />
+            </div>
+
+            {/* Side Callout Stats */}
+            <div className={styles.embeddedSunStats}>
+                {overlayStats.map((stat, idx) => (
+                    <div key={idx} className={styles.statOverlayGroup}>
+                        <span className={styles.statOverlayLabel}>{stat.label}</span>
+                        <span className={styles.statOverlayValue}>{stat.value}</span>
+                    </div>
+                ))}
             </div>
 
             <div className={styles.timestampBadge}>

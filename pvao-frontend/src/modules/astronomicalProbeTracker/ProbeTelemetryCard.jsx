@@ -3,13 +3,14 @@
  * Props: telemetry (object), hoveredProbe (object), onClose (function).
  */
 import React from "react";
+import styles from './astronomicalProbeTracker.module.css';
 
 export const ProbeTelemetryCard = ({ telemetry, hoveredProbe, onClose }) => {
     const activeData = telemetry || hoveredProbe;
 
     if (!activeData) {
         return (
-            <div className="apt-card-placeholder">
+            <div className={styles.aptCardPlaceholder}>
                 Select or hover over a probe to fetch live telemetry...
             </div>
         );
@@ -20,44 +21,46 @@ export const ProbeTelemetryCard = ({ telemetry, hoveredProbe, onClose }) => {
     const z = Number(activeData.z ?? 0);
 
     const rawDist = activeData.distance_km ?? Math.sqrt(x * x + y * y + z * z);
-    const velocityKmH = activeData.velocity ?? 0;
+    const rawVel = parseFloat(activeData.velocity) || 0;
 
     const lat = rawDist > 0 ? (Math.asin(z / rawDist) * (180 / Math.PI)).toFixed(2) : "0.00";
     const lon = rawDist > 0 ? (Math.atan2(y, x) * (180 / Math.PI)).toFixed(2) : "0.00";
 
     return (
-        <div className="apt-telemetry-card">
-            <div className="apt-card-header">
-                <h3 className="apt-card-title">{activeData.name}</h3>
+        <div className={styles.aptTelemetryCard}>
+            <div className={styles.aptCardHeader}>
+                <h3 className={styles.aptCardTitle}>{activeData.name}</h3>
                 {onClose && (
-                    <button className="apt-close-btn" onClick={onClose}>
+                    <button className={styles.aptCloseBtn} onClick={onClose}>
                         ×
                     </button>
                 )}
             </div>
 
-            <div className="apt-card-body">
-                <div className="apt-stat-row">
-                    <span className="apt-label">Speed:</span>
-                    <span className="apt-value">
-                        {velocityKmH ? `${velocityKmH.toLocaleString()} km/h` : "Live Orbiting"}
+            <div className={styles.aptCardBody}>
+                <div className={styles.aptStatRow}>
+                    <span className={styles.aptLabel}>Speed:</span>
+                    <span className={styles.aptValue}>
+                        {rawVel > 0 ? `${rawVel} km/s` : "N/A"}
                     </span>
                 </div>
-                <div className="apt-stat-row">
-                    <span className="apt-label">Height:</span>
-                    <span className="apt-value">
-                        {rawDist > 0 ? `${Math.round(rawDist).toLocaleString()} km` : "Fetching..."}
+                <div className={styles.aptStatRow}>
+                    <span className={styles.aptLabel}>Height:</span>
+                    <span className={styles.aptValue}>
+                        {rawDist > 0 ? `${Math.round(rawDist).toLocaleString()} km` : "N/A"}
                     </span>
                 </div>
-                <div className="apt-stat-row">
-                    <span className="apt-label">Latitude:</span>
-                    <span className="apt-value">{lat}°</span>
+                <div className={styles.aptStatRow}>
+                    <span className={styles.aptLabel}>Latitude:</span>
+                    <span className={styles.aptValue}>{lat}°</span>
                 </div>
-                <div className="apt-stat-row">
-                    <span className="apt-label">Longitude:</span>
-                    <span className="apt-value">{lon}°</span>
+                <div className={styles.aptStatRow}>
+                    <span className={styles.aptLabel}>Longitude:</span>
+                    <span className={styles.aptValue}>{lon}°</span>
                 </div>
             </div>
         </div>
     );
 };
+
+export default ProbeTelemetryCard;

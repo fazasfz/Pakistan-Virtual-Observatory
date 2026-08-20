@@ -3,7 +3,7 @@ Pydantic data models for the Solar Observatory module.
 Defines schemas for solar telemetry, x-ray fluxes, and live image URLs.
 """
 from pydantic import BaseModel
-from typing import List, Dict, Any
+from typing import List, Dict, Any,  Optional
 
 class LiveImagesSchema(BaseModel):
     aia_171: str
@@ -20,3 +20,16 @@ class SolarTelemetryResponse(BaseModel):
     timestamp_pkt: str
     active_regions: List[Dict[str, Any]]
     live_images: LiveImagesSchema
+
+class SunspotRegionSchema(BaseModel):
+    region: Optional[int] = None
+    location: Optional[str] = "N/A"
+    observed_date: Optional[str] = "N/A"
+    stationary: bool = False
+    extent: Optional[int] = None
+    mag_class: Optional[str] = "N/A"
+    spot_class: Optional[str] = "N/A"
+    area: Optional[int] = None
+
+    class Config:
+        from_attributes = True
