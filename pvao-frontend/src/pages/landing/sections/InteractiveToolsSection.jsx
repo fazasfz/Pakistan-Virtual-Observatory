@@ -29,7 +29,7 @@ const InteractiveToolsSection = () => {
                   <h3 className={styles.toolTitle}>SOLAR SYSTEM SIMULATOR</h3>
                   <div className={styles.arrowIcon}><ArrowRightOutlined /></div>
                 </div>
-                <HUDLabel text="INTERACTIVE // 3D" className={styles.toolBadge} />
+                <HUDLabel text="INTERACTIVE | 3D" className={styles.toolBadge} />
                 <p className={styles.toolDesc}>
                   Engage with a real-time, 3D interactive model of the solar system. Track planetary orbits, observe celestial mechanics, and visualize the scale of our cosmic neighborhood.
                 </p>
@@ -46,7 +46,7 @@ const InteractiveToolsSection = () => {
                   <h3 className={styles.toolTitle}>ASTRO-COPILOT</h3>
                   <div className={styles.arrowIcon}><ArrowRightOutlined /></div>
                 </div>
-                <HUDLabel text="AI // ASSISTANT" className={styles.toolBadge} />
+                <HUDLabel text="AI | ASSISTANT" className={styles.toolBadge} />
                 <p className={styles.toolDesc}>
                   Your personal, AI-powered astronomical research assistant. Ask complex questions about the cosmos, query real-time data, and get instant explanations for phenomena.
                 </p>

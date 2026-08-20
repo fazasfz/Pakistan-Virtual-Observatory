@@ -27,8 +27,9 @@ const ModulesOverviewSection = () => {
               <ModuleCard 
                 name={mod.name}
                 description={mod.description}
-                linkTo={mod.path}
+                linkTo={mod.externalUrl || mod.path}
                 bgImage={mod.bgImage}
+                isExternal={Boolean(mod.externalUrl)}
               />
             </Col>
           ))}
