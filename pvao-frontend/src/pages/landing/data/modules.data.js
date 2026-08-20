@@ -16,7 +16,7 @@ export const modulesData = [
     number: 'SEC.01',
     readout: 'WIND: 420.5 km/s', /* TODO: Wire up to live solar wind API */
     path: '/solar-observatory',
-    description: 'Monitor near real-time telemetry from the Solar Dynamics Observatory (SDO).',
+    description: "Track real-time solar activity, space weather telemetry, and multi-wavelength imagery from NASA's Solar Dynamics Observatory.",
     bgImage: imgSolarObservatory
   },
   {
@@ -25,20 +25,19 @@ export const modulesData = [
     number: 'SEC.02',
     readout: 'PHASE: 98% WAXING', /* TODO: Wire up to live moon phase calculation */
     path: '/lunar-observatory',
-    description: 'Explore the lunar surface using high-resolution orbital data and topological maps.',
+    description: 'Explore the Moon in 3D with live phase calculations, topological feature catalogs, and real-time orbital telemetry.',
     bgImage: imgLunar,
     sourceTag: 'NASA Goddard SVS • USGS Gazetteer'
   },
   { 
     id: 'exora', 
-    name: 'Exora', 
+    name: 'EXORA', 
     number: 'SEC.03',
     readout: 'EXOPLANETS: 5,602', /* TODO: Wire up to NASA Exoplanet Archive */
     path: '/exora',
-    description: 'Discover scientifically-grounded atmospheric and topological models of known exoplanets.',
+    description: 'Explore confirmed exoplanets with interactive 3D visualizations, planetary parameters, and atmospheric models.',
     bgImage: imgExora,
-    externalUrl: 'https://exora-placeholder-url.com',
-    sourceTag: 'NASA Data Explorer • Digital Observatory'
+    externalUrl: 'https://exora-space.vercel.app/'
   },
   { 
     id: 'deep-sky-explorer', 
@@ -46,7 +45,7 @@ export const modulesData = [
     number: 'SEC.04',
     readout: 'TARGETS: 24,101', /* TODO: Wire up to deep sky catalog count */
     path: '/deep-sky-explorer',
-    description: 'Examine distant nebulae and galactic structures using deep-sky survey data.',
+    description: 'Inspect deep-space objects, distant galaxies, and nebulae using interactive multi-wavelength all-sky survey data.',
     bgImage: imgDeepSky
   },
   { 
@@ -55,7 +54,7 @@ export const modulesData = [
     number: 'SEC.05',
     readout: 'VISIBLE: 1,402 OBJS', /* TODO: Wire up to active Stellarium object count */
     path: '/zenith',
-    description: 'Navigate the night sky from any global coordinate in real-time.',
+    description: 'Navigate an interactive real-time planetarium of stars, constellations, and celestial bodies from any location on Earth.',
     bgImage: imgZenith
   },
   { 
@@ -64,7 +63,7 @@ export const modulesData = [
     number: 'SEC.06',
     readout: 'ACTIVE: 34 PROBES', /* TODO: Wire up to JPL Horizons data */
     path: '/astronomical-probe-tracker',
-    description: 'Track the active telemetry and heliocentric trajectories of deep space probes.',
+    description: 'Track the live trajectories, orbital paths, and telemetry of active interplanetary spacecraft and deep-space missions.',
     bgImage: imgAstronomicalProbe
   }
 ];

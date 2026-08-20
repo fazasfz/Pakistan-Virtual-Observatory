@@ -45,7 +45,7 @@ export default function ExternalModuleLaunch({ name, description, bgImage, exter
         >
           LAUNCH MODULE ↗
         </a>
-        <p className={styles.sourceTag}>{sourceTag}</p>
+        {sourceTag && <p className={styles.sourceTag}>{sourceTag}</p>}
       </div>
     </div>
   );

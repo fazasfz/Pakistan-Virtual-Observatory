@@ -26,11 +26,11 @@
 }
 
 .footerLogo {
-  height: 48px;
+  height: 96px;
   width: auto;
   object-fit: contain;
   margin-bottom: var(--space-8);
-  border-radius: 4px;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 14px rgba(64, 156, 255, 0.25));
 }
 
 .title {
@@ -58,14 +58,48 @@
   align-items: center;
   max-width: var(--breakpoint-xxl, 1440px);
   margin: var(--space-48) auto 0;
-  padding-top: var(--space-24);
+  padding-top: var(--space-32);
   border-top: 1px solid rgba(138, 143, 152, 0.2);
+  flex-wrap: wrap;
+  gap: var(--space-24);
+}
+
+.orgItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  text-decoration: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.85;
+  padding: var(--space-8) var(--space-12);
+  border-radius: 6px;
+}
+
+.orgItem:hover {
+  transform: translateY(-2px);
+  opacity: 1;
+}
+
+.orgLogo {
+  height: 38px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+.orgName {
   font-family: var(--font-mono);
   color: var(--slate-ui);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   letter-spacing: 0.05em;
-  flex-wrap: wrap;
-  gap: var(--space-16);
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.orgItem:hover .orgName {
+  color: var(--brass);
 }
 
 .linksSection {
@@ -122,7 +156,8 @@
   }
   .bottomStrip {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    text-align: center;
   }
 }
 
