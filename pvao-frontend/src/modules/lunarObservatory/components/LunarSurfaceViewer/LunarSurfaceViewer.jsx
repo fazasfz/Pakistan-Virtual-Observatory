@@ -111,20 +111,11 @@ const LunarSurfaceViewer = ({ liveData, features = [], onSelectFeature }) => {
       setIsLoading(false);
     });
 
-    // 6. Animation Loop (replicates auto-rotate)
-    const clock = new THREE.Clock();
+    // 6. Animation Loop
     let animationFrameId;
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
-      
-      const delta = clock.getDelta();
-
-      // Rotate Y axis by roughly 1 degree per second
-      if (moonMesh) {
-        moonMesh.rotation.y += THREE.MathUtils.degToRad(1) * delta;
-      }
-
       controls.update();
       renderer.render(scene, camera);
     };
