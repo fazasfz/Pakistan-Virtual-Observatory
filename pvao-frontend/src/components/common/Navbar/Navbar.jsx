@@ -9,7 +9,7 @@ import { NavLink } from 'react-router-dom';
 import { PATHS } from '../../../routes/routePaths';
 import { useBreakpoint } from '../../../hooks/useBreakpoint';
 import { useAstroCopilotContext } from '../../../context/AstroCopilotContext';
-import ncgsaLogo from '../../../assets/images/ncgsa-logo.png';
+import vaoLogo from '../../../assets/images/vao-logo.png';
 import styles from './Navbar.module.css';
 
 const { Header } = Layout;
@@ -23,7 +23,7 @@ const Navbar = () => {
   const moduleItems = [
     { key: 'solar', label: <NavLink to={PATHS.SOLAR_OBSERVATORY}>Solar Observatory</NavLink> },
     { key: 'lunar', label: <NavLink to={PATHS.LUNAR_OBSERVATORY}>Lunar Observatory</NavLink> },
-    { key: 'exora', label: <NavLink to={PATHS.EXORA}>Exora</NavLink> },
+    { key: 'exora', label: <a href="https://exora-space.vercel.app/" target="_blank" rel="noopener noreferrer">EXORA</a> },
     { key: 'deepSky', label: <NavLink to={PATHS.DEEP_SKY_EXPLORER}>Deep Sky Explorer</NavLink> },
     { key: 'sky', label: <NavLink to={PATHS.ZENITH}>Zenith</NavLink> },
     { key: 'probes', label: <NavLink to={PATHS.ASTRONOMICAL_PROBE_TRACKER}>Astronomical Probes</NavLink> },
@@ -62,7 +62,7 @@ const Navbar = () => {
 
       <div className={styles.centerLogo}>
         <NavLink to={PATHS.LANDING} className={styles.brandLink}>
-          <img src={ncgsaLogo} alt="NCGSA logo" className={styles.logoImage} />
+          <img src={vaoLogo} alt="VAO logo" className={styles.logoImage} />
         </NavLink>
       </div>
 

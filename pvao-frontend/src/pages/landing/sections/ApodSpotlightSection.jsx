@@ -40,22 +40,47 @@ const ApodSpotlightSection = () => {
     descriptionSnippet = descriptionSnippet.substring(0, 250) + '...';
   }
 
+  const isVideo = apodData?.media_type === 'video' || (apodUrl && (apodUrl.endsWith('.mp4') || apodUrl.endsWith('.webm')));
+  const isEmbedVideo = isVideo && (apodUrl.includes('youtube.com') || apodUrl.includes('youtu.be') || apodUrl.includes('vimeo.com'));
+
   return (
     <SectionWrapper id="apod-spotlight" className={styles.apodSection} overlay={false}>
       <div className={styles.container}>
         <div className={styles.header}>
           <h2 className={styles.heading}>ASTRONOMY PICTURE OF THE DAY</h2>
-          <HUDLabel text="LIVE FEED // NASA APOD" />
+          <HUDLabel text={`LIVE FEED | APOD ${isVideo ? '(VIDEO)' : ''}`} />
         </div>
 
         <div className={styles.cinematicContainer}>
           <div className={styles.imageWrapper}>
-            <img 
-              src={apodUrl} 
-              alt={apodTitle} 
-              className={styles.apodImage}
-              onError={(e) => { e.target.src = FALLBACK_APOD; }} 
-            />
+            {isVideo ? (
+              isEmbedVideo ? (
+                <iframe
+                  src={apodUrl}
+                  title={apodTitle}
+                  className={styles.apodIframe}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <video
+                  src={apodUrl}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  controls
+                  className={styles.apodVideo}
+                />
+              )
+            ) : (
+              <img 
+                src={apodUrl} 
+                alt={apodTitle} 
+                className={styles.apodImage}
+                onError={(e) => { e.target.src = FALLBACK_APOD; }} 
+              />
+            )}
             <div className={styles.imageOverlay}></div>
           </div>
           

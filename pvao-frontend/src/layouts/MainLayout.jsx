@@ -14,7 +14,7 @@ const MainLayout = () => {
   return (
     <AstroCopilotProvider>
       <Navbar />
-      <main style={{ minHeight: '100vh', paddingTop: '64px' }}>
+      <main style={{ minHeight: '100vh', paddingTop: '96px' }}>
         <Outlet />
       </main>
       <Footer />
