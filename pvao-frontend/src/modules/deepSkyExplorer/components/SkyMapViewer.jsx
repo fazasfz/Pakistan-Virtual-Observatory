@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAladin } from '../hooks/useAladin';
 import { useObjectSearch } from '../hooks/useObjectSearch';
+import ObjectInfoPanel from './ObjectInfoPanel';
 
 export default function SkyMapViewer({ objectName, onBack }) {
   const { containerRef, isReady } = useAladin({
@@ -51,15 +52,8 @@ export default function SkyMapViewer({ objectName, onBack }) {
           {error && <p style={{ color: '#f88' }}>{error}</p>}
 
           {info && !error && (
-            <div>
-              <h3 style={{ marginTop: 0 }}>{info.name}</h3>
-              <p><strong>Type:</strong> {info.type || 'Unknown'}</p>
-              <p><strong>RA:</strong> {info.ra ?? 'N/A'}</p>
-              <p><strong>Dec:</strong> {info.dec ?? 'N/A'}</p>
-              <p><strong>Redshift:</strong> {info.redshift ?? 'N/A'}</p>
-            </div>
+            <ObjectInfoPanel info={info} aladin={aladin} bandKey={wavelength} />  
           )}
-
           {images.length > 0 && (
             <div style={{ marginTop: '1rem' }}>
               <h4>Available Observations</h4>
