@@ -222,6 +222,7 @@
     padding: 6px 12px;
     border-radius: 4px;
     border: 1px solid rgba(243, 156, 18, 0.3);
+    transform: translate(120px, -30px);
 }
 
 .gallerySection {
@@ -1619,4 +1620,322 @@
     border: none;
     /* Removed container border */
     padding: 0;
+}
+
+.diskMapWrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.diskOverlayContainer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.sunspotPin {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #ff4520;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 8px rgba(255, 69, 32, 0.8);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.2s ease-in-out;
+}
+
+.sunspotPin:hover,
+.activePin {
+    background-color: #ffcc00;
+    box-shadow: 0 0 12px rgba(255, 204, 0, 1);
+    scale: 1.25;
+}
+
+.selectedRow {
+    background-color: rgba(255, 69, 32, 0.15);
+}
+
+.singleContainerCard {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.tableSection {
+    flex: 1.4;
+    width: 100%;
+}
+
+.imageSection {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.diskMapWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 12px;
+    border: 1px solid #333;
+}
+
+.solarImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Top Page Title */
+.pageHeader {
+    width: 100%;
+    padding: 1.5rem 2.5rem 0.5rem;
+    box-sizing: border-box;
+}
+
+.pageTitle {
+    font-family: sans-serif;
+    color: #f39c12;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* Hero Section Grid Layout */
+.heroSection {
+    position: relative;
+    width: 100%;
+    min-height: 80vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem 2.5rem;
+    box-sizing: border-box;
+}
+
+.leftSidebarContainer {
+    width: 280px;
+    z-index: 10;
+}
+
+.centerSunStage {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Top Right Floating Pop-up Fact Box */
+.rightFactsContainer {
+    width: 320px;
+    z-index: 10;
+}
+
+.popFactCard {
+    border: 1px solid rgba(243, 156, 18, 0.25);
+    border-radius: 12px;
+    padding: 1.25rem;
+    backdrop-filter: blur(8px);
+    background: rgba(12, 10, 15, 0.55);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+}
+
+.factBadge {
+    display: inline-block;
+    background-color: rgba(243, 156, 18, 0.15);
+    color: #f39c12;
+    border: 1px solid rgba(243, 156, 18, 0.4);
+    font-family: sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    margin-bottom: 0.75rem;
+}
+
+.factContent {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.popIn {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.popOut {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+}
+
+.factQuestion {
+    font-family: sans-serif;
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 0.4rem 0;
+}
+
+.factAnswer {
+    font-family: sans-serif;
+    color: #cbd5e1;
+    font-size: 0.825rem;
+    line-height: 1.45;
+    margin: 0;
+}
+
+.mainWrapper {
+    width: 100%;
+    background-color: #050508;
+}
+
+/* Hero Container */
+.fullScreenHero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    padding: 2rem 3rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Floating Overlay Header */
+.overlayHeader {
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+    z-index: 20;
+}
+
+.overlayTitle {
+    font-family: sans-serif;
+    color: #ff8c00;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin: 0;
+    text-transform: uppercase;
+    text-shadow: 0 0 12px rgba(255, 140, 0, 0.4);
+    transform: translateY(-20px);
+
+}
+
+/* Top-Right Floating Fun Facts */
+.topRightFacts {
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    z-index: 20;
+    width: 300px;
+}
+
+/* Balanced 3-Column Hero Layout */
+.heroContentGrid {
+    display: grid;
+    grid-template-columns: 280px 1fr 280px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-top: 4rem;
+    /* Keeps top area clear for Title & Fun Facts */
+    z-index: 10;
+}
+
+/* Left Column - Moved Higher Up */
+.leftColumn {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transform: translateY(-40px);
+    transform: translateX(-20px);
+}
+
+/* Center Column */
+.centerColumn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Right Column - Sun Stats */
+.rightColumn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.sunStatsContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: right;
+}
+
+.statItem {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.statLabel {
+    font-family: sans-serif;
+    color: #ff4500;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+}
+
+.statValue {
+    font-family: sans-serif;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.coronalGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.coronalCard:hover {
+    transform: translateY(-4px);
+    border-color: #ff8c00;
+}
+
+.chartCard {
+    background: #0c0f17;
+    border: 1px solid #883e0c;
+    border-radius: 12px;
+    padding: 1.5rem;
+    overflow: hidden;
+    /* Prevents chart svg elements from bleeding outside rounded corners */
+}
+
+.chartBodyComposed {
+    width: 100%;
+    height: 400px;
 }

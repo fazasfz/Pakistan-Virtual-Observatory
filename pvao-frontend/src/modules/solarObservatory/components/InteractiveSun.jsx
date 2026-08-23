@@ -1,7 +1,3 @@
-/**
- * Renders an interactive 3D model or graphic of the Sun.
- * Handles user interactions and visual representations of the solar surface.
- */
 import React, { useState, useEffect } from 'react';
 import styles from '../SolarObservatory.module.css';
 
@@ -51,16 +47,6 @@ export const InteractiveSun = ({ telemetry, loading }) => {
                     execution-while-not-rendered="true"
                     web-share="true"
                 />
-            </div>
-
-            {/* Side Callout Stats */}
-            <div className={styles.embeddedSunStats}>
-                {overlayStats.map((stat, idx) => (
-                    <div key={idx} className={styles.statOverlayGroup}>
-                        <span className={styles.statOverlayLabel}>{stat.label}</span>
-                        <span className={styles.statOverlayValue}>{stat.value}</span>
-                    </div>
-                ))}
             </div>
 
             <div className={styles.timestampBadge}>

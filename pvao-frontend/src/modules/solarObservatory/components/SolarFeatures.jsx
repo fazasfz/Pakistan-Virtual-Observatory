@@ -26,7 +26,6 @@ const formatDetails = (type, desc, rawData = {}) => {
         return 'Solar plasma outburst detected';
     }
 
-    // Extract values from region object or fallback string parsing
     const area = rawData.area !== undefined ? rawData.area : (desc.match(/Area:\s*([^|]+)/)?.[1]?.replace('MSH', '').trim());
     const spots = rawData.spot_count !== undefined ? rawData.spot_count : (desc.match(/Spots:\s*([^|]+)/)?.[1]?.trim());
     const magClass = rawData.mag_type || (desc.match(/Class:\s*(.+)/)?.[1]?.trim());
@@ -54,6 +53,24 @@ export const SolarFeatures = ({ solarImage = '' }) => {
     const [features, setFeatures] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeFilter, setActiveFilter] = useState('ALL');
+    const [selectedImage, setSelectedImage] = useState(null);
+
+    // Close modal on Escape key press
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                setSelectedImage(null);
+            }
+        };
+
+        if (selectedImage) {
+            window.addEventListener('keydown', handleKeyDown);
+        }
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [selectedImage]);
 
     useEffect(() => {
         Promise.all([
@@ -129,6 +146,7 @@ export const SolarFeatures = ({ solarImage = '' }) => {
                         ))}
                     </div>
                 </div>
+                <h3 className={styles.chartSubTitle}>Real-time spatial mapping and physical metrics of active sunspot clusters, filaments, and plasma eruptions tracked across the solar disk.</h3>
 
                 <div className={styles.cardInnerLayout}>
                     <div className={styles.cardTextContent}>
@@ -149,10 +167,9 @@ export const SolarFeatures = ({ solarImage = '' }) => {
                                         filtered.map((f) => (
                                             <tr key={f.id}>
                                                 <td className={styles.featureName}>{f.name}</td>
-                                                {/* Fallback to f.displayType or format f.type if displayType isn't set */}
                                                 <td>{f.displayType || (f.type === 'Active Region' ? 'Active Sunspot Region' : f.type === 'Filament' ? 'Solar Filament' : f.type)}</td>
                                                 <td>{formatSunCoordinates(f.location)}</td>
-                                                <td className={styles.featureDesc}>{formatDetails(f.type, f.desc)}</td>
+                                                <td className={styles.featureDesc}>{f.desc}</td>
                                             </tr>
                                         ))
                                     ) : (
@@ -164,15 +181,48 @@ export const SolarFeatures = ({ solarImage = '' }) => {
                     </div>
 
                     {solarImage && (
-                        <div className={styles.embeddedRightImageWrapper}>
+                        <div
+                            className={styles.embeddedRightImageWrapper}
+                            onClick={() => setSelectedImage({ src: solarImage, title: 'SDO HMI / AIA Surface Map' })}
+                            style={{ cursor: 'pointer' }}
+                        >
                             <img src={solarImage} alt="Annotated Solar Disk" className={styles.galleryStyleImage} />
                             <span className={styles.imageCaption}>SDO HMI / AIA Surface Map</span>
                         </div>
                     )}
                 </div>
             </div>
+
+            {/* Lightbox Modal */}
+            {selectedImage && (
+                <div
+                    className={styles.modalOverlay}
+                    onClick={() => setSelectedImage(null)}
+                >
+                    <div
+                        className={styles.modalContent}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <button
+                            className={styles.closeButton}
+                            onClick={() => setSelectedImage(null)}
+                        >
+                            &times;
+                        </button>
+                        <img
+                            src={selectedImage.src}
+                            alt={selectedImage.title}
+                            className={styles.fullSolarImage}
+                        />
+                        <div className={styles.modalCaption}>
+                            <h3>{selectedImage.title}</h3>
+                            <p>Press <kbd>ESC</kbd> or click outside to close</p>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
-    ); s
+    );
 };
 
 export default SolarFeatures;

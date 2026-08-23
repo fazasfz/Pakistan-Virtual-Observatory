@@ -4,98 +4,92 @@ import styles from '../SolarObservatory.module.css';
 const CORONAL_MEDIA = [
     {
         id: 'coronal-hole',
-        title: 'Coronal Holes',
+        title: 'Coronal Holes (SDO AIA 193 Å)',
         subtitle: 'SDO AIA 193 Å',
         url: 'https://sdo.gsfc.nasa.gov/assets/img/latest/latest_1024_0193.jpg',
     },
     {
         id: 'ccor-1',
-        title: 'CME Watch (SUVI 304)',
+        title: 'CME Watch (GOES SUVI 304 Å)',
         subtitle: 'GOES SUVI 304 Å',
         url: 'https://services.swpc.noaa.gov/images/animations/suvi/primary/304/latest.png',
     },
     {
         id: 'ccor-2',
-        title: 'CME Watch (SUVI 195)',
+        title: 'CME Watch (GOES SUVI 195 Å)',
         subtitle: 'GOES SUVI 195 Å',
         url: 'https://services.swpc.noaa.gov/images/animations/suvi/primary/195/latest.png',
     },
     {
         id: 'lasco-c2',
-        title: 'CME Watch (LASCO C2)',
+        title: 'CME Watch (SOHO LASCO C2)',
         subtitle: 'SOHO LASCO C2',
         url: 'https://soho.nascom.nasa.gov/data/realtime/c2/1024/latest.jpg',
-    },
-    {
-        id: 'lasco-c3',
-        title: 'CME Watch (LASCO C3)',
-        subtitle: 'SOHO LASCO C3',
-        url: 'https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg',
-    },
+    }
 ];
 
 export default function CoronalEvents() {
-    const [activeMedia, setActiveMedia] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            if (e.key === 'Escape') setActiveMedia(null);
+            if (e.key === 'Escape') setSelectedImage(null);
         };
-        if (activeMedia) {
+        if (selectedImage) {
             window.addEventListener('keydown', handleKeyDown);
         }
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [activeMedia]);
+    }, [selectedImage]);
 
     return (
-        <section className={styles.sectionWrapper}>
+        <section className={styles.gallerySection}>
             <h2 className={styles.sectionTitle}>
                 Coronal Holes & Coronal Mass Ejections
             </h2>
-            <div className={styles.singleContainerCard}>
-                <div className={styles.coronalGrid}>
-                    {CORONAL_MEDIA.map((item) => (
-                        <div key={item.id} className={styles.coronalCard}>
-                            <div
-                                className={styles.imageClickWrapper}
-                                onClick={() => setActiveMedia(item)}
-                            >
-                                <img
-                                    src={item.url}
-                                    alt={item.title}
-                                    className={styles.solarImage}
-                                />
-                            </div>
-                            <p className={styles.imageCaption}>{item.title}</p>
-                            <span className={styles.imageSubCaption}>{item.subtitle}</span>
-                        </div>
-                    ))}
-                </div>
+
+            {/* Gallery Grid Matching LiveSunGallery */}
+            <div className={styles.galleryGrid}>
+                {CORONAL_MEDIA.map((item) => (
+                    <div
+                        key={item.id}
+                        className={styles.imageCard}
+                        onClick={() => setSelectedImage(item)}
+                    >
+                        <img
+                            src={item.url}
+                            alt={item.title}
+                            className={styles.solarImage}
+                        />
+                        <span className={styles.imageCaption}>{item.title}</span>
+                    </div>
+                ))}
             </div>
 
-            {/* Lightbox Modal */}
-            {activeMedia && (
+            {/* Fullscreen Lightbox Modal Matching LiveSunGallery */}
+            {selectedImage && (
                 <div
                     className={styles.modalOverlay}
-                    onClick={() => setActiveMedia(null)}
+                    onClick={() => setSelectedImage(null)}
                 >
                     <div
-                        className={styles.modalCard}
+                        className={styles.modalContent}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <button
                             className={styles.closeButton}
-                            onClick={() => setActiveMedia(null)}
+                            onClick={() => setSelectedImage(null)}
                         >
-                            &#10005;
+                            &times;
                         </button>
                         <img
-                            src={activeMedia.url}
-                            alt={activeMedia.title}
-                            className={styles.modalImage}
+                            src={selectedImage.url}
+                            alt={selectedImage.title}
+                            className={styles.fullSolarImage}
                         />
-                        <p className={styles.modalCaption}>{activeMedia.title}</p>
-                        <span className={styles.modalSubtext}>{activeMedia.subtitle}</span>
+                        <div className={styles.modalCaption}>
+                            <h3>{selectedImage.title}</h3>
+                            <p>Press <kbd>ESC</kbd> or click outside to close</p>
+                        </div>
                     </div>
                 </div>
             )}

@@ -61,7 +61,7 @@ export const SolarTimeline = () => {
                 <div className={styles.telemetryHeader}>
                     <span className={styles.telemetryBadge}>X-RAY FLUX TIME-SERIES</span>
                     <div className={styles.filterGroup}>
-                        {['24H', '7D', '30D'].map((range) => (
+                        {['24H', '7D'].map((range) => (
                             <button
                                 key={range}
                                 onClick={() => setWindowRange(range)}
