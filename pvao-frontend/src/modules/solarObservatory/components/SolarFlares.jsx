@@ -1,3 +1,4 @@
+// SolarFlares.jsx
 /**
  * Displays recent solar flare activity and X-ray flux data fetched from NOAA.
  * Renders interactive images and telemetry metrics.
@@ -5,7 +6,6 @@
  */
 import React, { useState, useEffect } from 'react';
 import styles from '../SolarObservatory.module.css';
-import SectionHeading from '../../../components/common/SectionHeading/SectionHeading';
 
 export const SolarFlares = ({ flareImage = '', loading = false }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -57,8 +57,10 @@ export const SolarFlares = ({ flareImage = '', loading = false }) => {
 
                     const flareClass = e.max_class || e.current_class || e.particulars || 'C1.0+';
                     const regionVal = e.active_region_num || e.region || e.activeRegion;
-                    const regionStr = regionVal && regionVal !== 0 ? `AR ${regionVal}` : 'Pending Analysis';
-                    const locStr = e.location && e.location !== 'N/A' ? e.location : 'Solar Disk';
+
+                    // Updated fallbacks according to Option 2
+                    const regionStr = regionVal && regionVal !== 0 ? `AR ${regionVal}` : 'Unassigned';
+                    const locStr = e.location && e.location !== 'N/A' && e.location !== 'Solar Disk' ? e.location : 'Full Disk';
 
                     return {
                         class: String(flareClass).trim(),
@@ -87,9 +89,8 @@ export const SolarFlares = ({ flareImage = '', loading = false }) => {
             <h2 className={styles.sectionTitle}>Solar Flare Activity & High-Energy EUV</h2>
             <div className={styles.flareTelemetryCard}>
                 <div className={styles.telemetryHeader}>
-                    <span className={styles.telemetryBadge}>GOES X-RAY MONITOR</span>
-                    <span className={styles.liveIndicator}>• LIVE NOAA FEED</span>
                 </div>
+                <h3 className={styles.chartSubTitle}>Current flare intensity metrics, recent eruption logs, and live EUV solar feed.</h3>
 
                 <div className={styles.cardInnerLayout}>
                     <div className={styles.cardTextContent}>
@@ -105,7 +106,7 @@ export const SolarFlares = ({ flareImage = '', loading = false }) => {
                                 </div>
                                 <div className={styles.flareMetric}>
                                     <span className={styles.metricLabel}>24h Peak Flare Activity</span>
-                                    <span className={styles.metricValuePeak}>{telemetry.peak}</span>
+                                    <span className={styles.metricValueNormal}>{telemetry.peak}</span>
                                 </div>
                             </div>
                         )}
