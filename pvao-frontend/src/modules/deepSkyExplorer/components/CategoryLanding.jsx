@@ -7,10 +7,12 @@ import React from 'react';
 import nebulaImg from '../../../assets/images/modules/nebula.webp';
 import starClusterImg from '../../../assets/images/modules/starCluster.jpeg';
 import galaxyImg from '../../../assets/images/modules/galaxy.webp';
+import styles from './CategoryLanding.module.css';
 
 const categories = [
   {
     key: 'nebulas',
+    tag: 'Stellar Nursery',
     title: 'Nebulas',
     description:
       'Giant clouds of gas and dust in space. Some are where new stars are being born; others are the remains of stars that have died.',
@@ -18,6 +20,7 @@ const categories = [
   },
   {
     key: 'starClusters',
+    tag: 'Gravitational Systems',
     title: 'Star Clusters',
     description:
       'Groups of hundreds to millions of stars, all born from the same cloud and held together by gravity.',
@@ -25,6 +28,7 @@ const categories = [
   },
   {
     key: 'galaxies',
+    tag: 'Island Universes',
     title: 'Galaxies',
     description:
       'Massive systems containing billions of stars, gas, dust, and dark matter. Our own home, the Milky Way, is one example.',
@@ -34,57 +38,63 @@ const categories = [
 
 export default function CategoryLanding({ onSelectCategory }) {
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1 style={{ marginBottom: '0.5rem' }}>
-        Deep Sky Explorer
-      </h1>
-      <p style={{ color: '#aaa', marginBottom: '2rem' }}>
-        Select a category below to observe deep sky objects.
-      </p>
+    <div className={styles.landingContainer}>
+      <div className={styles.headerSection}>
+        <div className={styles.badgeHeader}>
+          <span className={styles.badgeDot} />
+          DEEP SKY CATALOGS
+        </div>
+        <h1 className={styles.mainTitle}>
+          Deep Sky Explorer
+        </h1>
+        <p className={styles.subTitle}>
+          Select a category below to observe deep sky objects.
+        </p>
+      </div>
 
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: '1.5rem',
-        }}
-      >
+      <div className={styles.cardsGrid}>
         {categories.map((cat) => (
           <button
             key={cat.key}
             onClick={() => onSelectCategory(cat.key)}
-            style={{
-              textAlign: 'left',
-              border: 'none',
-              borderRadius: '12px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              background: '#111',
-              color: '#eee',
-              padding: 0,
-              display: 'flex',
-              flexDirection: 'column',
-            }}
+            className={styles.categoryCard}
+            type="button"
+            aria-label={`Explore ${cat.title}`}
           >
-            <div
-              style={{
-                height: '160px',
-                width: '100%',
-                backgroundImage: `url(${cat.image})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-                flexShrink: 0,
-            }}
-            />
-            <div style={{ padding: '1rem' }}>
-              <h2 style={{ margin: '0 0 0.5rem 0' }}>{cat.title}</h2>
-              <p style={{ margin: 0, color: '#ccc', fontSize: '0.9rem' }}>
-                {cat.description}
-              </p>
-              <p style={{ marginTop: '0.75rem', color: '#f90', fontSize: '0.85rem' }}>
-                Explore →
-              </p>
+            <div className={styles.cardImageWrapper}>
+              <div
+                className={styles.cardImage}
+                style={{ backgroundImage: `url(${cat.image})` }}
+              />
+              <div className={styles.cardImageOverlay} />
+              <span className={styles.cardBadgePill}>{cat.tag}</span>
+              <div className={styles.liveIndicator}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <circle cx="12" cy="12" r="9" />
+                  <circle cx="12" cy="12" r="3" fill="currentColor" />
+                </svg>
+              </div>
+            </div>
+
+            <div className={styles.cardBody}>
+              <div className={styles.cardContent}>
+                <h2 className={styles.cardTitle}>{cat.title}</h2>
+                <p className={styles.cardDescription}>
+                  {cat.description}
+                </p>
+              </div>
+
+              <div className={styles.cardFooter}>
+                <span className={styles.exploreBtn}>
+                  Explore <span className={styles.exploreArrow}>→</span>
+                </span>
+                <div className={styles.actionPill}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                    <polyline points="12 5 19 12 12 19" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </button>
         ))}

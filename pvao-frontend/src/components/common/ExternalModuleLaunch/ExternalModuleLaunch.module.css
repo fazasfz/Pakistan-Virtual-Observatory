@@ -1,14 +1,15 @@
 .wrapper {
   position: relative;
   width: 100%;
-  min-height: calc(100vh - 80px); /* Assuming navbar is ~80px */
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   background-color: var(--obsidian);
   color: var(--starlight);
-  padding: 2rem;
+  padding: 96px 2rem 3rem 2rem;
+  box-sizing: border-box;
 }
 
 .imageContainer {
