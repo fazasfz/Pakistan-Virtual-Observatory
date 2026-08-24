@@ -1,6 +1,8 @@
 // index.jsx
 import React, { useState, useEffect } from 'react';
 import styles from './SolarObservatory.module.css';
+import LoadingOverlay from '../../components/common/LoadingOverlay/LoadingOverlay';
+import { solarFunFacts } from './data/solarFunFacts';
 import InteractiveSun from './components/InteractiveSun';
 import SolarWindTelemetry from './components/SolarWindTelemetry';
 import LiveSunGallery from './components/LiveSunGallery';
@@ -11,8 +13,6 @@ import SunspotRegions from './components/SunspotRegions';
 import { SolarCycleGraph } from './components/SolarCycleGraph';
 import { SolarFunFacts } from './components/SolarFunFacts';
 import CoronalEvents from './components/CoronalEvents';
-import LoadingOverlay from '../../components/common/LoadingOverlay/LoadingOverlay';
-import { solarFunFacts } from './data/solarFunFacts';
 
 export const SolarObservatory = () => {
   const [telemetry, setTelemetry] = useState(null);
