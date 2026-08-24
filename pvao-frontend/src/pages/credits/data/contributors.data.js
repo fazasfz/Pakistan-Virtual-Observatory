@@ -91,7 +91,7 @@ export const contributors = [
   {
     name: 'Saani E Zahra',
     role: 'Intern',
-    title: 'Research Intern',
+    title: 'Research & Development Intern',
     institution: 'Institute of Space Technology',
     description: 'Researched and built the Earth View module, while also driving key foundational research for Exora.',
     image: saaniImg

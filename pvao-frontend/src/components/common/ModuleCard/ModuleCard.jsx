@@ -1,15 +1,15 @@
 /**
  * UI card component for displaying and linking to a specific observatory module.
- * Props: name, description, linkTo, bgImage.
+ * Minimalist editorial portrait style with centered uppercase title.
+ * Props: name, linkTo, bgImage, isExternal.
  */
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ArrowRightOutlined } from '@ant-design/icons';
 import styles from './ModuleCard.module.css';
 
 const FALLBACK_IMG = 'https://images-assets.nasa.gov/image/PIA12348/PIA12348~orig.jpg'; 
 
-const ModuleCard = ({ name, description, linkTo, bgImage, isExternal }) => {
+const ModuleCard = ({ name, linkTo, bgImage, isExternal }) => {
   const [currentBg, setCurrentBg] = useState(bgImage);
 
   const handleImageError = () => {
@@ -20,18 +20,14 @@ const ModuleCard = ({ name, description, linkTo, bgImage, isExternal }) => {
     <>
       <img src={currentBg} style={{ display: 'none' }} onError={handleImageError} alt="" />
       
-      <div className={styles.overlayGradient}></div>
+      <div 
+        className={styles.bgImage} 
+        style={{ backgroundImage: `url(${currentBg})` }} 
+      />
+      <div className={styles.overlay} />
       
       <div className={styles.content}>
-        <div className={styles.textContainer}>
-          <div className={styles.titleRow}>
-            <h3 className={styles.title}>{name}</h3>
-            <div className={styles.arrowIcon}>
-              <ArrowRightOutlined />
-            </div>
-          </div>
-          <p className={styles.description}>{description}</p>
-        </div>
+        <h3 className={styles.title}>{name}</h3>
       </div>
     </>
   );
@@ -45,7 +41,7 @@ const ModuleCard = ({ name, description, linkTo, bgImage, isExternal }) => {
         target="_blank"
         rel="noopener noreferrer"
         className={styles.moduleCard}
-        style={{ backgroundImage: `url(${currentBg})` }}
+        aria-label={name}
       >
         {cardInner}
       </a>
@@ -53,10 +49,15 @@ const ModuleCard = ({ name, description, linkTo, bgImage, isExternal }) => {
   }
 
   return (
-    <NavLink to={linkTo} className={styles.moduleCard} style={{ backgroundImage: `url(${currentBg})` }}>
+    <NavLink 
+      to={linkTo} 
+      className={styles.moduleCard}
+      aria-label={name}
+    >
       {cardInner}
     </NavLink>
   );
 };
 
 export default ModuleCard;
+
