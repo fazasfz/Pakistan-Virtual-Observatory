@@ -31,6 +31,7 @@ export default function MoonPhaseSnapshot({ liveData, loading }) {
 
   return (
     <div className={styles.container}>
+      <div className={styles.shotLabel}>2D IMAGE OF MOON</div>
       <svg viewBox="0 0 200 200" className={styles.moonSvg}>
         <circle cx="100" cy="100" r="98" className={styles.moonBg} />
         <path 

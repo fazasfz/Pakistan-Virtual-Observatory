@@ -50,20 +50,16 @@ const MoonPhaseCard = ({ data, loading }) => {
           <span className={styles.value}>{formatPKT(data.set_time)}</span>
         </div>
         <div className={styles.dataPoint}>
-          <span className={styles.label}>DISTANCE</span>
-          <span className={styles.value}>{data.distance_km?.toLocaleString()} km</span>
+          <span className={styles.label}>NEXT NEW MOON</span>
+          <span className={styles.value}>
+            {data.next_new_moon ? new Date(data.next_new_moon).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'Asia/Karachi' }) : 'N/A'}
+          </span>
         </div>
         <div className={styles.dataPoint}>
-          <span className={styles.label}>SUN-MOON ANGLE</span>
-          <span className={styles.value}>{data.sun_moon_angle?.toFixed(1)}°</span>
-        </div>
-        <div className={styles.dataPoint}>
-          <span className={styles.label}>RIGHT ASCENSION</span>
-          <span className={styles.value}>{data.ra}</span>
-        </div>
-        <div className={styles.dataPoint}>
-          <span className={styles.label}>DECLINATION</span>
-          <span className={styles.value}>{data.dec}</span>
+          <span className={styles.label}>NEXT FULL MOON</span>
+          <span className={styles.value}>
+            {data.next_full_moon ? new Date(data.next_full_moon).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'Asia/Karachi' }) : 'N/A'}
+          </span>
         </div>
       </div>
     </div>

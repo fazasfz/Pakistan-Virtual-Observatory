@@ -54,6 +54,16 @@ const Footer = () => {
 
         <div className={styles.linksSection}>
           <div className={styles.linkColumn}>
+            <span className={styles.columnHeader}>Modules</span>
+            <NavLink to={PATHS.SOLAR_OBSERVATORY} className={styles.footerLink}>Solar Observatory</NavLink>
+            <NavLink to={PATHS.LUNAR_OBSERVATORY} className={styles.footerLink}>Lunar Observatory</NavLink>
+            <a href="https://exora-space.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>Exora</a>
+            <NavLink to={PATHS.DEEP_SKY_EXPLORER} className={styles.footerLink}>Deep Sky Explorer</NavLink>
+            <NavLink to={PATHS.ZENITH} className={styles.footerLink}>Zenith</NavLink>
+            <NavLink to={PATHS.ASTRONOMICAL_PROBE_TRACKER} className={styles.footerLink}>Astronomical Probes</NavLink>
+          </div>
+
+          <div className={styles.linkColumn}>
             <span className={styles.columnHeader}>Explore</span>
             <NavLink to={PATHS.LANDING} className={styles.footerLink}>Home</NavLink>
             <NavLink to={PATHS.CREDITS} className={styles.footerLink}>Credits</NavLink>
@@ -65,16 +75,6 @@ const Footer = () => {
             <span className={styles.columnHeader}>Tools</span>
             <button onClick={openCopilot} className={styles.footerButton}>Astro-Copilot</button>
             <a href="https://dynamix209.github.io/solar-system-orbital-simulator/" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>Solar System Simulator</a>
-          </div>
-
-          <div className={styles.linkColumn}>
-            <span className={styles.columnHeader}>Modules</span>
-            <NavLink to={PATHS.SOLAR_OBSERVATORY} className={styles.footerLink}>Solar Observatory</NavLink>
-            <NavLink to={PATHS.LUNAR_OBSERVATORY} className={styles.footerLink}>Lunar Observatory</NavLink>
-            <a href="https://exora-space.vercel.app/" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>EXORA</a>
-            <NavLink to={PATHS.DEEP_SKY_EXPLORER} className={styles.footerLink}>Deep Sky Explorer</NavLink>
-            <NavLink to={PATHS.ZENITH} className={styles.footerLink}>Zenith</NavLink>
-            <NavLink to={PATHS.ASTRONOMICAL_PROBE_TRACKER} className={styles.footerLink}>Astronomical Probes</NavLink>
           </div>
 
           <div className={styles.linkColumn}>

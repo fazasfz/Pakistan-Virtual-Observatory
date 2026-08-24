@@ -41,7 +41,7 @@ const HeroSection = () => {
             </h1>
           </div>
           <p className={styles.platformDescription}>
-            A centralized platform to explore, visualize, and analyze live astronomical data. Access deep-space imagery, celestial catalogs, and transient events sourced directly from global observatories and space agencies.
+            A centralized platform to explore, visualize, and analyze live astronomical data and deep-space imagery from global observatories.
           </p>
         </div>
       </SectionWrapper>
