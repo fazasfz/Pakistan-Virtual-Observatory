@@ -121,20 +121,35 @@ export default function DeepSkyViewer({ category, onBack }) {
   const [lo, hi] = bandState?.cuts ?? [null, null];
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', maxWidth: '1360px', margin: '0 auto', padding: '108px 2rem 4rem 2rem', boxSizing: 'border-box' }}>
       <button
         onClick={onBack}
         style={{
-          marginBottom: '1rem',
-          background: 'none',
-          border: '1px solid #444',
-          color: '#ccc',
-          borderRadius: '6px',
-          padding: '0.4rem 0.8rem',
+          marginBottom: '1.25rem',
+          background: 'rgba(255, 255, 255, 0.06)',
+          border: '1px solid rgba(224, 168, 94, 0.3)',
+          color: 'var(--copper, #E0A85E)',
+          borderRadius: '8px',
+          padding: '0.5rem 1rem',
           cursor: 'pointer',
+          fontFamily: "var(--font-headline, 'Inter', sans-serif)",
+          fontSize: '0.88rem',
+          fontWeight: 600,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          transition: 'all 0.2s ease',
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.background = 'rgba(224, 168, 94, 0.15)';
+          e.currentTarget.style.borderColor = 'var(--copper, #E0A85E)';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+          e.currentTarget.style.borderColor = 'rgba(224, 168, 94, 0.3)';
         }}
       >
-        ← Back to categories
+        ← Back to Categories
       </button>
 
       <div

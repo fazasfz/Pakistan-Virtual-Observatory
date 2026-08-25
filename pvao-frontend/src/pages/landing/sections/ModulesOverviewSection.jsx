@@ -1,10 +1,8 @@
 /**
- * Landing page section rendering a grid of ModuleCards for navigation.
+ * Landing page section rendering a 6-column editorial grid of ModuleCards for navigation.
  */
 import React from 'react';
-import { Row, Col } from 'antd';
 import SectionWrapper from '../../../components/common/SectionWrapper/SectionWrapper';
-import HUDLabel from '../../../components/common/HUDLabel/HUDLabel';
 import ModuleCard from '../../../components/common/ModuleCard/ModuleCard';
 import { useScrollReveal } from '../../../hooks/useScrollReveal';
 import { modulesData } from '../data/modules.data';
@@ -16,27 +14,29 @@ const ModulesOverviewSection = () => {
   return (
     <div ref={revealRef}>
       <SectionWrapper id="modules" className={styles.modulesSection} overlay={false}>
-        <div className={styles.header}>
-          <h2 className={styles.heading}>NAVIGATE THE COSMOS</h2>
-          <p className={styles.subhead}>SIX INSTRUMENTS. ONE SKY.</p>
-        </div>
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <span className={styles.badge}>INSTRUMENTS & OBSERVATORIES</span>
+            <h2 className={styles.heading}>NAVIGATE THE COSMOS</h2>
+            <p className={styles.subhead}>SIX INSTRUMENTS. ONE SKY.</p>
+          </div>
 
-        <Row gutter={[24, 24]} className={styles.grid}>
-          {modulesData.map((mod) => (
-            <Col xs={24} md={12} key={mod.id} className={styles.col}>
+          <div className={styles.cardGrid}>
+            {modulesData.map((mod) => (
               <ModuleCard 
+                key={mod.id}
                 name={mod.name}
-                description={mod.description}
                 linkTo={mod.externalUrl || mod.path}
                 bgImage={mod.bgImage}
                 isExternal={Boolean(mod.externalUrl)}
               />
-            </Col>
-          ))}
-        </Row>
+            ))}
+          </div>
+        </div>
       </SectionWrapper>
     </div>
   );
 };
 
 export default ModulesOverviewSection;
+

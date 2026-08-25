@@ -76,7 +76,7 @@ export const contributors = [
     role: 'Intern',
     title: 'Research & Development Intern',
     institution: 'Institute of Space Technology',
-    description: 'Managed the end-to-end research and development cycle to build and launch Exora.',
+    description: 'Pitched the idea for Exora and managed the end-to-end research and development cycle to build and launch Exora.',
     image: radhiyaImg
   },
   {
@@ -91,7 +91,7 @@ export const contributors = [
   {
     name: 'Saani E Zahra',
     role: 'Intern',
-    title: 'Research Intern',
+    title: 'Research & Development Intern',
     institution: 'Institute of Space Technology',
     description: 'Researched and built the Earth View module, while also driving key foundational research for Exora.',
     image: saaniImg

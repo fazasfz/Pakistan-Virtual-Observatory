@@ -15,7 +15,7 @@ const Zenith = () => {
   };
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: 'calc(100vh - 60px)', overflow: 'hidden', backgroundColor: '#000' }}>
+    <div style={{ position: 'relative', width: '100%', height: '100vh', paddingTop: '72px', boxSizing: 'border-box', overflow: 'hidden', backgroundColor: '#000' }}>
       <iframe 
         src="https://stellarium-web.org/" 
         title="Stellarium Web" 

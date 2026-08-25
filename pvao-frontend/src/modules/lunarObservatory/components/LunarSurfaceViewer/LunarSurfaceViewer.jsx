@@ -196,17 +196,7 @@ const LunarSurfaceViewer = ({ liveData, features = [], onSelectFeature }) => {
   });
 
   return (
-    <div className={styles.wrapper} style={{ position: 'relative' }}>
-      <div className={styles.heroOverlay}>
-        <span>{formattedTime} PKT</span>
-        {liveData?.illumination_percentage != null && (
-          <>
-            <span className={styles.overlayDivider}>|</span>
-            <span>{Math.round(liveData.illumination_percentage)}% illuminated</span>
-          </>
-        )}
-      </div>
-
+    <div className={styles.wrapper}>
       {isLoading && (
         <div className={styles.loadingOverlay}>
           Loading 3D Model...

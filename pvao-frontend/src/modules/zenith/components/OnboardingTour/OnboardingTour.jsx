@@ -21,6 +21,12 @@ const OnboardingTour = ({ isOpen, onClose }) => {
 
   const handleStart = () => setStepIndex(0);
   
+  const handlePrev = () => {
+    if (stepIndex > 0) {
+      setStepIndex(stepIndex - 1);
+    }
+  };
+
   const handleNext = () => {
     if (stepIndex < tourSteps.length - 1) {
       setStepIndex(stepIndex + 1);
@@ -40,9 +46,10 @@ const OnboardingTour = ({ isOpen, onClose }) => {
     <div className={styles.modalOverlay}>
       {stepIndex === -1 ? (
         <div className={styles.welcomeCard}>
-          <h2 className={styles.welcomeTitle}>Welcome to Zenith</h2>
+          <div className={styles.welcomeBadge}>SKY PORTAL GUIDE</div>
+          <h2 className={styles.welcomeTitle}>Zenith Toolbar & Controls</h2>
           <p className={styles.welcomeText}>
-            Explore the night sky using the Stellarium viewer. Want a quick tour of the controls?
+            Quick 11-step tour covering all bottom toolbar icons, deep space viewing modes, location setup, and time simulation.
           </p>
           <div className={styles.welcomeActions}>
             <button onClick={handleComplete} className={styles.secondaryButton}>Skip</button>
@@ -55,6 +62,7 @@ const OnboardingTour = ({ isOpen, onClose }) => {
           currentStepIndex={stepIndex}
           totalSteps={tourSteps.length}
           onNext={handleNext}
+          onPrev={handlePrev}
           onSkip={handleComplete}
           isLast={stepIndex === tourSteps.length - 1}
         />

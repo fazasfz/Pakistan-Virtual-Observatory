@@ -15,8 +15,7 @@ const InteractiveToolsSection = () => {
     <SectionWrapper id="interactive-tools" className={styles.toolsSection} overlay={false}>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h2 className={styles.heading}>MISSION APPS</h2>
-          <HUDLabel text="INTERACTIVE TOOLS" />
+          <h2 className={styles.heading}>INTERACTIVE TOOLS</h2>
         </div>
 
         <Row gutter={[24, 24]} className={styles.toolsGrid}>
