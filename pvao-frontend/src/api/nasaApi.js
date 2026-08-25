@@ -4,7 +4,7 @@ import axios from 'axios';
 // Since this is frontend only, we are directly calling NASA for APOD for the Landing Page demo.
 // In production, this should proxy through the pvao-backend to protect API keys.
 const NASA_API_KEY = 'DEMO_KEY';
-const BASE_URL = 'http://localhost:8000/api/v1';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
 
 export const fetchAPOD = async () => {
   try {

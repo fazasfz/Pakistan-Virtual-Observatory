@@ -1,11 +1,15 @@
 import React, { createContext, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AstroCopilotContext = createContext(null);
 
 export const AstroCopilotProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const openCopilot = () => setIsOpen(true);
+  const openCopilot = () => {
+    navigate('/astrocopilot');
+  };
   const closeCopilot = () => setIsOpen(false);
 
   return (

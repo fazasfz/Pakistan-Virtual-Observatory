@@ -20,7 +20,8 @@ export const SolarObservatory = () => {
 
   useEffect(() => {
     let isMounted = true;
-    fetch('http://localhost:8000/api/v1/solar-observatory/telemetry')
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
+    fetch(`${apiUrl}/solar-observatory/telemetry`)
       .then((res) => {
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         return res.json();

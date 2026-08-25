@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { askAstroCopilot } from './astroCopilotApi';
+import { fetchAstroCopilotStream } from './astroCopilotApi';
 import { useAstroCopilotContext } from '../../../context/AstroCopilotContext';
 
 export const useCopilotState = () => {
@@ -12,31 +12,68 @@ export const useCopilotState = () => {
 
   const sendMessage = async (text) => {
     if (!text.trim()) return;
-    
-    setMessages(prev => [...prev, { id: Date.now(), sender: 'user', text }]);
-    setIsLoading(true);
-    
-    try {
-      // Exclude the initial greeting message and errors from history
-      const history = messages
-        .filter(msg => !msg.error && msg.id !== 1)
-        .map(msg => ({ role: msg.sender, text: msg.text }));
 
-      const response = await askAstroCopilot(text, history);
-      setMessages(prev => [...prev, { 
-        id: Date.now() + 1, 
-        sender: 'ai', 
-        text: response.answer,
-        limited: response.limited
-      }]);
+    const userMsgId = Date.now();
+    const aiMsgId = userMsgId + 1;
+
+    setMessages(prev => [...prev, { id: userMsgId, sender: 'user', text }]);
+    setIsLoading(true);
+
+    try {
+      const response = await fetchAstroCopilotStream(text);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      if (!response.body) {
+        throw new Error('ReadableStream not supported on response body.');
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+
+      setMessages(prev => [...prev, { id: aiMsgId, sender: 'ai', text: '' }]);
+      setIsLoading(false);
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const chunk = decoder.decode(value, { stream: true });
+        if (chunk) {
+          setMessages(prev =>
+            prev.map(msg =>
+              msg.id === aiMsgId ? { ...msg, text: msg.text + chunk } : msg
+            )
+          );
+        }
+      }
     } catch (error) {
       console.error('Copilot API error:', error);
-      setMessages(prev => [...prev, { 
-        id: Date.now() + 1, 
-        sender: 'ai', 
-        text: 'Astro-Copilot is temporarily unavailable. Please try again shortly.',
-        error: true
-      }]);
+      setMessages(prev => {
+        const exists = prev.some(msg => msg.id === aiMsgId);
+        if (exists) {
+          return prev.map(msg =>
+            msg.id === aiMsgId && !msg.text
+              ? {
+                  ...msg,
+                  text: 'Astro-Copilot central API is unreachable. Please verify the service is running and try again.',
+                  error: true,
+                }
+              : msg
+          );
+        }
+        return [
+          ...prev,
+          {
+            id: aiMsgId,
+            sender: 'ai',
+            text: 'Astro-Copilot central API is unreachable. Please verify the service is running and try again.',
+            error: true,
+          },
+        ];
+      });
     } finally {
       setIsLoading(false);
     }

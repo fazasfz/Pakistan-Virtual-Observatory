@@ -3,6 +3,8 @@ import { Bot, User } from 'lucide-react';
 
 import { Spin } from 'antd';
 import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import styles from './AstroCopilotPopup.module.css';
 
 export default function MessageList({ messages, isLoading, isOpen }) {
@@ -35,6 +37,8 @@ export default function MessageList({ messages, isLoading, isOpen }) {
           <div className={`${styles.messageBubble} ${msg.limited || msg.error ? styles.messageLimited : ''}`}>
             {msg.sender === 'ai' ? (
               <ReactMarkdown 
+                remarkPlugins={[remarkMath]}
+                rehypePlugins={[rehypeKatex]}
                 components={{
                   a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--brass)', textDecoration: 'underline' }} />
                 }}
