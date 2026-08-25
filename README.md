@@ -1,15 +1,13 @@
-# Pakistan Virtual Astronomy Observatory (PVAO)
 ### Virtual Astronomy Observatory (VAO)
-**National Center of GIS and Space Applications (NCGSA) — Satellite Applications & Research Lab (SARL)**  
-*In collaboration with the Institute of Space Technology (IST)*
+**National Center of GIS and Space Applications (NCGSA) — Satellite Applications & Research Lab (SARL) - Institute of Space Technology (IST) - Pakistan** 
 
 ---
 
 ## 🌌 1. Executive Summary & Mission
 
-The **Pakistan Virtual Astronomy Observatory (PVAO)** — also known as the **Virtual Astronomy Observatory (VAO)** — is an advanced digital astrophysics platform designed to democratize astronomical exploration, live space telemetry analysis, planetary observation planning, and AI-assisted astrophysical research.
+The **Virtual Astronomy Observatory (VAO)** is an advanced digital astrophysics platform designed to democratize astronomical exploration, live space telemetry analysis, planetary observation planning, and AI-assisted astrophysical research.
 
-Developed under the **Satellite Applications and Research Laboratory (SARL)** within the **National Center of GIS and Space Applications (NCGSA)** at the **Institute of Space Technology (IST)**, PVAO bridges the gap between raw scientific datasets and interactive observational astrophysics.
+Developed under the **Satellite Applications and Research Laboratory (SARL)** within the **National Center of GIS and Space Applications (NCGSA)** at the **Institute of Space Technology (IST)**, VAO bridges the gap between raw scientific datasets and interactive observational astrophysics.
 
 ### Key Capabilities:
 - **Real-Time Space Weather Monitoring**: Direct feeds from NOAA SWPC and NASA SDO instruments for solar flare indices, coronal loop imagery, planetary Kp indices, and solar wind velocity.
@@ -300,12 +298,12 @@ The **Virtual Astronomy Observatory (VAO)** is developed under the auspices of:
 ### Core Engineering & Research Team:
 - **Syeda Fatima Zahra** — *Engineering Intern (Core Architecture, Frontend Layouts, Zenith, Lunar Observatory, Astro-Copilot Workspace)*
 - **Simra Tanveer** — *Engineering Intern (Solar Observatory & Astronomical Probe Tracker Architecture)*
-- **Qurat ul Ain** — *Research Intern (Solar Observatory & Space Weather Research Lead)*
-- **Tehreem Azhar** — *Research Intern (Planetary Sciences & Astrophysics Research)*
-- **Mohib Ullah** — *Engineering Intern (Frontend Module Engineering)*
-- **Radhiya** — *Research Intern (Astronomical Data Ingestion & Validation)*
-- **Saani-e-Zehra** — *Research Intern (Cosmic Object Cataloging & Documentation)*
-- **Amna** — *Research Intern (Astrophysics Glossary & Educational Content)*
+- **Qurat ul Ain** — *Research Intern (Solar Observatory & Astronomical probes research)*
+- **Tehreem Azhar** — *Research Intern (Solar Observatory & Astronomical probe tracker)*
+- **Mohib** — *Engineering Intern (Solar system Simulator)*
+- **Radhiya** — *Research & Developement Intern  (End-to-end Exora)*
+- **Saani-e-Zehra** — *Research Intern (Cosmic Object Cataloging & Earth View )*
+- **Amna** — *Research & Developement Intern (Deep Sky Explorer & backend & data architecture for exora)*
 
 ---
 
