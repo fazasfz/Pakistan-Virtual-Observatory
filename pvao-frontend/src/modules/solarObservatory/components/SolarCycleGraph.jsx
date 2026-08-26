@@ -15,7 +15,8 @@ export const SolarCycleGraph = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/v1/solar-observatory/cycle-data')
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
+        fetch(`${apiUrl}/solar-observatory/cycle-data`)
             .then((res) => res.ok ? res.json() : Promise.reject(`HTTP Error ${res.status}`))
             .then((data) => {
                 if (Array.isArray(data) && data.length > 0) {

@@ -13,4 +13,6 @@ export const PATHS = {
   CREDITS: '/credits',
   DATA_SOURCES: '/data-sources',
   GLOSSARY: '/glossary',
+  ASTRO_COPILOT_WORKSPACE: '/astro-copilot',
+  ASTROCOPILOT: '/astrocopilot',
 };

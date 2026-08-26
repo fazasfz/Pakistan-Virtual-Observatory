@@ -10,7 +10,7 @@ const DeepSkyExplorer = () => {
   const [category, setCategory] = useState(null);
 
   return (
-    <div style={{ padding: '1rem' }}>
+    <div style={{ width: '100%', minHeight: '100vh', background: 'var(--obsidian-1, #080B12)' }}>
       {!category ? (
         <CategoryLanding onSelectCategory={setCategory} />
       ) : (

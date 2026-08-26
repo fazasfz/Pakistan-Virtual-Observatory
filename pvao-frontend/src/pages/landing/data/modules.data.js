@@ -31,11 +31,11 @@ export const modulesData = [
   },
   { 
     id: 'exora', 
-    name: 'EXORA', 
+    name: 'Exora', 
     number: 'SEC.03',
     readout: 'EXOPLANETS: 5,602', /* TODO: Wire up to NASA Exoplanet Archive */
     path: '/exora',
-    description: 'Explore confirmed exoplanets with interactive 3D visualizations, planetary parameters, and atmospheric models.',
+    description: 'Unveil distant worlds, where every signal holds a story and every discovery reveals a new chapter of the cosmos.',
     bgImage: imgExora,
     externalUrl: 'https://exora-space.vercel.app/'
   },

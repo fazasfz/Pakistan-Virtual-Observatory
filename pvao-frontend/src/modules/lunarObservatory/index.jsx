@@ -1,45 +1,38 @@
 /**
  * Root entry point for the Lunar Observatory module.
- * Composes panels, viewers, and global layout state based on screen breakpoints.
+ * Composes the hero stage, telemetry HUD, 3D viewer, and lower analytical panels.
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './LunarObservatory.module.css';
-import mobileStyles from './LunarObservatoryMobile.module.css';
-
 import { useLunarData } from './hooks/useLunarData';
 import { useBreakpoint } from '../../hooks/useBreakpoint';
 import { useFeatureCatalogue } from './hooks/useFeatureCatalogue';
 
-// 1. Moon Now Panel (Time Slider + Snapshot)
+// Hero Components
+import LunarHeroTelemetry from './components/LunarHeroTelemetry';
+import LunarHeroFunFacts from './components/LunarHeroFunFacts';
+import LunarSurfaceViewer from './components/LunarSurfaceViewer/LunarSurfaceViewer';
+
+// Lower Analytical Panels
 import TimeSliderView from './components/TimeSliderView/TimeSliderView';
 import MoonPhaseSnapshot from './components/MoonPhaseSnapshot/MoonPhaseSnapshot';
 import MoonPhaseCard from './components/MoonPhaseCard/MoonPhaseCard';
-
-// 2. Lunar Phase Panel
 import LunarPhasePanel from './components/LunarPhasePanel/LunarPhasePanel';
-
-// 3. Lunar Surface Explorer
 import FeatureExploreSection from './components/FeatureExploreSection/FeatureExploreSection';
 import LunarMapLeaflet from './components/LunarMapLeaflet/LunarMapLeaflet';
 import FeatureDetailsSection from './components/FeatureDetailsSection/FeatureDetailsSection';
-
-// 4. Lunar Events Panel
 import LunarEventsPanel from './components/LunarEventsPanel/LunarEventsPanel';
-
-// 5. Lunar View Panel (3D Viewer)
-import LunarSurfaceViewer from './components/LunarSurfaceViewer/LunarSurfaceViewer';
-import ViewModeSelector from './components/ViewModeSelector/ViewModeSelector';
-
-import LunarFunFacts from './components/LunarFunFacts/LunarFunFacts';
+import LunarMapsGallery from './components/LunarMapsGallery/LunarMapsGallery';
 import LoadingOverlay from '../../components/common/LoadingOverlay/LoadingOverlay';
 import { lunarFunFacts } from './components/LunarFunFacts/funFacts.data';
 
-const LunarObservatory = () => {
+export const LunarObservatory = () => {
   const [targetDate, setTargetDate] = useState(null);
   const { liveData, loading: liveLoading, error } = useLunarData(targetDate);
   const { width } = useBreakpoint();
   const isMobile = width <= 1024;
-  const [viewMode, setViewMode] = useState('3D');
+  const [viewMode] = useState('3D');
+  const [currentTime, setCurrentTime] = useState('');
 
   const {
     features,
@@ -55,39 +48,106 @@ const LunarObservatory = () => {
 
   const handleCloseFeature = React.useCallback(() => setSelectedFeatureId(null), [setSelectedFeatureId]);
 
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      const options = {
+        timeZone: 'Asia/Karachi',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      };
+      setCurrentTime(now.toLocaleString('en-US', options));
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   if (liveLoading && !liveData && !catalogLoading) {
-    return <LoadingOverlay funFacts={lunarFunFacts.map(fact => fact.answer)} themeColor="var(--lunar-blue)" />;
+    return <LoadingOverlay funFacts={lunarFunFacts.map(fact => fact.answer)} themeColor="var(--lunar-blue, #38bdf8)" />;
   }
   if (catalogLoading) {
-    return <LoadingOverlay funFacts={lunarFunFacts.map(fact => fact.answer)} themeColor="var(--lunar-blue)" />;
+    return <LoadingOverlay funFacts={lunarFunFacts.map(fact => fact.answer)} themeColor="var(--lunar-blue, #38bdf8)" />;
   }
 
   return (
     <div className={styles.container}>
-      {error && <div className={styles.error}>Error loading lunar data</div>}
+      {error && <div className={styles.error}>Error loading lunar telemetry data</div>}
 
-      <div className={styles.mainLayout}>
-        <div className={styles.fullScreenHero}>
-          {/* Main 3D Viewer in the Center */}
-          <div className={`${styles.viewerSection} ${isMobile ? mobileStyles.viewerSectionMobile : ''}`} style={{ width: '100%', height: '80vh', minHeight: '500px' }}>
-            <LunarSurfaceViewer 
-              liveData={liveData} 
-              features={features} 
-              loading={liveLoading || catalogLoading} 
-              onSelectFeature={setSelectedFeatureId}
-            />
+      {/* Full-Screen Hero Layout matching Solar Observatory */}
+      <div className={styles.fullScreenHero}>
+        <div className={styles.denseStarsLayer1} />
+        <div className={styles.denseStarsLayer2} />
+        <div className={styles.nebulaGlow} />
+
+        {/* Overlay Title */}
+        <header className={styles.overlayHeader}>
+          <h1 className={styles.overlayTitle}>LUNAR OBSERVATORY</h1>
+        </header>
+
+        {/* Top-Right Floating Lunar Fun Facts */}
+        <div className={styles.topRightFacts}>
+          <LunarHeroFunFacts />
+        </div>
+
+        {/* 3-Column Hero Content Grid */}
+        <div className={styles.heroContentGrid}>
+          {/* Left Column: Live Lunar Telemetry */}
+          <div className={styles.leftColumn}>
+            <LunarHeroTelemetry telemetry={liveData} loading={liveLoading} />
           </div>
-          
+
+          {/* Center Column: 3D Interactive Moon Stage */}
+          <div className={styles.centerColumn}>
+            <div className={styles.lunarStage}>
+              <div className={styles.lunarGlowHalo} />
+              <LunarSurfaceViewer 
+                liveData={liveData} 
+                features={features} 
+                loading={liveLoading || catalogLoading} 
+                onSelectFeature={setSelectedFeatureId}
+              />
+              <div className={styles.timestampBadge}>
+                LIVE OBSERVED TIME (PKT): {currentTime}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Moon Physical Specs */}
+          <div className={styles.rightColumn}>
+            <div className={styles.moonStatsContainer}>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>AGE</span>
+                <span className={styles.statValue}>4.53 Billion Years</span>
+              </div>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>BODY TYPE</span>
+                <span className={styles.statValue}>Natural Satellite</span>
+              </div>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>RADIUS</span>
+                <span className={styles.statValue}>1,737.4 kilometers</span>
+              </div>
+              <div className={styles.statItem}>
+                <span className={styles.statLabel}>TEMPERATURE</span>
+                <span className={styles.statValue}>-130°C to +120°C</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
+      {/* Lower Dashboard Sections */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '3rem', width: '100%', padding: '0 2rem', marginTop: '2rem' }}>
-        
-        {/* 1. Moon Now Panel */}
+        {/* 1. Live Lunar Telemetry & Time Controls */}
         <section style={{ position: 'relative' }}>
-          <div style={{ marginBottom: '2rem' }}>
-            <h2 style={{ fontFamily: 'sans-serif', fontSize: '24px', fontWeight: 'bold', color: 'var(--starlight)', textAlign: 'center' }}>LIVE LUNAR TELEMETRY</h2>
-          </div>
+          <h2 className={styles.dashboardSectionTitle}>LIVE LUNAR TELEMETRY</h2>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr', gap: '2rem', alignItems: 'start' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               <TimeSliderView targetDate={targetDate} setTargetDate={setTargetDate} />
@@ -100,7 +160,7 @@ const LunarObservatory = () => {
             </div>
           </div>
         </section>
-        
+
         {/* 2. Lunar Phase Panel */}
         <section>
           <LunarPhasePanel liveData={liveData} loading={liveLoading} />
@@ -108,9 +168,7 @@ const LunarObservatory = () => {
 
         {/* 3. Lunar Surface Explorer */}
         <section>
-          <div style={{ marginBottom: '2rem' }}>
-            <h2 style={{ fontFamily: 'sans-serif', fontSize: '24px', fontWeight: 'bold', color: 'var(--starlight)', textAlign: 'center' }}>LUNAR SURFACE EXPLORER</h2>
-          </div>
+          <h2 className={styles.dashboardSectionTitle}>LUNAR SURFACE EXPLORER</h2>
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 2fr 1fr', gap: '2rem', alignItems: 'start' }}>
             {/* Left Column: List & Filters */}
             <div>
@@ -127,7 +185,7 @@ const LunarObservatory = () => {
             </div>
 
             {/* Center Column: 2D Moon Map */}
-            <div style={{ height: '600px', background: 'var(--obsidian-1)', borderRadius: '12px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ height: '600px', background: 'var(--obsidian-1, #0c0f17)', borderRadius: '12px', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <LunarMapLeaflet 
                 features={features}
                 selectedFeatureId={selectedFeature?.id}
@@ -145,7 +203,6 @@ const LunarObservatory = () => {
                 liveData={liveData}
                 liveLoading={liveLoading}
               />
-
             </div>
           </div>
         </section>
@@ -155,9 +212,9 @@ const LunarObservatory = () => {
           <LunarEventsPanel liveData={liveData} />
         </section>
 
-        {/* 5. Lunar Fun Facts */}
+        {/* 5. Lunar Maps & Cartography Section */}
         <section>
-          <LunarFunFacts />
+          <LunarMapsGallery />
         </section>
       </div>
     </div>

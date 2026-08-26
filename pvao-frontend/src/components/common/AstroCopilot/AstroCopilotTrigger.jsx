@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Bot } from 'lucide-react';
-
 import styles from './AstroCopilotTrigger.module.css';
 
-const AstroCopilotTrigger = ({ onClick }) => {
+const AstroCopilotTrigger = () => {
   const [showTooltip, setShowTooltip] = useState(true);
   const [hasClicked, setHasClicked] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (hasClicked) {
@@ -21,8 +22,9 @@ const AstroCopilotTrigger = ({ onClick }) => {
   }, [hasClicked]);
 
   const handleClick = (e) => {
+    e.preventDefault();
     setHasClicked(true);
-    if (onClick) onClick(e);
+    navigate('/astrocopilot');
   };
 
   return (
@@ -38,3 +40,4 @@ const AstroCopilotTrigger = ({ onClick }) => {
 };
 
 export default AstroCopilotTrigger;
+

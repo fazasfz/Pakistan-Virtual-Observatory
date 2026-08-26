@@ -1,12 +1,21 @@
 /**
  * Integrates the Aladin Lite sky viewer for a specific celestial category.
- * Provides interactive panning, zooming, and fetching imagery for deep sky objects.
+ * Provides interactive panning, zooming, FITS band rendering, colour bar, and SIMBAD/MAST info.
  * Props: category (string), onBack (function).
  */
-import React, { useState } from 'react';
-import { useAladin } from '../hooks/useAladin';
+import React, { useEffect, useState } from 'react';
+import {
+  useAladin,
+  applyBand,
+  BANDS,
+  BAND_ORDER,
+  CSS_COLORMAPS,
+  nativePixelScaleDeg,
+} from '../hooks/useAladin';
 import { useObjectSearch } from '../hooks/useObjectSearch';
 import { objectCatalog } from '../api/objectCatalog';
+import ObjectInfoPanel from './ObjectInfoPanel';
+import '../aladinOverrides.css';
 import nebulaImg from '../../../assets/images/modules/nebula.webp';
 import starClusterImg from '../../../assets/images/modules/starCluster.jpeg';
 import galaxyImg from '../../../assets/images/modules/galaxy.webp';
@@ -17,34 +26,90 @@ const categoryMeta = {
   galaxies: { label: 'Galaxies', image: galaxyImg, items: objectCatalog.galaxies },
 };
 
+const API_BASE = import.meta.env?.VITE_API_URL || import.meta.env?.VITE_API_BASE || 'http://localhost:8080/api/v1';
+
+const fmt = (v) => {
+  if (!Number.isFinite(v)) return '—';
+  const a = Math.abs(v);
+  if (a >= 1000 || (v !== 0 && a < 0.01)) return v.toExponential(1);
+  return v.toFixed(2);
+};
+
+const fmtScale = (deg) => {
+  const arcsec = deg * 3600;
+  return arcsec < 60 ? `${arcsec.toFixed(1)}″` : `${(arcsec / 60).toFixed(1)}′`;
+};
+
 export default function DeepSkyViewer({ category, onBack }) {
   const meta = categoryMeta[category];
 
   const { containerRef, aladin, isReady } = useAladin({
     target: meta.items[0]?.id || 'M31',
     fov: 3,
-    survey: 'P/DSS2/color',
   });
 
   const { search, info, images, loading, error } = useObjectSearch();
-  const wavelengthOptions = [
-    { label: 'Optical', survey: 'P/DSS2/color' },
-    { label: 'Infrared', survey: 'P/2MASS/color' },
-    { label: 'UV', survey: 'P/GALEXGR6_7/NUV' },
-    { label: 'X-ray', survey: 'P/eROSITA/RGB' },
-  ];
 
   const [wavelength, setWavelength] = useState('Optical');
-
-  const switchWavelength = (opt) => {
-    if (aladin) aladin.setImageSurvey(opt.survey);
-    setWavelength(opt.label);
-  };
+  const [bandState, setBandState] = useState(null);
+  const [coverage, setCoverage] = useState('covered');
+  const [pixelValue, setPixelValue] = useState(null);
   const [query, setQuery] = useState('');
+
+  const band = BANDS[wavelength];
+
+  // Live pixel readout — this is what makes the colour bar mean something.
+  // People move the cursor over the bright part of the nebula, watch the number
+  // climb, and the units stop being abstract.
+  useEffect(() => {
+    if (!aladin || !bandState?.layer) return;
+    const handler = ({ x, y }) => {
+      try {
+        const v = bandState.layer.readPixel(x, y);
+        setPixelValue(Number.isFinite(v) ? v : null);
+      } catch {
+        setPixelValue(null);
+      }
+    };
+    aladin.on('mouseMove', handler);
+    return () => aladin.off?.('mouseMove', handler);
+  }, [aladin, bandState]);
+
+  const switchWavelength = async (key) => {
+    setWavelength(key);
+    if (!aladin) return;
+
+    setBandState(null);
+    setPixelValue(null);
+
+    // Ask the backend whether this survey actually observed this patch of sky.
+    // GALEX in particular skips the Galactic plane and anything near a bright
+    // star, so a blank frame is often correct — but it looks like a bug unless
+    // you say so. Never block on the answer: if the check is wrong we'd be
+    // hiding real data.
+    const [ra, dec] = aladin.getRaDec();
+    try {
+      const res = await fetch(`${API_BASE}/deep-sky-explorer/coverage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ hips_id: BANDS[key].id, ra, dec }),
+      });
+      setCoverage(res.ok ? (await res.json()).coverage : 'unknown');
+    } catch {
+      setCoverage('unknown');
+    }
+
+    const result = await applyBand(aladin, key);
+    setBandState(result);
+
+    // Stay locked on the object, or the view drifts between bands and you end
+    // up comparing different patches of sky.
+    aladin.gotoRaDec(ra, dec);
+  };
 
   const goToAndSearch = (nameForAladin, nameForSearch) => {
     if (aladin) aladin.gotoObject(nameForAladin);
-    search(nameForSearch || nameForAladin);
+    search(nameForAladin);
   };
 
   const handleSearchSubmit = (e) => {
@@ -52,21 +117,39 @@ export default function DeepSkyViewer({ category, onBack }) {
     if (query.trim()) goToAndSearch(query.trim());
   };
 
+  const stops = CSS_COLORMAPS[band.colormap] ?? CSS_COLORMAPS.viridis;
+  const [lo, hi] = bandState?.cuts ?? [null, null];
+
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', maxWidth: '1360px', margin: '0 auto', padding: '108px 2rem 4rem 2rem', boxSizing: 'border-box' }}>
       <button
         onClick={onBack}
         style={{
-          marginBottom: '1rem',
-          background: 'none',
-          border: '1px solid #444',
-          color: '#ccc',
-          borderRadius: '6px',
-          padding: '0.4rem 0.8rem',
+          marginBottom: '1.25rem',
+          background: 'rgba(255, 255, 255, 0.06)',
+          border: '1px solid rgba(224, 168, 94, 0.3)',
+          color: 'var(--copper, #E0A85E)',
+          borderRadius: '8px',
+          padding: '0.5rem 1rem',
           cursor: 'pointer',
+          fontFamily: "var(--font-headline, 'Inter', sans-serif)",
+          fontSize: '0.88rem',
+          fontWeight: 600,
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          transition: 'all 0.2s ease',
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.background = 'rgba(224, 168, 94, 0.15)';
+          e.currentTarget.style.borderColor = 'var(--copper, #E0A85E)';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)';
+          e.currentTarget.style.borderColor = 'rgba(224, 168, 94, 0.3)';
         }}
       >
-        ← Back to categories
+        ← Back to Categories
       </button>
 
       <div
@@ -133,45 +216,91 @@ export default function DeepSkyViewer({ category, onBack }) {
       </div>
 
       {!isReady && <div style={{ color: '#aaa', padding: '1rem' }}>Loading sky viewer...</div>}
-      <div style={{ display: 'flex', gap: '0.5rem', margin: '1rem 0' }}>
-        {wavelengthOptions.map((opt) => (
-          <button
-          key={opt.label}
-          onClick={() => switchWavelength(opt)}
-          style={{
-            padding: '0.4rem 0.8rem',
-            background: wavelength === opt.label ? '#f90' : '#1a1a1a',
-            color: wavelength === opt.label ? '#111' : '#eee',
-            border: '1px solid #444',
-            borderRadius: '6px',
-            cursor: 'pointer',
-            fontWeight: wavelength === opt.label ? 'bold' : 'normal',
-          }}
-        >
-          {opt.label}
-        </button>
-      ))}
-    </div>
-      <div ref={containerRef} style={{ width: '100%', height: '600px', background: '#000' }} />
 
-      <div style={{ marginTop: '1rem', padding: '1rem', background: '#111', borderRadius: '8px', color: '#eee' }}>
-        {loading && <p>Loading object data...</p>}
-        {error && <p style={{ color: '#f88' }}>{error} (backend not running - sky viewer above still works fine)</p>}
-        {info && !error && (
-          <div>
-            <h3 style={{ marginTop: 0 }}>{info.name}</h3>
-            <p><strong>Type:</strong> {info.type || 'Unknown'}</p>
-            <p><strong>RA:</strong> {info.ra ?? 'N/A'}</p>
-            <p><strong>Dec:</strong> {info.dec ?? 'N/A'}</p>
-            <p><strong>Redshift:</strong> {info.redshift ?? 'N/A'}</p>
+      {/* ---- wavelength tabs ---- */}
+      <div style={{ display: 'flex', gap: '0.5rem', margin: '1rem 0 0.75rem' }}>
+        {BAND_ORDER.map((key) => (
+          <button
+            key={key}
+            onClick={() => switchWavelength(key)}
+            style={{
+              padding: '0.4rem 0.8rem',
+              background: wavelength === key ? '#f90' : '#1a1a1a',
+              color: wavelength === key ? '#111' : '#eee',
+              border: '1px solid #444',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontWeight: wavelength === key ? 'bold' : 'normal',
+            }}
+          >
+            {BANDS[key].label}
+          </button>
+        ))}
+      </div>
+
+      {coverage === 'empty' && (
+        <div className="band-notice">
+          <strong>Patchy {band.label} coverage here.</strong> {band.telescope} has no
+          data at this exact position — any circular edges you see are real survey
+          boundaries, not a rendering error. Optical and Infrared cover the whole sky.
+        </div>
+      )}
+
+      {/* ---- legend ---- */}
+      <div className="band-colorbar">
+        {band.colorbar && (
+          <div className="cb-row">
+            <span className="cb-tick">{fmt(lo)}</span>
+            <div
+              className="cb-gradient"
+              style={{ background: `linear-gradient(90deg, ${stops.join(',')})` }}
+            />
+            <span className="cb-tick">{fmt(hi)}</span>
+            <span className="cb-unit">{band.unit}</span>
           </div>
         )}
+
+        <p className="cb-caption">
+          <strong>
+            {band.telescope} · {band.wavelength}.
+          </strong>{' '}
+          {band.means}
+        </p>
+
+        {band.colorbar && (
+          <p className="cb-readout">
+            {pixelValue != null
+              ? `Under cursor: ${pixelValue.toPrecision(4)} ${band.unit}`
+              : 'Hover the image to read a pixel value.'}
+            {bandState?.order && (
+              <>
+                {'  ·  '}Native resolution ≈{' '}
+                {fmtScale(nativePixelScaleDeg(bandState.order, bandState.tileSize))} per
+                pixel; zoom is capped there.
+              </>
+            )}
+          </p>
+        )}
+      </div>
+
+      <div ref={containerRef} style={{ width: '100%', height: '600px', background: '#000' }} />
+
+      <div style={{ marginTop: '1rem' }}>
+        {loading && <p style={{ color: '#aaa' }}>Loading object data...</p>}
+        {error && <p style={{ color: '#f88' }}>{error}</p>}
+
+        {info && !error && (
+          <ObjectInfoPanel info={info} aladin={aladin} bandKey={wavelength} />
+        )}
+
         {images.length > 0 && (
-          <div style={{ marginTop: '1rem' }}>
-            <h4>Available Observations</h4>
-            <ul>
+          <div className="object-info" style={{ marginTop: '1rem' }}>
+            <h4 style={{ margin: '0 0 0.5rem' }}>Available Observations</h4>
+            <ul style={{ margin: 0, paddingLeft: '1.2rem', color: '#b6bac0' }}>
               {images.map((img, idx) => (
-                <li key={idx}>{img.mission} - {img.instrument} - target: {img.target}</li>
+                <li key={idx}>
+                  {img.mission} — {img.instrument} — target: {img.target}
+                </li>
               ))}
             </ul>
           </div>

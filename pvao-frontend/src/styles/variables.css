@@ -7,13 +7,14 @@
   --copper: #E0A85E;
   --starlight: #F4EFE6;
   --slate-ui: #8A8F98;
-  --deep-teal: #0C1614;
-  --lunar-blue: #4b96ff;
+  --lunar-blue: #38bdf8;
+  --lunar-blue-glow: rgba(56, 189, 248, 0.35);
+  --lunar-blue-subtle: rgba(56, 189, 248, 0.15);
 
   /* Typography */
-  --font-mono: 'Inter', sans-serif;
-  --font-headline: 'Inter', sans-serif;
-  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Inter', -apple-system, BlinkMacSystemFont, monospace;
+  --font-headline: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* HUD Settings */
   --hud-border-width: 1px;

@@ -1,6 +1,12 @@
 .card {
-  font-family: sans-serif;
-  color: var(--starlight);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  color: var(--starlight, #f8fafc);
+  background: rgba(10, 14, 23, 0.65);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
 }
 
 .loading {
@@ -8,8 +14,8 @@
   align-items: center;
   justify-content: center;
   min-height: 200px;
-  font-family: var(--font-mono);
-  color: var(--lunar-blue);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  color: var(--lunar-blue, #38bdf8);
   opacity: 0.7;
 }
 
@@ -17,31 +23,35 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--space-32);
+  margin-bottom: 1.5rem;
 }
 
 .title {
-  font-family: sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--starlight);
+  font-family: var(--font-headline, 'Inter', sans-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--lunar-blue, #38bdf8);
   margin: 0;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
 .liveIndicator {
-  font-family: sans-serif;
+  font-family: var(--font-mono, monospace);
   font-size: 10px;
-  color: #ff3333;
-  border: 1px solid #ff3333;
-  padding: 2px 6px;
+  font-weight: 700;
+  color: #ff4444;
+  border: 1px solid rgba(255, 68, 68, 0.5);
+  background: rgba(255, 68, 68, 0.1);
+  padding: 2px 8px;
   border-radius: 4px;
+  letter-spacing: 1px;
   animation: blink 2s infinite;
 }
 
 @keyframes blink {
   0% { opacity: 1; }
-  50% { opacity: 0.5; }
+  50% { opacity: 0.4; }
   100% { opacity: 1; }
 }
 
@@ -49,14 +59,17 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: var(--space-32);
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.15);
+  padding-bottom: 1rem;
 }
 
 .phaseName {
-  font-family: sans-serif;
-  font-size: 28px;
-  font-weight: 400;
-  color: var(--lunar-blue);
+  font-family: var(--font-headline, 'Inter', sans-serif);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--lunar-blue, #38bdf8);
+  line-height: 1.2;
 }
 
 .illumination {
@@ -66,22 +79,25 @@
 }
 
 .illumination .value {
-  font-size: var(--text-xl);
-  font-weight: 500;
-  font-family: sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--starlight, #f8fafc);
+  font-family: var(--font-headline, 'Inter', sans-serif);
 }
 
 .illumination .label {
-  font-size: 10px;
-  letter-spacing: 0.05em;
-  color: var(--obsidian-light, #8a8a9a);
-  font-family: sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  font-family: var(--font-headline, 'Inter', sans-serif);
+  text-transform: uppercase;
 }
 
 .telemetryGrid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-16);
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
 }
 
 .dataPoint {
@@ -91,14 +107,17 @@
 }
 
 .dataPoint .label {
-  font-family: sans-serif;
-  font-size: 10px;
-  color: var(--obsidian-light, #8a8a9a);
-  letter-spacing: 0.05em;
+  font-family: var(--font-headline, 'Inter', sans-serif);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
 .dataPoint .value {
-  font-family: sans-serif;
-  font-size: var(--text-sm);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--starlight, #f8fafc);
 }

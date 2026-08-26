@@ -6,6 +6,7 @@ import LandingPage from '../pages/landing/LandingPage';
 import CreditsPage from '../pages/credits/CreditsPage';
 import DataSourcesPage from '../pages/dataSources/DataSourcesPage';
 import GlossaryPage from '../pages/glossary/GlossaryPage';
+import AstroCopilotWorkspace from '../pages/astroCopilot/AstroCopilotWorkspace';
 
 // Sub-pages
 import Zenith from '../modules/zenith';
@@ -52,6 +53,8 @@ const AppRoutes = () => {
           <Route path={PATHS.DATA_SOURCES} element={<DataSourcesPage />} />
           <Route path={PATHS.GLOSSARY} element={<GlossaryPage />} />
           <Route path={PATHS.CREDITS} element={<CreditsPage />} />
+          <Route path={PATHS.ASTRO_COPILOT_WORKSPACE} element={<AstroCopilotWorkspace />} />
+          <Route path={PATHS.ASTROCOPILOT} element={<AstroCopilotWorkspace />} />
         </Route>
       </Routes>
     </React.Suspense>
