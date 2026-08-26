@@ -1,62 +1,223 @@
-/**
- * UI card displaying real-time velocity, distance, and position metrics for a specific space probe.
- * Props: telemetry (object), hoveredProbe (object), onClose (function).
- */
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip } from "recharts";
 import styles from './astronomicalProbeTracker.module.css';
 
-export const ProbeTelemetryCard = ({ telemetry, hoveredProbe, onClose }) => {
-    const activeData = telemetry || hoveredProbe;
+const SPEED_OF_LIGHT_KMS = 299792.458;
+const EARTH_ESCAPE_VELOCITY_KMS = 11.18;
+const SOLAR_ESCAPE_VELOCITY_KMS = 16.60;
 
-    if (!activeData) {
-        return (
-            <div className={styles.aptCardPlaceholder}>
-                Select or hover over a probe to fetch live telemetry...
-            </div>
-        );
-    }
+const BODY_RADII = {
+    earth: 6371,
+    moon: 1737,
+    mars: 3389,
+    sun: 696340
+};
 
-    const x = Number(activeData.x ?? 0);
-    const y = Number(activeData.y ?? 0);
-    const z = Number(activeData.z ?? 0);
+const COORD_FRAMES = {
+    earth: "ICRF / Geocentric",
+    moon: "ICRF / Selenocentric",
+    mars: "ICRF / Areocentric",
+    sun: "ICRF / Heliocentric"
+};
 
-    const rawDist = activeData.distance_km ?? Math.sqrt(x * x + y * y + z * z);
-    const rawVel = parseFloat(activeData.velocity) || 0;
+const SIGNAL_SCALE_MAX_KM = {
+    earth: 1500000,
+    moon: 450000,
+    mars: 400000000,
+    sun: 300000000
+};
 
-    const lat = rawDist > 0 ? (Math.asin(z / rawDist) * (180 / Math.PI)).toFixed(2) : "0.00";
-    const lon = rawDist > 0 ? (Math.atan2(y, x) * (180 / Math.PI)).toFixed(2) : "0.00";
+export const ProbeTelemetryCard = ({ telemetry, targetBody = "earth", onClose }) => {
+    if (!telemetry) return null;
+
+    const targetKey = targetBody.toLowerCase();
+    const probeName = telemetry.name || "Spacecraft";
+
+    const x = Number(telemetry.x ?? 0);
+    const y = Number(telemetry.y ?? 0);
+    const z = Number(telemetry.z ?? 0);
+
+    const rawVel = parseFloat(telemetry.velocity) || 0;
+    const velKmH = rawVel > 0 ? Math.round(rawVel * 3600) : null;
+
+    const planetRadius = BODY_RADII[targetKey] || BODY_RADII.earth;
+    const orbitDistKm = Number(telemetry.orbital_radius || telemetry.distance_km || 0);
+    const altitudeKm = telemetry.altitude_km ?? (orbitDistKm > planetRadius ? orbitDistKm - planetRadius : 0);
+
+    const localVectorLen = Math.sqrt(x * x + y * y + z * z);
+    const lat = localVectorLen > 0 ? (Math.asin(z / localVectorLen) * (180 / Math.PI)).toFixed(2) : "0.00";
+    const lon = localVectorLen > 0 ? (Math.atan2(y, x) * (180 / Math.PI)).toFixed(2) : "0.00";
+
+    // Direct display of raw live API inclination response
+    const inclinationFormatted = telemetry.inclination !== undefined && telemetry.inclination !== null
+        ? String(telemetry.inclination)
+        : "N/A";
+
+    const distanceToEarthKm = Number(telemetry.earth_distance_km || telemetry.distance_km || 0);
+
+    // OWLT / RTLT directly calculated from true Earth distance
+    const owltSeconds = distanceToEarthKm > 0 ? distanceToEarthKm / SPEED_OF_LIGHT_KMS : 0;
+
+    const formatLightTime = (sec) => {
+        if (sec <= 0) return "0.00 s";
+        if (sec < 60) return `${sec.toFixed(2)} s`;
+        if (sec < 3600) return `${(sec / 60).toFixed(2)} min`;
+        return `${(sec / 3600).toFixed(2)} hrs`;
+    };
+
+    const owltFormatted = formatLightTime(owltSeconds);
+    const rtltFormatted = formatLightTime(owltSeconds * 2);
+
+    // Dynamic signal progress calculation with zero artificial floors
+    const delayRefMax = SIGNAL_SCALE_MAX_KM[targetKey] || 1500000;
+    const signalProgressPct = distanceToEarthKm > 0
+        ? Math.min(100, (distanceToEarthKm / delayRefMax) * 100)
+        : 0;
+
+    // Trend chart tracking
+    const [history, setHistory] = useState([]);
+    const lastDistRef = useRef(null);
+
+    useEffect(() => {
+        if (orbitDistKm > 0 && orbitDistKm !== lastDistRef.current) {
+            lastDistRef.current = orbitDistKm;
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            setHistory((prev) => [
+                ...prev.slice(-14),
+                {
+                    time: timestamp,
+                    velocity: Number(rawVel.toFixed(2)),
+                    distance: Math.round(orbitDistKm)
+                }
+            ]);
+        }
+    }, [orbitDistKm, rawVel]);
+
+    const escapeThreshold = targetKey === "sun" ? SOLAR_ESCAPE_VELOCITY_KMS : EARTH_ESCAPE_VELOCITY_KMS;
+    const escapeRatio = Math.min(1, rawVel / escapeThreshold);
+    const strokeDashoffset = 126 - 126 * escapeRatio;
+
+    const coordFrame = COORD_FRAMES[targetKey] || "ICRF / Relative";
 
     return (
         <div className={styles.aptTelemetryCard}>
             <div className={styles.aptCardHeader}>
-                <h3 className={styles.aptCardTitle}>{activeData.name}</h3>
+                <div>
+                    <h3 className={styles.aptCardTitle}>{probeName}</h3>
+                    <span className={styles.aptSubTitle}>Live Mission Payload</span>
+                </div>
                 {onClose && (
-                    <button className={styles.aptCloseBtn} onClick={onClose}>
+                    <button className={styles.aptCloseBtn} onClick={onClose} aria-label="Close telemetry card">
                         ×
                     </button>
                 )}
             </div>
 
             <div className={styles.aptCardBody}>
+                <div className={styles.aptGaugeRow}>
+                    <div className={styles.aptStatBlock}>
+                        <span className={styles.aptLabel}>Velocity:</span>
+                        <span className={styles.aptValueHighlight}>
+                            {telemetry.raw_velocity || (rawVel > 0 ? `${rawVel.toFixed(2)} km/s` : "N/A")}
+                        </span>
+                        {velKmH && <span className={styles.aptSubValue}>({velKmH.toLocaleString()} km/h)</span>}
+                    </div>
+
+                    <div className={styles.aptGaugeContainer} title="Percentage of gravitational escape velocity reached">
+                        <svg className={styles.aptGaugeSvg} viewBox="0 0 50 30">
+                            <path d="M 5 25 A 20 20 0 0 1 45 25" fill="none" stroke="#1e293b" strokeWidth="4" />
+                            <path
+                                d="M 5 25 A 20 20 0 0 1 45 25"
+                                fill="none"
+                                stroke="#38bdf8"
+                                strokeWidth="4"
+                                strokeDasharray="126"
+                                strokeDashoffset={strokeDashoffset}
+                                strokeLinecap="round"
+                            />
+                        </svg>
+                        <span className={styles.aptGaugeLabel}>
+                            {Math.round(escapeRatio * 100)}% Escape Speed
+                        </span>
+                    </div>
+                </div>
+
                 <div className={styles.aptStatRow}>
-                    <span className={styles.aptLabel}>Speed:</span>
+                    <span className={styles.aptLabel}>Altitude (AGL):</span>
                     <span className={styles.aptValue}>
-                        {rawVel > 0 ? `${rawVel} km/s` : "N/A"}
+                        {altitudeKm > 0 ? `${Math.round(altitudeKm).toLocaleString()} km` : "N/A"}
                     </span>
                 </div>
                 <div className={styles.aptStatRow}>
-                    <span className={styles.aptLabel}>Height:</span>
+                    <span className={styles.aptLabel}>Orbital Radius:</span>
                     <span className={styles.aptValue}>
-                        {rawDist > 0 ? `${Math.round(rawDist).toLocaleString()} km` : "N/A"}
+                        {orbitDistKm > 0 ? `${Math.round(orbitDistKm).toLocaleString()} km` : "N/A"}
                     </span>
                 </div>
                 <div className={styles.aptStatRow}>
-                    <span className={styles.aptLabel}>Latitude:</span>
-                    <span className={styles.aptValue}>{lat}°</span>
+                    <span className={styles.aptLabel}>Orbital Inclination:</span>
+                    <span className={styles.aptValue}>{inclinationFormatted}</span>
                 </div>
+
                 <div className={styles.aptStatRow}>
-                    <span className={styles.aptLabel}>Longitude:</span>
-                    <span className={styles.aptValue}>{lon}°</span>
+                    <span className={styles.aptLabel}>Latitude / Longitude:</span>
+                    <span className={styles.aptValue}>{lat}° / {lon}°</span>
+                </div>
+
+                <div className={styles.aptSignalSection}>
+                    <div className={styles.aptStatRow}>
+                        <span className={styles.aptLabel}>Signal OWLT (One-Way Light Time):</span>
+                        <span className={styles.aptValue}>{owltFormatted}</span>
+                    </div>
+                    <div className={styles.aptStatRow}>
+                        <span className={styles.aptLabel}>Signal RTLT (Round-Trip Light Time):</span>
+                        <span className={styles.aptValue}>{rtltFormatted}</span>
+                    </div>
+
+                    <div className={styles.aptProgressBarWrapper}>
+                        <div className={styles.aptProgressHeader}>
+                            <span>Signal Propagation Scale</span>
+                            <span>{signalProgressPct.toFixed(1)}%</span>
+                        </div>
+                        <div className={styles.aptProgressBarTrack} title="Relative Light Propagation Distance to Earth">
+                            <div
+                                className={styles.aptProgressBarFill}
+                                style={{ width: `${signalProgressPct}%` }}
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {history.length > 1 && (
+                    <div className={styles.aptChartContainer}>
+                        <div className={styles.aptChartTitle}>
+                            Live Velocity Trend ({history.length} ticks)
+                        </div>
+                        <div style={{ width: "100%", height: 80 }}>
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart data={history} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
+                                    <defs>
+                                        <linearGradient id="velGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#38bdf8" stopOpacity={0.4} />
+                                            <stop offset="95%" stopColor="#38bdf8" stopOpacity={0} />
+                                        </linearGradient>
+                                    </defs>
+                                    <XAxis dataKey="time" stroke="#64748b" fontSize={9} tickLine={false} />
+                                    <YAxis stroke="#64748b" fontSize={9} tickLine={false} domain={['auto', 'auto']} />
+                                    <Tooltip
+                                        contentStyle={{ background: "#0f172a", border: "1px solid rgba(56, 189, 248, 0.3)", borderRadius: "6px", fontSize: "11px" }}
+                                        itemStyle={{ color: "#38bdf8" }}
+                                    />
+                                    <Area type="monotone" dataKey="velocity" stroke="#38bdf8" fillOpacity={1} fill="url(#velGrad)" strokeWidth={2} />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </div>
+                )}
+
+                <div className={styles.aptStatRow}>
+                    <span className={styles.aptLabel}>Coord Frame:</span>
+                    <span className={styles.aptValue}>{coordFrame}</span>
                 </div>
             </div>
         </div>

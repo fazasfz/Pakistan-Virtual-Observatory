@@ -1,16 +1,8 @@
-/**
- * Root entry point for the Astronomical Probe Tracker module.
- * Manages global state for target selection, active probes, and live telemetry.
- * Composes the header, 3D orbit canvas, and telemetry cards.
- */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ProbeTrackerHeader } from "./ProbeTrackerHeader";
 import { ProbeTelemetryCard } from "./ProbeTelemetryCard";
 import { OrbitCanvas } from "./OrbitCanvas";
-import { ProbeKpiHeader } from "./ProbeKpiHeader";
-import { ProbeGroundTrack } from "./ProbeGroundTrack";
 import { ProbeTimeControl } from "./ProbeTimeControl";
-import { ProbeScientificTable } from "./ProbeScientificTable";
 import { getProbesByTarget, getLiveTelemetry } from "./probeApi";
 import styles from './astronomicalProbeTracker.module.css';
 
@@ -25,22 +17,30 @@ export default function AstronomicalProbeTracker() {
   const [speed, setSpeed] = useState(1);
   const [lastSync, setLastSync] = useState("");
 
+  // Keep a ref to track currently selected probe ID against async race conditions
+  const selectedProbeIdRef = useRef(null);
+
   useEffect(() => {
     let isMounted = true;
+
+    // Reset selection and state immediately on target body switch
+    setSelectedProbe(null);
+    selectedProbeIdRef.current = null;
+    setTelemetryMap({});
+    setProbes([]);
 
     getProbesByTarget(target).then(async (data) => {
       const probeList = data?.probes || [];
       if (!isMounted) return;
 
       setProbes(probeList);
-      setSelectedProbe(null); // Clear previous target probe state
 
       const results = {};
       await Promise.all(
         probeList.map(async (p) => {
           try {
             const liveData = await getLiveTelemetry(target, p.id);
-            results[p.id] = liveData;
+            results[p.id] = { ...p, ...liveData, id: p.id };
           } catch (e) {
             console.warn(`Live telemetry pending for ${p.id}`, e);
           }
@@ -51,9 +51,11 @@ export default function AstronomicalProbeTracker() {
         setTelemetryMap(results);
         setLastSync(new Date().toLocaleTimeString());
 
-        // Automatically set telemetry to the first active probe of the target
-        if (probeList.length > 0 && results[probeList[0].id]) {
-          setSelectedProbe(results[probeList[0].id]);
+        if (probeList.length > 0) {
+          const firstId = probeList[0].id;
+          const initialProbe = results[firstId] || probeList[0];
+          setSelectedProbe(initialProbe);
+          selectedProbeIdRef.current = String(firstId);
         }
       }
     });
@@ -62,19 +64,31 @@ export default function AstronomicalProbeTracker() {
   }, [target]);
 
   const handleSelectProbe = async (probe) => {
+    if (!probe || probe.id === undefined || probe.id === null) return;
+
+    const probeIdStr = String(probe.id);
+    selectedProbeIdRef.current = probeIdStr;
+
+    const cached = telemetryMap[probe.id] || probe;
+    setSelectedProbe(cached);
+
     try {
       const freshData = await getLiveTelemetry(target, probe.id);
-      setSelectedProbe(freshData);
-      setTelemetryMap((prev) => ({ ...prev, [probe.id]: freshData }));
+
+      // Prevent stale async response from overwriting if user clicked another probe mid-fetch
+      if (selectedProbeIdRef.current === probeIdStr) {
+        const merged = { ...probe, ...freshData, id: probe.id };
+        setSelectedProbe(merged);
+        setTelemetryMap((prev) => ({ ...prev, [probe.id]: merged }));
+      }
     } catch (err) {
-      setSelectedProbe(telemetryMap[probe.id] || probe);
+      console.warn("Using fallback telemetry data for probe:", probe.id, err);
     }
     setSearch("");
   };
 
-  const activeData = selectedProbe || hoveredProbe;
   const filteredProbes = probes.filter((p) =>
-    p.name.toLowerCase().includes(search.toLowerCase())
+    String(p.name || "").toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -84,15 +98,9 @@ export default function AstronomicalProbeTracker() {
         setActiveBody={setTarget}
         searchQuery={search}
         setSearchQuery={setSearch}
-      />
-
-      <ProbeKpiHeader
         activeCount={filteredProbes.length}
-        targetBody={target}
         lastUpdated={lastSync}
       />
-
-      <ProbeScientificTable telemetry={activeData} />
 
       <div className={styles.aptViewport}>
         <OrbitCanvas
@@ -114,13 +122,16 @@ export default function AstronomicalProbeTracker() {
           onSpeedChange={setSpeed}
         />
 
-        <ProbeGroundTrack telemetry={activeData} />
-
-        <ProbeTelemetryCard
-          telemetry={selectedProbe}
-          hoveredProbe={hoveredProbe}
-          onClose={() => setSelectedProbe(null)}
-        />
+        {selectedProbe && (
+          <ProbeTelemetryCard
+            telemetry={selectedProbe}
+            targetBody={target}
+            onClose={() => {
+              setSelectedProbe(null);
+              selectedProbeIdRef.current = null;
+            }}
+          />
+        )}
       </div>
     </div>
   );
