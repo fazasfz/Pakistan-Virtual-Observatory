@@ -1,19 +1,18 @@
-"""
-Primary entry point for the FastAPI application.
-Initializes the app, configures CORS middleware, connects to the database, and mounts the API router.
-"""
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-
 from app.core.database import init_db
 from app.api_router import api_router
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
-    description="Backend API for the Virtual Astronomy Observatory"
+    description="Backend API for the Virtual Astronomy Observatory",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json"
 )
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -30,7 +29,7 @@ app.add_middleware(
 async def on_startup():
     await init_db()
 
-app.include_router(api_router, prefix=settings.API_V1_STR)
+app.include_router(api_router, prefix="/api/v1")
 
 @app.get("/")
 def root():
