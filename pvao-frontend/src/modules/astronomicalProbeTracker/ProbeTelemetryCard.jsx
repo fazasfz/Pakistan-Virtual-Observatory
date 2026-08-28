@@ -28,34 +28,64 @@ const SIGNAL_SCALE_MAX_KM = {
 };
 
 export const ProbeTelemetryCard = ({ telemetry, targetBody = "earth", onClose }) => {
+    const [history, setHistory] = useState([]);
+    const probeId = telemetry?.id || telemetry?.probe_id || telemetry?.satId;
+
+    const targetKey = (targetBody || "earth").toLowerCase();
+    const orbitDistKm = Number(telemetry?.orbital_radius || telemetry?.distance_km || 0);
+
+    // Safely extract real NASA velocity (prefer numeric velocity_kms or parse velocity string)
+    const rawVel = Number(telemetry?.velocity_kms) || parseFloat(telemetry?.velocity) || 0;
+
+    // Reset trend history when probe selection changes
+    useEffect(() => {
+        setHistory([]);
+    }, [probeId]);
+
+    // Append real incoming telemetry ticks
+    useEffect(() => {
+        if (!telemetry || rawVel <= 0) return;
+
+        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+        setHistory((prev) => {
+            // Avoid duplicate identical time entries within the same second
+            if (prev.length > 0 && prev[prev.length - 1].time === timestamp) {
+                return prev;
+            }
+            return [
+                ...prev.slice(-14),
+                {
+                    time: timestamp,
+                    velocity: Number(rawVel.toFixed(2)),
+                    distance: Math.round(orbitDistKm)
+                }
+            ];
+        });
+    }, [telemetry, rawVel, orbitDistKm]);
+
     if (!telemetry) return null;
 
-    const targetKey = targetBody.toLowerCase();
     const probeName = telemetry.name || "Spacecraft";
 
     const x = Number(telemetry.x ?? 0);
     const y = Number(telemetry.y ?? 0);
     const z = Number(telemetry.z ?? 0);
 
-    const rawVel = parseFloat(telemetry.velocity) || 0;
     const velKmH = rawVel > 0 ? Math.round(rawVel * 3600) : null;
 
     const planetRadius = BODY_RADII[targetKey] || BODY_RADII.earth;
-    const orbitDistKm = Number(telemetry.orbital_radius || telemetry.distance_km || 0);
     const altitudeKm = telemetry.altitude_km ?? (orbitDistKm > planetRadius ? orbitDistKm - planetRadius : 0);
 
     const localVectorLen = Math.sqrt(x * x + y * y + z * z);
     const lat = localVectorLen > 0 ? (Math.asin(z / localVectorLen) * (180 / Math.PI)).toFixed(2) : "0.00";
     const lon = localVectorLen > 0 ? (Math.atan2(y, x) * (180 / Math.PI)).toFixed(2) : "0.00";
 
-    // Direct display of raw live API inclination response
     const inclinationFormatted = telemetry.inclination !== undefined && telemetry.inclination !== null
         ? String(telemetry.inclination)
         : "N/A";
 
     const distanceToEarthKm = Number(telemetry.earth_distance_km || telemetry.distance_km || 0);
-
-    // OWLT / RTLT directly calculated from true Earth distance
     const owltSeconds = distanceToEarthKm > 0 ? distanceToEarthKm / SPEED_OF_LIGHT_KMS : 0;
 
     const formatLightTime = (sec) => {
@@ -68,30 +98,10 @@ export const ProbeTelemetryCard = ({ telemetry, targetBody = "earth", onClose })
     const owltFormatted = formatLightTime(owltSeconds);
     const rtltFormatted = formatLightTime(owltSeconds * 2);
 
-    // Dynamic signal progress calculation with zero artificial floors
     const delayRefMax = SIGNAL_SCALE_MAX_KM[targetKey] || 1500000;
     const signalProgressPct = distanceToEarthKm > 0
         ? Math.min(100, (distanceToEarthKm / delayRefMax) * 100)
         : 0;
-
-    // Trend chart tracking
-    const [history, setHistory] = useState([]);
-    const lastDistRef = useRef(null);
-
-    useEffect(() => {
-        if (orbitDistKm > 0 && orbitDistKm !== lastDistRef.current) {
-            lastDistRef.current = orbitDistKm;
-            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-            setHistory((prev) => [
-                ...prev.slice(-14),
-                {
-                    time: timestamp,
-                    velocity: Number(rawVel.toFixed(2)),
-                    distance: Math.round(orbitDistKm)
-                }
-            ]);
-        }
-    }, [orbitDistKm, rawVel]);
 
     const escapeThreshold = targetKey === "sun" ? SOLAR_ESCAPE_VELOCITY_KMS : EARTH_ESCAPE_VELOCITY_KMS;
     const escapeRatio = Math.min(1, rawVel / escapeThreshold);
@@ -104,7 +114,7 @@ export const ProbeTelemetryCard = ({ telemetry, targetBody = "earth", onClose })
             <div className={styles.aptCardHeader}>
                 <div>
                     <h3 className={styles.aptCardTitle}>{probeName}</h3>
-                    <span className={styles.aptSubTitle}>Live Mission Payload</span>
+                    <span className={styles.aptSubTitle}>Live NASA Horizons Payload</span>
                 </div>
                 {onClose && (
                     <button className={styles.aptCloseBtn} onClick={onClose} aria-label="Close telemetry card">
