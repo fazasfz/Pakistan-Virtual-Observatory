@@ -5,7 +5,7 @@
 
 ## 🌌 1. Executive Summary & Mission
 
-The **Virtual Astronomy Observatory (VAO)** is an advanced digital astrophysics platform designed to democratize astronomical exploration, live space telemetry analysis, planetary observation planning, and AI-assisted astrophysical research.
+The **Virtual Astronomy Observatory (VAO)** is an advanced digital astrophysics platform designed to advance astronomical exploration, live space telemetry analysis, planetary observation planning, and AI-assisted astrophysical research.
 
 Developed under the **Space & Astrophysics Research Laboratory (SARL)** within the **National Center of GIS and Space Applications (NCGSA)** at the **Institute of Space Technology (IST)**, VAO bridges the gap between raw scientific datasets and interactive observational astrophysics.
 
