@@ -20,18 +20,18 @@ const COORD_FRAMES = {
     sun: "ICRF / Heliocentric"
 };
 
-const SIGNAL_SCALE_MAX_KM = {
-    earth: 1500000,
-    moon: 450000,
-    mars: 400000000,
-    sun: 300000000
+const AVERAGE_EARTH_DIST_MAP = {
+    earth: 0,
+    moon: 384400,       // ~1.28 s
+    mars: 225000000,    // ~12.5 min
+    sun: 149600000      // ~8.3 min
 };
 
 export const ProbeTelemetryCard = ({ telemetry, targetBody = "earth", onClose }) => {
     const [history, setHistory] = useState([]);
     const probeId = telemetry?.id || telemetry?.probe_id || telemetry?.satId;
 
-    const targetKey = (targetBody || "earth").toLowerCase();
+    const targetKey = String(targetBody || "earth").toLowerCase().trim();
     const orbitDistKm = Number(telemetry?.orbital_radius || telemetry?.distance_km || 0);
 
     // Safely extract real NASA velocity (prefer numeric velocity_kms or parse velocity string)
@@ -85,11 +85,21 @@ export const ProbeTelemetryCard = ({ telemetry, targetBody = "earth", onClose })
         ? String(telemetry.inclination)
         : "N/A";
 
-    const distanceToEarthKm = Number(telemetry.earth_distance_km || telemetry.distance_km || 0);
-    const owltSeconds = distanceToEarthKm > 0 ? distanceToEarthKm / SPEED_OF_LIGHT_KMS : 0;
+    // Enforce robust target lookups and distance calculations
+    const baseEarthDistKm = Number(AVERAGE_EARTH_DIST_MAP[targetKey] ?? 0);
+    const validOrbitKm = Number(orbitDistKm) || 0;
+
+    const distanceToEarthKm = Number(telemetry.earth_distance_km) ||
+        (targetKey !== "earth" ? baseEarthDistKm + validOrbitKm : validOrbitKm);
+
+    // Compute OWLT seconds cleanly
+    const rawOwltSec = Number(telemetry.owlt_sec || 0);
+    const owltSeconds = (rawOwltSec > 10 || targetKey === "earth")
+        ? rawOwltSec
+        : distanceToEarthKm / SPEED_OF_LIGHT_KMS;
 
     const formatLightTime = (sec) => {
-        if (sec <= 0) return "0.00 s";
+        if (!sec || sec <= 0) return "0.00 s";
         if (sec < 60) return `${sec.toFixed(2)} s`;
         if (sec < 3600) return `${(sec / 60).toFixed(2)} min`;
         return `${(sec / 3600).toFixed(2)} hrs`;
@@ -97,11 +107,6 @@ export const ProbeTelemetryCard = ({ telemetry, targetBody = "earth", onClose })
 
     const owltFormatted = formatLightTime(owltSeconds);
     const rtltFormatted = formatLightTime(owltSeconds * 2);
-
-    const delayRefMax = SIGNAL_SCALE_MAX_KM[targetKey] || 1500000;
-    const signalProgressPct = distanceToEarthKm > 0
-        ? Math.min(100, (distanceToEarthKm / delayRefMax) * 100)
-        : 0;
 
     const escapeThreshold = targetKey === "sun" ? SOLAR_ESCAPE_VELOCITY_KMS : EARTH_ESCAPE_VELOCITY_KMS;
     const escapeRatio = Math.min(1, rawVel / escapeThreshold);
@@ -182,19 +187,6 @@ export const ProbeTelemetryCard = ({ telemetry, targetBody = "earth", onClose })
                     <div className={styles.aptStatRow}>
                         <span className={styles.aptLabel}>Signal RTLT (Round-Trip Light Time):</span>
                         <span className={styles.aptValue}>{rtltFormatted}</span>
-                    </div>
-
-                    <div className={styles.aptProgressBarWrapper}>
-                        <div className={styles.aptProgressHeader}>
-                            <span>Signal Propagation Scale</span>
-                            <span>{signalProgressPct.toFixed(1)}%</span>
-                        </div>
-                        <div className={styles.aptProgressBarTrack} title="Relative Light Propagation Distance to Earth">
-                            <div
-                                className={styles.aptProgressBarFill}
-                                style={{ width: `${signalProgressPct}%` }}
-                            />
-                        </div>
                     </div>
                 </div>
 

@@ -12,7 +12,6 @@ PROBE_CATALOG = {
     ],
     "moon": [
         {"id": "lro", "name": "Lunar Reconnaissance Orbiter (LRO)", "horizons_id": "-85", "inclination": "88.50°", "period": "113.00 min"},
-        {"id": "artemis1", "name": "Artemis I (Orion)", "horizons_id": "-164", "inclination": "30.00°", "period": "6.00 days"},
         {"id": "capstone", "name": "CAPSTONE Lunar CubeSat", "horizons_id": "-156", "inclination": "89.20°", "period": "7.00 days"},
         {"id": "chandrayaan2", "name": "Chandrayaan-2 Orbiter", "horizons_id": "-155", "inclination": "90.00°", "period": "118.00 min"},
     ],
@@ -20,6 +19,7 @@ PROBE_CATALOG = {
         {"id": "mro", "name": "Mars Reconnaissance Orbiter (MRO)", "horizons_id": "-74", "inclination": "92.60°", "period": "112.00 min"},
         {"id": "mars_odyssey", "name": "2001 Mars Odyssey", "horizons_id": "-53", "inclination": "93.10°", "period": "120.00 min"},
         {"id": "tgo", "name": "ExoMars Trace Gas Orbiter (TGO)", "horizons_id": "-143", "inclination": "74.00°", "period": "120.00 min"},
+        {"id": "hope", "name": "Hope Probe (Emirates Mars Mission)", "horizons_id": "-62", "inclination": "25.00°", "period": "55.00 hrs"},
     ],
     "sun": [
         {"id": "parker", "name": "Parker Solar Probe", "horizons_id": "-96", "inclination": "3.40°", "period": "88.00 days"},
@@ -31,10 +31,9 @@ PROBE_CATALOG = {
         {"id": "bepicolombo", "name": "BepiColombo", "horizons_id": "-121", "inclination": "7.00°", "period": "Heliocentric Cruise"},
     ]
 }
-
 CENTER_MAP = {
-    "earth": "500@399",
-    "moon": "500@301",
-    "mars": "500@499",
-    "sun": "500@10"
+    "earth": "@399",  # Geocentric
+    "moon": "@301",   # Selenocentric (Moon center)
+    "mars": "@499",   # Areocentric (Mars center)
+    "sun": "@10"      # Heliocentric
 }

@@ -15,6 +15,7 @@ from .schemas import LiveProbeData
 
 HORIZONS_API = "https://ssd.jpl.nasa.gov/api/horizons.api"
 SPEED_OF_LIGHT_KMS = 299792.458
+AU_TO_KM = 149597870.7
 
 BODY_RADII = {
     "earth": 6378.137,
@@ -37,12 +38,23 @@ COORD_FRAMES = {
     "sun": "ICRF / Heliocentric @10"
 }
 
+BODY_EARTH_OWLT_SEC = {
+    "earth": 0.0,
+    "moon": 1.282,        # ~384,400 km / c
+    "mars": 750.5,        # ~225,000,000 km / c (~12.5 mins)
+    "sun": 499.0          # ~1 AU / c (~8.3 mins)
+}
+
+
 async def fetch_live_horizons_vectors(horizons_id: str, center_code: str) -> Dict[str, float]:
     """Fetches high-precision state vectors directly from NASA JPL Horizons API."""
     now = datetime.now(timezone.utc)
     start_str = now.strftime("%Y-%m-%d %H:%M")
     stop_str = (now + timedelta(minutes=2)).strftime("%Y-%m-%d %H:%M")
     
+    # Clean center string (e.g. ensure "@301" instead of "500@301")
+    clean_center = center_code.replace("500@", "")
+
     params = {
         "format": "json",
         "COMMAND": f"'{horizons_id}'",
@@ -50,10 +62,12 @@ async def fetch_live_horizons_vectors(horizons_id: str, center_code: str) -> Dic
         "MAKE_EPHEM": "YES",
         "EPHEM_TYPE": "VECTORS",
         "CENTER": f"'{center_code}'",
+        "REF_PLANE": "'FRAME'",
+        "VEC_CORR": "'NONE'",
         "START_TIME": f"'{start_str}'",
         "STOP_TIME": f"'{stop_str}'",
         "STEP_SIZE": "'1m'",
-        "VEC_TABLE": "2"
+        "VEC_TABLE": "1"  # Returns KM and KM/S directly
     }
 
     headers = {"User-Agent": "NASA-PVAO-Client/1.0"}
@@ -72,7 +86,6 @@ async def fetch_live_horizons_vectors(horizons_id: str, center_code: str) -> Dic
     text_result = raw_json.get("result", "")
     
     if "$$SOE" not in text_result or "$$EOE" not in text_result:
-        # Extract first few error lines from NASA response
         err_lines = [line.strip() for line in text_result.splitlines() if line.strip()]
         error_msg = " | ".join(err_lines[:3]) if err_lines else "No ephemeris block returned"
         raise HTTPException(
@@ -105,7 +118,18 @@ async def fetch_live_horizons_vectors(horizons_id: str, center_code: str) -> Dic
     vy = float(vy_m.group(1)) if vy_m else 0.0
     vz = float(vz_m.group(1)) if vz_m else 0.0
 
+    # Auto-detect if Horizons returned Astronomical Units (AU & AU/day) and convert to km & km/s
+    r_check = math.sqrt(x**2 + y**2 + z**2)
+    if r_check < 500.0:  # Distance is < 500 AU, indicating AU coordinates rather than km
+        x *= AU_TO_KM
+        y *= AU_TO_KM
+        z *= AU_TO_KM
+        vx = (vx * AU_TO_KM) / 86400.0
+        vy = (vy * AU_TO_KM) / 86400.0
+        vz = (vz * AU_TO_KM) / 86400.0
+
     return {"x": x, "y": y, "z": z, "vx": vx, "vy": vy, "vz": vz}
+
 
 async def get_live_probe_data(target_key: str, probe_id_key: str) -> LiveProbeData:
     """Retrieves probe from catalog and computes pure, un-mocked telemetry from NASA state vectors."""
@@ -118,7 +142,14 @@ async def get_live_probe_data(target_key: str, probe_id_key: str) -> LiveProbeDa
     if not found:
         raise HTTPException(status_code=404, detail=f"Probe '{probe_id}' not found under target '{target}'")
     
-    center_code = CENTER_MAP.get(target, "500@399")
+    # Target center fallbacks: Moon (@301), Mars (@499), Sun (@10), Earth (@399)
+    default_centers = {
+        "earth": "500@399",
+        "moon": "500@301",
+        "mars": "500@499",
+        "sun": "500@10"
+    }
+    center_code = CENTER_MAP.get(target, default_centers.get(target, "500@399"))
     horizons_id = found.get("horizons_id", found["id"])
 
     # Fetch live NASA state vectors
@@ -154,13 +185,17 @@ async def get_live_probe_data(target_key: str, probe_id_key: str) -> LiveProbeDa
     if h_mag > 1e-6:
         inc_deg = math.degrees(math.acos(max(-1.0, min(1.0, hz / h_mag))))
     else:
-        # Fall back to catalog inclination string
         inc_deg = float(found.get("inclination", "0.0").replace("°", "").strip())
         
     # Light propagation delay
-    owlt = r_mag / SPEED_OF_LIGHT_KMS
+    if target == "earth":
+        owlt = r_mag / SPEED_OF_LIGHT_KMS
+    else:
+        # Local body distance offset
+        owlt = BODY_EARTH_OWLT_SEC.get(target, 0.0) + (r_mag / SPEED_OF_LIGHT_KMS)
+
     rtlt = 2.0 * owlt
-    
+
     # Vis-Viva apsides
     specific_energy = (v_mag**2) / 2.0 - (mu_body / max(r_mag, 1e-3))
     if abs(specific_energy) > 1e-9:
