@@ -3,7 +3,7 @@
 
 ---
 
-## 🌌 1. Executive Summary & Mission
+##  1. Executive Summary & Mission
 
 The **Virtual Astronomy Observatory (VAO)** is an advanced digital astrophysics platform designed to democratize astronomical exploration, live space telemetry analysis, planetary observation planning, and AI-assisted astrophysical research.
 
@@ -19,7 +19,7 @@ Developed under the **Space & Astrophysics Research Laboratory (SARL)** within t
 
 ---
 
-## 🏗️ 2. System Architecture
+##  2. System Architecture
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
@@ -32,7 +32,7 @@ Developed under the **Space & Astrophysics Research Laboratory (SARL)** within t
 │                        VAO Unified Central Backend & SPA Host                          │
 │               FastAPI • JPL Horizons • Gemini / Groq • Beanie / Motor ODM              │
 ├──────────────────────────────────────────────────────────┬─────────────────────────────┤
-│ 🛰️ Observatory Science Modules                          │ 🤖 AstroCopilot Core        │
+│  Observatory Science Modules                          │  AstroCopilot Core        │
 ├──────────────────────────────────────────────────────────┼─────────────────────────────┤
 │ • NOAA SWPC Space Weather Feeds                          │ • Streaming Gemini LLM      │
 │ • NASA Open APIs (APOD, EPIC, Horizons ephemeris)        │ • Groq Llama Fallback       │
@@ -44,7 +44,7 @@ Developed under the **Space & Astrophysics Research Laboratory (SARL)** within t
 
 ---
 
-## 📂 3. Complete Repository Structure & File Directory Map
+##  3. Complete Repository Structure & File Directory Map
 
 ```
 ncgsa-virtual-observatory/
@@ -165,7 +165,7 @@ ncgsa-virtual-observatory/
 
 ---
 
-## 🔭 4. Detailed Module Breakdown
+##  4. Detailed Module Breakdown
 
 ### 1. AstroCopilot Intelligence Workspace (`/astrocopilot`)
 - **Native JavaScript Streams API**: Consumes raw server-sent text streams directly from the unified backend using `ReadableStream.getReader()` and `TextDecoder`.
@@ -213,7 +213,7 @@ ncgsa-virtual-observatory/
 
 ---
 
-## ⚡ 5. Quickstart & Local Execution Guide
+## 5. Quickstart & Local Execution Guide
 
 ### Prerequisites
 - **Node.js**: `v18.0.0+` (LTS recommended)
