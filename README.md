@@ -1,9 +1,11 @@
-### Virtual Astronomy Observatory (VAO)
-**National Center of GIS and Space Applications (NCGSA) — Space & Astrophysics Research Lab (SARL) - Institute of Space Technology (IST) - Pakistan** 
+# Virtual Astronomy Observatory (VAO)
+**National Center of GIS and Space Applications (NCGSA) — Space & Astrophysics Research Lab (SARL) - Institute of Space Technology (IST) - Pakistan**
+
+> **PROPRIETARY NOTICE**: **This is NOT an open-source project.** All source code, system architectures, research algorithms, and UI assets associated with the Virtual Astronomy Observatory (VAO) are the exclusive intellectual property of NCGSA, SARL, and the Institute of Space Technology (IST). Unauthorized copying, redistribution, modification, public hosting, or commercial use is strictly prohibited.
 
 ---
 
-##  1. Executive Summary & Mission
+## 1. Executive Summary & Mission
 
 The **Virtual Astronomy Observatory (VAO)** is an advanced digital astrophysics platform designed to democratize astronomical exploration, live space telemetry analysis, planetary observation planning, and AI-assisted astrophysical research.
 
@@ -19,20 +21,20 @@ Developed under the **Space & Astrophysics Research Laboratory (SARL)** within t
 
 ---
 
-##  2. System Architecture
+## 2. System Architecture
 
-```
+```text
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                                PVAO Frontend Client                                    │
-│       React 18 • Vite • Vanilla CSS Modules • Three.js WebGL • KaTeX • Recharts        │
+│                                 PVAO Frontend Client                                   │
+│        React 18 • Vite • Vanilla CSS Modules • Three.js WebGL • KaTeX • Recharts        │
 └───────────────────────────────────────────┬────────────────────────────────────────────┘
                                             │ Unified REST APIs & SSE Streams (:8000)
                                             ▼
 ┌────────────────────────────────────────────────────────────────────────────────────────┐
-│                        VAO Unified Central Backend & SPA Host                          │
-│               FastAPI • JPL Horizons • Gemini / Groq • Beanie / Motor ODM              │
+│                         VAO Unified Central Backend & SPA Host                         │
+│        FastAPI • JPL Horizons • Gemini / Groq • Beanie / Motor ODM                     │
 ├──────────────────────────────────────────────────────────┬─────────────────────────────┤
-│  Observatory Science Modules                          │  AstroCopilot Core        │
+│  Observatory Science Modules                             │  AstroCopilot Core          │
 ├──────────────────────────────────────────────────────────┼─────────────────────────────┤
 │ • NOAA SWPC Space Weather Feeds                          │ • Streaming Gemini LLM      │
 │ • NASA Open APIs (APOD, EPIC, Horizons ephemeris)        │ • Groq Llama Fallback       │
@@ -44,9 +46,9 @@ Developed under the **Space & Astrophysics Research Laboratory (SARL)** within t
 
 ---
 
-##  3. Complete Repository Structure & File Directory Map
+## 3. Complete Repository Structure & File Directory Map
 
-```
+```text
 ncgsa-virtual-observatory/
 │
 ├── README.md                                 # Master documentation (Virtual Astronomy Observatory)
@@ -108,7 +110,7 @@ ncgsa-virtual-observatory/
 │   │   │   └── common/
 │   │   │       ├── AstroCopilot/             # Floating trigger button component
 │   │   │       │   ├── AstroCopilotTrigger.jsx        # Floating robot action button
-│   │   │       │   ├── AstroCopilotTrigger.module.css  # Ambient glow pulse rings & tooltips
+│   │   │       │   ├── AstroCopilotTrigger.module.css # Ambient glow pulse rings & tooltips
 │   │   │       │   ├── astroCopilotApi.js             # Native Fetch Streams API caller
 │   │   │       │   └── index.jsx                      # Component barrel export
 │   │   │       ├── Footer/                   # Global observatory footer with SARL/NCGSA links
@@ -127,7 +129,7 @@ ncgsa-virtual-observatory/
 │   │   │   ├── earthView/                    # Bortle dark sky index map & NASA GIBS satellite overlay
 │   │   │   ├── exora/                        # Exoplanet discovery & habitability analyzer
 │   │   │   ├── lunarObservatory/             # Interactive 3D lunar globe with USGS crater search
-│   │   │   ├── observationPlanner/           # Telescope observation scheduler and target planner
+│   │   │   ├── observationPlanner/            # Telescope observation scheduler and target planner
 │   │   │   ├── solarObservatory/             # Live solar wind telemetry, sunspots, and SDO view
 │   │   │   ├── solarSystemSimulator/         # 3D Keplerian planetary motion simulator
 │   │   │   └── zenith/                       # Virtual planetarium sky portal with star charts
@@ -135,8 +137,8 @@ ncgsa-virtual-observatory/
 │   │   │   ├── astroCopilot/                 # Dedicated AstroCopilot Workspace page
 │   │   │   │   ├── AstroCopilotWorkspace.jsx          # Full-canvas chat layout & stream handler
 │   │   │   │   ├── AstroCopilotWorkspace.module.css   # Dark obsidian workspace styling
-│   │   │   │   ├── ChatMessage.jsx                   # Markdown + KaTeX formula message bubble
-│   │   │   │   └── ChatMessage.module.css            # Bubble typography, math display, cursor animation
+│   │   │   │   ├── ChatMessage.jsx                    # Markdown + KaTeX formula message bubble
+│   │   │   │   └── ChatMessage.module.css             # Bubble typography, math display, cursor animation
 │   │   │   ├── astrocopilot.jsx              # Next.js Pages Router route wrapper
 │   │   │   ├── credits/                      # SARL & NCGSA research supervisor and intern credits
 │   │   │   ├── dataSources/                  # Academic citations and astronomical data sources
@@ -165,7 +167,7 @@ ncgsa-virtual-observatory/
 
 ---
 
-##  4. Detailed Module Breakdown
+## 4. Detailed Module Breakdown
 
 ### 1. AstroCopilot Intelligence Workspace (`/astrocopilot`)
 - **Native JavaScript Streams API**: Consumes raw server-sent text streams directly from the unified backend using `ReadableStream.getReader()` and `TextDecoder`.
@@ -174,7 +176,7 @@ ncgsa-virtual-observatory/
 - **Scoped Auto-Scrolling**: Container-scoped scrolling keeping users anchored to streaming tokens without disrupting page flow.
 
 ### 2. Solar Observatory (`/solar-observatory`)
-- **Live Space Weather Telemetry**: Tracks real-time Solar Wind Velocity ($km/s$), Proton Density ($p/cm^3$), X-ray Flux Class, and Planetary Kp geomagnetic index.
+- **Live Space Weather Telemetry**: Tracks real-time Solar Wind Velocity (km/s), Proton Density (p/cm³), X-ray Flux Class, and Planetary Kp geomagnetic index.
 - **Solar Cycle 25 Progression**: Composed Recharts visualization tracking historical and current smoothed Sunspot Numbers (SSN) with solar maximum projections.
 - **Multi-Wavelength Solar Views**: AIA 171 Å extreme ultraviolet imagery showing active coronal loops and magnetic reconnection zones.
 
@@ -213,84 +215,49 @@ ncgsa-virtual-observatory/
 
 ---
 
-## 5. Quickstart & Local Execution Guide
-
-### Prerequisites
-- **Node.js**: `v18.0.0+` (LTS recommended)
-- **Python**: `v3.10+` or `v3.11+`
-- **MongoDB**: (Optional, for persistent query caching)
-
----
+## 5. Local Execution Guide (Internal Team)
 
 ### Step 1: Start Central Backend Server (`pvao-backend`)
-
 ```bash
-# Navigate to backend folder
 cd pvao-backend
-
-# Create and activate Python virtual environment
 python -m venv venv
-# On Windows:
-venv\Scripts\activate
-# On Linux/macOS:
-source venv/bin/activate
-
-# Install dependencies (FastAPI, Google GenAI, Groq, Astroquery, etc.)
+# Windows: venv\Scripts\activate | Linux/macOS: source venv/bin/activate
 pip install -r requirements.txt
-
-# Start unified server on port 8000
 uvicorn main:app --reload --port 8000
 ```
-- **API Base**: `http://localhost:8000`
-- **Swagger Documentation**: `http://localhost:8000/docs`
-- **ReDoc Documentation**: `http://localhost:8000/redoc`
-
----
+- **API Base & Documentation:** `http://localhost:8000` | `http://localhost:8000/docs`
 
 ### Step 2: Start Frontend Application (`pvao-frontend`)
-
 ```bash
-# Navigate to frontend folder
 cd ../pvao-frontend
-
-# Install frontend dependencies
 npm install
-
-# Start Vite development server
 npm run dev
 ```
-Open **`http://localhost:5173`** in your browser.
-
-*(Or build the frontend static files with `npm run build` and access the entire platform directly at `http://localhost:8000/`)*.
+- **Local Web Interface:** `http://localhost:5173`
 
 ---
 
-## 🚀 6. Production Deployment Guide (Single Web Service on Render)
+## 6. Live Production Deployment
 
-Deploy the entire platform (Frontend UI + Observatory Central APIs + AstroCopilot AI) as **1 Single Web Service** on [Render.com](https://render.com):
+The Virtual Astronomy Observatory is deployed as a single unified service (FastAPI + Embedded React SPA) hosted on Render.
 
-1. Create a **New Web Service** pointing to your repository `https://github.com/fazasfz/Pakistan-Virtual-Observatory.git`.
-2. Configure service settings:
-   - **Environment**: `Python 3`
-   - **Build Command**:
-     ```bash
-     cd pvao-frontend && npm install && npm run build && cd ../pvao-backend && pip install -r requirements.txt
-     ```
-   - **Start Command**:
-     ```bash
-     cd pvao-backend && uvicorn main:app --host 0.0.0.0 --port $PORT
-     ```
-3. Set your **Environment Variables**:
-   - `GEMINI_API_KEY`: *(Your Google Gemini API Key)*
-   - `GROQ_API_KEY`: *(Your Groq API Key for fallback)*
-   - `NASA_API_KEY`: *(DEMO_KEY or your NASA Developer Key)*
-   - `MONGODB_URI`: *(Your MongoDB connection string, or mongodb://127.0.0.1:27017)*
-
-Your deployment will be live at a single link: **`https://pvao.onrender.com/`**!
+- **Live Platform Link:** [https://pvao.onrender.com/](https://pvao.onrender.com/)
+- **Status:** Active & Operational
+- **Architecture:** Monolithic Python 3 Web Service serving static SPA assets (`/`) and REST/SSE endpoints (`/api/v1`) simultaneously on port `$PORT`.
 
 ---
 
-## 👥 7. Research Team & Academic Credits
+## 7. Intellectual Property & Non-Open-Source Status
+
+**The Virtual Astronomy Observatory (VAO) is NOT an open-source project.**
+
+- **Proprietary Ownership:** All source code, visual design elements, user interfaces, system architectures, database schemas, and mathematical simulation models contained in this repository belong exclusively to the Space & Astrophysics Research Lab (SARL) and the National Center of GIS and Space Applications (NCGSA) at the Institute of Space Technology (IST), Pakistan.
+- **Licensing & Usage Restrictions:** No open-source license (such as MIT, Apache, or GPL) is granted for this repository. Code contained herein may not be copied, modified, redistributed, sublicensed, hosted publicly, or used for commercial or non-commercial external projects without explicit written authorization from NCGSA/SARL leadership.
+- **Access Control:** Repository access is strictly reserved for designated engineering interns, research teams, and scientific supervisors affiliated with NCGSA/SARL.
+
+---
+
+## 8. Research Team & Academic Credits
 
 The **Virtual Astronomy Observatory (VAO)** is developed under the auspices of:
 - **National Center of GIS and Space Applications (NCGSA)**
@@ -313,7 +280,7 @@ The **Virtual Astronomy Observatory (VAO)** is developed under the auspices of:
 
 ---
 
-## 📄 8. Data Sources & Scientific Acknowledgments
+## 9. Data Sources & Scientific Acknowledgments
 
 We gratefully acknowledge the space agencies, archives, and scientific organizations providing open access to astronomical data:
 - **NASA (National Aeronautics and Space Administration)** — APOD, Horizons System, SDO/AIA extreme UV imagery, and GIBS satellite layers.
