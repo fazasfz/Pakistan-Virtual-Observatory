@@ -17,12 +17,14 @@ class Settings(BaseSettings):
     # External API Keys
     NASA_API_KEY: str = "DEMO_KEY"
     GEMINI_API_KEY: Optional[str] = None
+    GROQ_API_KEY: Optional[str] = None
     
     # Feature Configs
     DAILY_LIMIT: int = 150
 
     class Config:
         env_file = ".env"
-        case_sensitive = True
+        case_sensitive = False
+        extra = "ignore"
 
 settings = Settings()
